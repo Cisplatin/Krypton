@@ -25,6 +25,17 @@ BinStr create_BinStr(char *bits, unsigned int length) {
 }
 
 // see BinStr.h for details
+BinStr empty_BinStr(unsigned int length) {
+	BinStr new = malloc(sizeof(struct binstr));
+	new->bits = malloc(sizeof(bool) * length);
+	for(int i = 0; i < length; i++) {
+		new->bits[i] = 0;
+	}
+	new->length = length;
+	return new;
+}
+
+// see BinStr.h for details
 void destroy_BinStr(BinStr str) {
 	assert(str != NULL);
 	free(str->bits);
@@ -35,10 +46,15 @@ void destroy_BinStr(BinStr str) {
 // see BinStr.h for details
 BinStr XOR(BinStr str1, BinStr str2) {
 	assert(str1 != NULL && str2 != NULL && str1->length == str2->length);
-	BinStr new = create_BinStr(str1->bits, str1->length);
-	for(int i = 0; i < new->length; i++) {
-		new->bits[i] = new->bits[i] ^ str2->bits[i];
+	char bits[str1->length];
+	for(int i = 0; i < str1->length; i++) {
+		if(str1->bits[i] ^ str2->bits[i] == 0) {
+			bits[i] = '0';
+		} else {
+			bits[i] = '1';
+		}
 	}
+	BinStr new = create_BinStr(bits, str1->length);
 	return new;
 }
 
