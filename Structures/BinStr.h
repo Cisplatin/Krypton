@@ -1,7 +1,12 @@
 /* BinStr.h - Written by Xenonstory on April 21, 2015 *
  * A structure used to store binary strings           */
 
-struct binstr;
+#include <stdbool.h>
+
+struct binstr {
+	bool *bits;
+	unsigned int length;
+};
 
 typedef struct binstr *BinStr;
 
@@ -29,6 +34,13 @@ void destroy_BinStr(BinStr str);
 // effects: allocated memory for a new BinStr
 // time: O(n), where n = length
 BinStr XOR(BinStr str1, BinStr str2);
+
+// toString(str) returns a string with the bits in the given BinStr. The given string must be freed
+//   by the user.
+// requires: str is a valid BinStr
+// effects: allocated memory to a new string
+// time: O(n), where n = length
+char *toString(BinStr str);
 
 // print(str) prints out the given str
 // requires: str is a valid BinStr

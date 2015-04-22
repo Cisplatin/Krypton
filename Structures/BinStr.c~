@@ -7,11 +7,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct binstr {
-	bool *bits;
-	unsigned int length;
-};
-
 // see BinStr.h for details
 BinStr create_BinStr(char *bits, unsigned int length) {
 	assert(bits != NULL);
@@ -19,6 +14,17 @@ BinStr create_BinStr(char *bits, unsigned int length) {
 	new->bits = malloc(sizeof(bool) * length);
 	for(int i = 0; i < length; i++) {
 		new->bits[i] = bits[i] - '0';
+	}
+	new->length = length;
+	return new;
+}
+
+// see BinStr.h for details
+BinStr empty_BinStr(unsigned int length) {
+	BinStr new = malloc(sizeof(struct binstr));
+	new->bits = malloc(sizeof(bool) * length);
+	for(int i = 0; i < length; i++) {
+		new->bits[i] = 0;
 	}
 	new->length = length;
 	return new;

@@ -7,11 +7,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct binstr {
-	bool *bits;
-	unsigned int length;
-};
-
 // see BinStr.h for details
 BinStr create_BinStr(char *bits, unsigned int length) {
 	assert(bits != NULL);
@@ -55,6 +50,16 @@ BinStr XOR(BinStr str1, BinStr str2) {
 		}
 	}
 	BinStr new = create_BinStr(bits, str1->length);
+	return new;
+}
+
+// see BinStr.h for details
+char *toString(BinStr str) {
+	char *new = malloc(sizeof(char) * (str->length + 1));
+	for(int i = 0; i < str->length; i++) {
+		new[i] = str->bits[i];
+	}
+	new[str->length] = '\0';
 	return new;
 }
 
