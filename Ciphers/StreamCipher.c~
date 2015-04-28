@@ -18,7 +18,7 @@ BinStr OTPencrypt(BinStr msg, BinStr key) {
 // See OneTimePad.h for details
 BinStr OTPdecrypt(BinStr cip, BinStr key) {
 	assert(cip != NULL && key != NULL && cip->length == key->length);
-	BinStr msg = empty_BinStr(cip->length);
+	BinStr msg = empty_BinStr(msg->length);
 	for(int i = 0; i < msg->length; i++) {
 		msg->bits[i] = cip->bits[i] ^ key->bits[i];
 	}
