@@ -17,6 +17,13 @@ typedef struct binstr *BinStr;
 // time: O(n), where n = length
 BinStr create_BinStr(char *bits, unsigned int length);
 
+// hexStr_to_binStr(str) returns a BinStr with the binary representation of the given hex string.
+//   User must free returned BinStr.
+// requires: str is a valid hexidecimal string
+// effects: allocated memory to a new BinStr
+// time: O(n), where n = length
+BinStr hexStr_to_binStr(char *str);
+
 // empty_BinStr(length) returns a BinStr with the given length with all 0s as bits
 // effects: allocates memory to the new BinStr. Must be freed by the user.:x
 // time: O(n), where n = length
@@ -42,8 +49,30 @@ BinStr XOR(BinStr str1, BinStr str2);
 // time: O(n), where n = length
 char *toString(BinStr str);
 
+// toDecimal(str) returns a decimal representation of the given BinStr. If its too big, returns -1.
+// requires: str is a valid BinStr
+// time: O(n), where n = length
+int toDecimal(BinStr str);
+
+// append(str1, str2) returns a BinStr which consists of str1 appended to str2. The given string
+//   must be freed by the user.
+// requires: str1 and str2 are valid BinStrs
+// effects: allocated memory to a new BinStr
+// time: O(n + m), where n = length of str1 and m = length of str2
+BinStr append(BinStr str1, BinStr str2);
+
 // print(str) prints out the given str
 // requires: str is a valid BinStr
 // effects: prints out the given string
 // time: O(n), where n = length
 void print(BinStr str);
+
+// msb(str) returns the most significant bit of the given string
+// requires: str is a valid BinStr
+// time: O(1)
+int msb(BinStr str);
+
+// lsb(str) returns the least significant bit of the given string
+// requires: str is a valid BinStr
+// time: O(1)
+int lsb(BinStr str);

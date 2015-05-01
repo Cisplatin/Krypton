@@ -1,0 +1,5 @@
+- Implement Salsa20 (with an interal nonce counter)
+- BinStr functions like msb, lsb, bytes->number, pointer to back
+- Implement a HexStr stucture
+- Implement a ASCIIStr structure
+- Implement a DecStr structure
