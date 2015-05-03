@@ -60,9 +60,6 @@ BinStr hexToBinStr(char num) {
 }
 
 // see BinStr.h for details
-BinStr hexStr_to_binStr(char *str); // TODO
-
-// see BinStr.h for details
 BinStr empty_BinStr(unsigned int length) {
 	BinStr new = malloc(sizeof(struct binstr));
 	new->bits = malloc(sizeof(bool) * length);
@@ -87,6 +84,36 @@ BinStr XOR(BinStr str1, BinStr str2) {
 	char bits[str1->length];
 	for(int i = 0; i < str1->length; i++) {
 		if(str1->bits[i] ^ str2->bits[i] == 0) {
+			bits[i] = '0';
+		} else {
+			bits[i] = '1';
+		}
+	}
+	BinStr new = create_BinStr(bits, str1->length);
+	return new;
+}
+
+// see BinStr.h for details
+BinStr OR(BinStr str1, BinStr str2) {
+	assert(str1 != NULL && str2 != NULL && str1->length == str2->length);
+	char bits[str1->length];
+	for(int i = 0; i < str1->length; i++) {
+		if(str1->bits[i] | str2->bits[i] == 0) {
+			bits[i] = '0';
+		} else {
+			bits[i] = '1';
+		}
+	}
+	BinStr new = create_BinStr(bits, str1->length);
+	return new;
+}
+
+// see BinStr.h for details
+BinStr AND(BinStr str1, BinStr str2) {
+	assert(str1 != NULL && str2 != NULL && str1->length == str2->length);
+	char bits[str1->length];
+	for(int i = 0; i < str1->length; i++) {
+		if(str1->bits[i] & str2->bits[i] == 0) {
 			bits[i] = '0';
 		} else {
 			bits[i] = '1';

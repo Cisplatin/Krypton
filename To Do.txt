@@ -1,5 +1,3 @@
 - Implement Salsa20 (with an interal nonce counter)
-- BinStr functions like bytes->number, pointer to back
-- Implement a HexStr stucture
-- Implement a ASCIIStr structure
-- Implement a DecStr structure
+- Complete BinStr's hexStr_to_binStr
+- Implement 3DES and AES
