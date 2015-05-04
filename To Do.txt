@@ -1,3 +1,6 @@
+- Addition of BinStrs
+- Modulo of BinStrs (to some power of 2)
+- Shifts of BinStrs
 - Implement Salsa20 (with an interal nonce counter)
 - Complete BinStr's hexStr_to_binStr
 - Implement 3DES and AES

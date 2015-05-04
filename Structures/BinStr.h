@@ -95,3 +95,8 @@ int msb(BinStr str);
 // requires: str is a valid BinStr
 // time: O(1)
 int lsb(BinStr str);
+
+// modpwr(str, n) returns a BinStr equivalent to str mod 2^n
+// requires: str is a valid BinStr, n > 0
+// time: O(n), where n = length
+BinStr modpwr(BinStr str, int n);

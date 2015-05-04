@@ -52,6 +52,30 @@ BinStr replace(BinStr str1, BinStr str2) {
 }
 
 // see BinStr.h for details
+BinStr flush(BinStr str) {
+	assert(str != NULL);
+	int leading = 0;
+	while(!str->bits[leading]) {
+		leading++;
+	}	
+	if(leading == 0) {
+		return str;
+	} else if(leading == str->length) {
+		return empty_BinStr(1);
+	} else {
+		char *new = malloc(sizeof(char) * (str->length - leading));
+		for(int i = leading; i < length; i++) {
+			if(str->bits[i]) {
+				new[i - leading] = '1';
+			} else {
+				new[i - leading] = '0';
+			}
+		}
+		return create_BinStr(new, str->length - leading);
+	}
+}
+
+// see BinStr.h for details
 BinStr XOR(BinStr str1, BinStr str2) {
 	assert(str1 != NULL && str2 != NULL && str1->length == str2->length);
 	char bits[str1->length];
