@@ -28,6 +28,12 @@ BinStr empty_BinStr(unsigned int length);
 // time: O(1)
 void destroy_BinStr(BinStr str);
 
+// copy(str) returns a copy of the given BinStr. Returned BinStr must be freed by the user.
+// requires: str is a valid BinStr
+// effects: allocated memory to a new BinStr
+// time: O(n), where n = length
+BinStr copy(BinStr str);
+
 // replace(str1, str2) returns the second BinStr and frees the first one.
 // requires: str1 and str2 are valid BinStr
 // effects: frees memory associated with str1 and repoints str1 to str2

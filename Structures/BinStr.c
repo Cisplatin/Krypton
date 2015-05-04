@@ -45,6 +45,16 @@ void destroy_BinStr(BinStr str) {
 }
 
 // see BinStr.h for details
+BinStr copy(BinStr str) {
+	assert(str != NULL);
+	BinStr new = empty_BinStr(str->length);
+	for(int i = 0; i < str->length; i++) {
+		new->bits[i] = str->bits[i];
+	}
+	return new;
+}
+
+// see BinStr.h for details
 BinStr replace(BinStr str1, BinStr str2) {
 	assert(str1 != NULL && str2 != NULL);
 	destroy_BinStr(str1);
@@ -71,7 +81,9 @@ BinStr flush(BinStr str) {
 				new[i - leading] = '0';
 			}
 		}
-		return create_BinStr(new, str->length - leading);
+		BinStr newStr = create_BinStr(new, str->length - leading);
+		free(new);
+		return newStr;
 	}
 }
 
