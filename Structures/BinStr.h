@@ -73,7 +73,7 @@ BinStr shiftL(BinStr str);
 // requires: str is a valid BinStr
 // effects: allocates memory for a new BinStr
 // time: O(n)
-BinStr shiftL(BinStr str);
+BinStr shiftR(BinStr str);
 
 // toString(str) returns a string with the bits in the given BinStr. The given string must be freed
 //   by the user.

@@ -68,6 +68,13 @@ BinStr AND(BinStr str1, BinStr str2);
 // time: O(n)
 BinStr shiftL(BinStr str);
 
+// shiftR(str) returns a new BinStr that is the shift right of str. The new BinStr must be freed by
+//   the user.
+// requires: str is a valid BinStr
+// effects: allocates memory for a new BinStr
+// time: O(n)
+BinStr shiftL(BinStr str);
+
 // toString(str) returns a string with the bits in the given BinStr. The given string must be freed
 //   by the user.
 // requires: str is a valid BinStr
