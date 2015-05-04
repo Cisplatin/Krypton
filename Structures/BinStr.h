@@ -28,6 +28,18 @@ BinStr empty_BinStr(unsigned int length);
 // time: O(1)
 void destroy_BinStr(BinStr str);
 
+// replace(str1, str2) returns the second BinStr and frees the first one.
+// requires: str1 and str2 are valid BinStr
+// effects: frees memory associated with str1 and repoints str1 to str2
+// time: O(n), where n = length
+BinStr replace(BinStr str1, BinStr str2);
+
+// flush(str) returns the given BinStr without leading zeroes
+// requires: str is a valid BinStr
+// effects: frees memory associated with the bits of BinStr, changes its length
+// time: O(n), where n = length
+BinStr flush(BinStr str);
+
 // XOR(str1, str2) returns a new BinStr that is the XOR of the two given strings. The new BinStr
 //   must be freed by the user.
 // requires: str1 and str2 are valid BinStrs of the same length

@@ -9,25 +9,7 @@
 #include <string.h>
 
 // see BinStr.h for details
-BinStr create_BinStr(char *bits, unsigned int length) {
-	assert(bits != NULL);
-	BinStr new = malloc(sizeof(struct binstr));
-	new->bits = malloc(sizeof(bool) * length);
-	for(int i = 0; i < length; i++) {
-		new->bits[i] = bits[i] - '0';
-	}
-	new->length = length;
-	return new;
-}
-
-// decToBinStr(num) returns the binary equivalent of the given decimal number.
-// requires: 0 <= num
-// effects: allocates memory to a new BinStr
-// time: O(lg n)
-BinStr decToBinStr(int num) {
-	int sum = 0;
-	int length = 0;
-	while(num > 0) {
+BinStr create_BinStr(char *bitsi{
 		sum *= 10;
 		length++;
 		if(num % 2 == 0) {
@@ -41,22 +23,6 @@ BinStr decToBinStr(int num) {
 		sum /= 10;
 	}
 	return create_BinStr(bits, length);
-}
-
-// hexToBinStr(num) returns the binary equivalent of the given hexidecimal character.
-// requires: 0 <= num <= 9 || 'A' <= num <= 'F' || 'a' <= num <= 'f'
-// effects: allocates memory to a new BinStr
-// time: O(lg n)
-BinStr hexToBinStr(char num) {
-	assert(('0' <= num && num <= '9') || ('A' <= num && num <= 'F') 
-			                  || ('a' <= num && num <= 'f'));
-	if('0' <= num && num <= '9') {
-		return decToBinStr(num - '0');
-	} else if('A' <= num && num <= 'F') {
-		return decToBinStr(num - 'A' + 10);
-	} else {
-		return decToBinStr(num - 'a' + 10);
-	}
 }
 
 // see BinStr.h for details
@@ -76,6 +42,37 @@ void destroy_BinStr(BinStr str) {
 	free(str->bits);
 	free(str);
 	return;
+}
+
+// see BinStr.h for details
+BinStr replace(BinStr str1, BinStr str2) {
+	assert(str1 != NULL && str2 != NULL);
+	destroy_BinStr(str1);
+	return str2;	
+}
+
+// see BinStr.h for details
+BinStr flush(BinStr str) {
+	assert(str != NULL);
+	int leading = 0;
+	while(!str->bits[leading]) {
+		leading++;
+	}	
+	if(leading == 0) {
+		return str;
+	} else if(leading == str->length) {
+		return empty_BinStr(1);
+	} else {
+		char *new = malloc(sizeof(char) * (str->length - leading));
+		for(int i = leading; i < length; i++) {
+			if(str->bits[i]) {
+				new[i - leading] = '1';
+			} else {
+				new[i - leading] = '0';
+			}
+		}
+		return create_BinStr(new, str->length - leading);
+	}
 }
 
 // see BinStr.h for details
