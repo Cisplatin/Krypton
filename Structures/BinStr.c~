@@ -180,3 +180,13 @@ int lsb(BinStr str) {
 	assert(str != NULL);
 	return str->bits[str->length - 1];
 }
+
+// see BinStr.h for details
+BinStr modpwr(BinStr str, int n) {
+	assert(str != NULL && n > 0);
+	BinStr new = empty_BinStr(n);
+	for(int i = 0; i < n; i++) {
+		new->bits[i] = str->bits[i + (str->length - n)];
+	}
+	return new;
+}

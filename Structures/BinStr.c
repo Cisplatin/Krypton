@@ -121,6 +121,26 @@ BinStr AND(BinStr str1, BinStr str2) {
 }
 
 // see BinStr.h for details
+BinStr shiftL(BinStr str) {
+	assert(str != NULL);
+	BinStr new = empty_BinStr(str->length + 1);
+	for(int i = 0; i < str->length; i++) {
+		new->bits[i] = str->bits[i];
+	}
+	return new;
+}
+
+// see BinStr.h for details
+BinStr shiftR(BinStr str) {
+	assert(str != NULL);
+	BinStr new = empty_BinStr(str->length - 1);
+	for(int i = 0; i < str->length - 1; i++) {
+		new->bits[i] = str->bits[i];
+	}
+	return new;
+}
+
+// see BinStr.h for details
 char *toString(BinStr str) {
 	assert(str != NULL);
 	char *new = malloc(sizeof(char) * (str->length + 1));
