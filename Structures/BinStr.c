@@ -222,3 +222,22 @@ BinStr modpwr(BinStr str, int n) {
 	}
 	return new;
 }
+
+// see BinStr.h for details
+int compare(BinStr str1, BinStr str2) {
+	BinStr str3 = flush(str1), str4 = flush(str2);
+	if(str3->length > str4->length) {
+		return 1;
+	} else if(str3->length < str4->length) {
+		return -1;
+	} else {
+		for(int i = 1; i < str3->length; i++) {
+			if(str3->bits[i] > str4->bits[i]) {
+				return 1;
+			} else if(str3->bits[i] < str4->bits[i]) {
+				return -1;
+			}
+		}
+	}
+	return 0;
+}

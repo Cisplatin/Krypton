@@ -81,7 +81,9 @@ BinStr flush(BinStr str) {
 				new[i - leading] = '0';
 			}
 		}
-		BinStr new = create_BinStr(new, str->length - leading);
+		BinStr newStr = create_BinStr(new, str->length - leading);
+		free(new);
+		return newStr;
 	}
 }
 

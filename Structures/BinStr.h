@@ -121,3 +121,8 @@ int lsb(BinStr str);
 // effects: allocates memory to a new BinStr
 // time: O(n)
 BinStr modpwr(BinStr str, int n);
+
+// compare(str1, str2) returns 1 if str1 > str2, -1 if str1 < str2, and 0 if str1 = str2
+// requires: str1 and str2 are valid BinStrs
+// time: O(n + m), where n and m are the respective lengths of m and n
+int compare(BinStr str1, BinStr str2);

@@ -1,4 +1,4 @@
-- Addition of BinStrs
+- Addition/ModAddition of BinStrs
 - Implement Salsa20 (with an interal nonce counter)
 - Complete BinStr's hexStr_to_binStr
 - Implement 3DES and AES
