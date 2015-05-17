@@ -9,20 +9,18 @@
 #include <string.h>
 
 // see BinStr.h for details
-BinStr create_BinStr(char *bitsi{
-		sum *= 10;
-		length++;
-		if(num % 2 == 0) {
-			sum += 1;
-		}
-		num /= 2;
-	}
-	char *bits = malloc(sizeof(char) * length);
+BinStr create_BinStr(char *bits, unsigned int length) {
+	BinStr new = malloc(sizeof(struct binstr));
+	new->bits = malloc(sizeof(bool) * length);
 	for(int i = 0; i < length; i++) {
-		bits[i] = sum % 10;
-		sum /= 10;
+		if(bits[i] == '1') {
+			new->bits[i] = 1;
+		} else {
+			new->bits[i] = 0;
+		}
 	}
-	return create_BinStr(bits, length);
+	new->length = length;
+	return new;
 }
 
 // see BinStr.h for details
@@ -74,7 +72,7 @@ BinStr flush(BinStr str) {
 		return empty_BinStr(1);
 	} else {
 		char *new = malloc(sizeof(char) * (str->length - leading));
-		for(int i = leading; i < length; i++) {
+		for(int i = leading; i < str->length; i++) {
 			if(str->bits[i]) {
 				new[i - leading] = '1';
 			} else {
