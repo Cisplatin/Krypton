@@ -72,7 +72,7 @@ BinStr flush(BinStr str) {
 		return empty_BinStr(1);
 	} else {
 		char *new = malloc(sizeof(char) * (str->length - leading));
-		for(int i = leading; i < length; i++) {
+		for(int i = leading; i < str->length; i++) {
 			if(str->bits[i]) {
 				new[i - leading] = '1';
 			} else {
@@ -83,6 +83,11 @@ BinStr flush(BinStr str) {
 		free(new);
 		return newStr;
 	}
+}
+
+// see BinStr.h for details
+BinStr cut(BinStr str, int n) {
+	assert(str != NULL && n > 0);
 }
 
 // see BinStr.h for details

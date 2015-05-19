@@ -86,6 +86,16 @@ BinStr flush(BinStr str) {
 }
 
 // see BinStr.h for details
+BinStr cut(BinStr str, int n) {
+	assert(str != NULL && n > 0);
+	BinStr new = empty_Binstr(n);
+	for(int i = 1; i <= n && i < str->length; i++) {
+		new->bits[n - i] = str->bits[str->length - i];
+	}
+	return new;
+}
+
+// see BinStr.h for details
 BinStr XOR(BinStr str1, BinStr str2) {
 	assert(str1 != NULL && str2 != NULL && str1->length == str2->length);
 	char bits[str1->length];
