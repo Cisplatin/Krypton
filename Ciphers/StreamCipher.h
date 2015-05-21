@@ -1,6 +1,9 @@
 /* StreamCipher.h - Written by Xenonstory on April 27, 2015 *
  * An implementation of a Stream Cipher                     */      
 
+#ifndef STREAMCIPHER_H
+#define STREAMCIPHER_H
+
 #include "..\Structures\BinStr.h"
 
 // StreamEncrypt(msg, key) encrypts the given message using the given key via the stream cipher
@@ -14,3 +17,5 @@ BinStr StreamEncrypt(BinStr msg, BinStr key, BinStr (*PRG)(BinStr, int));
 // requires: cip and key are valid BinStr and cip->length = key->length
 // time: O(n) + P, where n = cip->length and P is the runtime of PRG
 BinStr StreamDecrypt(BinStr cip, BinStr key, BinStr (*PRG)(BinStr, int));
+
+#endif

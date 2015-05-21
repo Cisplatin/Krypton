@@ -1,6 +1,9 @@
 /* BinStr.h - Written by Xenonstory on April 21, 2015 *
  * A structure used to store binary strings           */
 
+#ifndef BINSTR_H
+#define BINSTR_H
+
 #include <stdbool.h>
 
 struct binstr {
@@ -132,3 +135,5 @@ BinStr modpwr(BinStr str, int n);
 // requires: str1 and str2 are valid BinStrs
 // time: O(n + m), where n and m are the respective lengths of m and n
 int compare(BinStr str1, BinStr str2);
+
+#endif
