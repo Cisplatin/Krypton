@@ -1,6 +1,4 @@
-- Addition/ModAddition of BinStrs
-- Fix BinStr importing overlap
-- Cutting BinStrs to a certain length
+- ModAddition of BinStrs/GroupAddition of BinStrs
 - Implement Salsa20 (with an interal nonce counter)
 - Complete BinStr's hexStr_to_binStr
 - Implement 3DES and AES

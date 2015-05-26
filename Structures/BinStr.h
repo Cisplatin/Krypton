@@ -1,6 +1,9 @@
 /* BinStr.h - Written by Xenonstory on April 21, 2015 *
  * A structure used to store binary strings           */
 
+#ifndef BINSTR_H
+#define BINSTR_H
+
 #include <stdbool.h>
 
 struct binstr {
@@ -136,4 +139,7 @@ int compare(BinStr str1, BinStr str2);
 // add(str1, str2) returns the sum of the two given BinStrs. User must free the returned BinStr
 // requires: str1 and str2 are valid BinStrs
 // time: O(n + m), where n and m are the respective lengths of str1 and str2
-BinStr add(BinStr str1, BinStr str2);
+BinStr add(BinStr str1, BinStr str2)
+
+#endif
+
