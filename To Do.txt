@@ -1,4 +1,5 @@
 - Addition/ModAddition of BinStrs
+- Fix BinStr importing overlap
 - Cutting BinStrs to a certain length
 - Implement Salsa20 (with an interal nonce counter)
 - Complete BinStr's hexStr_to_binStr

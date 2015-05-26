@@ -47,7 +47,7 @@ BinStr replace(BinStr str1, BinStr str2);
 BinStr flush(BinStr str);
 
 // cut(str, n) returns a new BinStr with only the n least significant digits. Expect leading
-//   zeroes if n < str->length. User must free the returned BinStr.
+//   zeroes if n < str->length. User must free the returned BinStr
 // requires: str is a valid BinStr, n > 0
 // time: O(n), where n = length
 BinStr cut(BinStr str, int n);
@@ -130,5 +130,10 @@ BinStr modpwr(BinStr str, int n);
 
 // compare(str1, str2) returns 1 if str1 > str2, -1 if str1 < str2, and 0 if str1 = str2
 // requires: str1 and str2 are valid BinStrs
-// time: O(n + m), where n and m are the respective lengths of m and n
+// time: O(n + m), where n and m are the respective lengths of str1 and str2
 int compare(BinStr str1, BinStr str2);
+
+// add(str1, str2) returns the sum of the two given BinStrs. User must free the returned BinStr
+// requires: str1 and str2 are valid BinStrs
+// time: O(n + m), where n and m are the respective lengths of str1 and str2
+BinStr add(BinStr str1, BinStr str2);
