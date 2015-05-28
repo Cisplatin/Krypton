@@ -141,10 +141,5 @@ int compare(BinStr str1, BinStr str2);
 // time: O(n + m), where n and m are the respective lengths of str1 and str2
 BinStr add(BinStr str1, BinStr str2)
 
-// modAdd(str1, str2, n) returns the sum of the two given BinStrs mod 2^n. User must be the BinStr
-// requires: str1 and str2 are valid BinStrs, n >= 0
-// time: O(n)
-BinStr modAdd(BinStr str1, BinStr str2, int n);
-
 #endif
 
