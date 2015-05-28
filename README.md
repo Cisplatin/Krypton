@@ -2,7 +2,7 @@
 An implementation of some cryptographic ciphers written in C. Following is an
 example of an implementation of a one time pad on a binary string:
 
-```c
+```
 #include <stdio.h>
 #include "Ciphers\OneTimePad.h"
 
