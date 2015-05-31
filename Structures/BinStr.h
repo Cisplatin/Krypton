@@ -55,6 +55,11 @@ BinStr flush(BinStr str);
 // time: O(n), where n = length
 BinStr cut(BinStr str, int n);
 
+// bytes(str) returns the number of bytes that the given BinStr takes up.
+// requires: str is a valid BinStr
+// time: O(1)
+int bytes(BinStr str);
+
 // XOR(str1, str2) returns a new BinStr that is the XOR of the two given strings. The new BinStr
 //   must be freed by the user.
 // requires: str1 and str2 are valid BinStrs of the same length

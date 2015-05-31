@@ -56,7 +56,7 @@ BinStr copy(BinStr str) {
 BinStr replace(BinStr str1, BinStr str2) {
 	assert(str1 != NULL && str2 != NULL);
 	destroy_BinStr(str1);
-	return str2;	
+	return str2;
 }
 
 // see BinStr.h for details
@@ -93,6 +93,15 @@ BinStr cut(BinStr str, int n) {
 		new->bits[n - i] = str->bits[str->length - i];
 	}
 	return new;
+}
+
+// see BinStr.h for details
+int bytes(BinStr str) {
+	if(str->length % 8 == 0) {
+		return str->length / 8;
+	} else {
+		return 1 + (str->length / 8);
+	}
 }
 
 // see BinStr.h for details
