@@ -1,3 +1,4 @@
 - Implement Salsa20 (with an interal nonce counter)
 - Complete BinStr's hex_to_binStr/binStr_to_Hex
 - Implement 3DES and AES
+- Implement RC4 (requiring getByte, bytes, intToBinStr, binstrToInt)
