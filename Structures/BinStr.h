@@ -60,6 +60,11 @@ BinStr cut(BinStr str, int n);
 // time: O(1)
 int bytes(BinStr str);
 
+// getByte(str, n) returns the nth byte of str. User must free the returned BinStr.
+// requiers: str is a valid BinStr, 0 <= n <= str->length / 8
+// effects: allocates memory to a new BinStr
+BinStr getByte(BinStr str, int n);
+
 // XOR(str1, str2) returns a new BinStr that is the XOR of the two given strings. The new BinStr
 //   must be freed by the user.
 // requires: str1 and str2 are valid BinStrs of the same length
@@ -144,7 +149,7 @@ int compare(BinStr str1, BinStr str2);
 // add(str1, str2) returns the sum of the two given BinStrs. User must free the returned BinStr
 // requires: str1 and str2 are valid BinStrs
 // time: O(n + m), where n and m are the respective lengths of str1 and str2
-BinStr add(BinStr str1, BinStr str2)
+BinStr add(BinStr str1, BinStr str2);
 
 // modAdd(str1, str2, n) returns the sum of the two given BinStrs mod 2^n. User must be the BinStr
 // requires: str1 and str2 are valid BinStrs, n >= 0

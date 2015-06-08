@@ -97,11 +97,25 @@ BinStr cut(BinStr str, int n) {
 
 // see BinStr.h for details
 int bytes(BinStr str) {
+	assert(str != NULL);
 	if(str->length % 8 == 0) {
 		return str->length / 8;
 	} else {
 		return 1 + (str->length / 8);
 	}
+}
+
+// see BinStr.h for details
+BinStr getByte(BinStr str, int n) {
+	assert(str != NULL && n <= str->length / 8 && n >= 0);
+	BinStr new = empty_BinStr(8);
+	int firstBit = (n * 8) - (str->length % 8);
+	for(int i = firstBit; i <= firstBit + 8; i++) {
+		if(i >= 0 && i < str->length) {
+			new->bits[i - firstBit] = str->bits[i];
+		}
+	}
+	return new;
 }
 
 // see BinStr.h for details
