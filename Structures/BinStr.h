@@ -15,10 +15,16 @@ typedef struct binstr *BinStr;
 
 // create_BinStr(bits, length) returns a BinStr with the length and bits given. User must free
 //   returned BinStr.
-// requires: bits is a valid BinStr
+// requires: bits is a valid array of characters
 // effects: allocates memory to the new BinStr
 // time: O(n), where n = length
 BinStr create_BinStr(char *bits, unsigned int length);
+
+// int_to_BinStr(n) converts the given integer into a BinStr. User must free the returned BinStr.
+// requires: n >= 0
+// effects: allocates memory to a new BinStr
+// time: O(lg n)
+BinStr int_to_BinStr(int n);
 
 // empty_BinStr(length) returns a BinStr with the given length with all 0s as bits
 // effects: allocates memory to the new BinStr. Must be freed by the user.:x

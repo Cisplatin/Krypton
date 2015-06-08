@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 // see BinStr.h for details
 BinStr create_BinStr(char *bits, unsigned int length) {
@@ -20,6 +21,25 @@ BinStr create_BinStr(char *bits, unsigned int length) {
 		}
 	}
 	new->length = length;
+	return new;
+}
+
+// see BinStr.h for details
+BinStr int_to_BinStr(int n) {
+	assert(n >= 0);
+	int length = log(n) / log(2) + 1;
+	BinStr new = empty_BinStr(length);
+	unsigned int powerOfTwo = 1;
+	for(int i = 0; i < length - 1; i++) {
+		powerOfTwo *= 2;
+	}
+	for(int i = 0; i < length; i++) {
+		if(n >= powerOfTwo) {
+			n -= powerOfTwo;
+			new->bits[i] = 1;
+		}
+		powerOfTwo /= 2;
+	}
 	return new;
 }
 
