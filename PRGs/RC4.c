@@ -33,10 +33,8 @@ BinStr RC4(BinStr key, int n) {
 		S[k] = S[j];
 		S[j] = buffer;
 		BinStr app = int_to_BinStr(S[(S[k] + S[j]) % 256]);
-                replace(new, append(new, app));
-                print(new); printf("\n");
+                new = replace(new, append(new, app));
         }
-        print(new); printf("\n");
-        replace(new, cut(new, n));
+        new = replace(new, cut(new, n));
 	return new;
 }
