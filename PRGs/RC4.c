@@ -5,8 +5,6 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include <stdio.h>
-
 // See OneTimePad.h for details
 BinStr RC4(BinStr key, int n) {
 	// Start with the key-scheduling algorithm
@@ -33,6 +31,7 @@ BinStr RC4(BinStr key, int n) {
 		S[k] = S[j];
 		S[j] = buffer;
 		BinStr app = int_to_BinStr(S[(S[k] + S[j]) % 256]);
+                print(new); printf("\n");
                 new = replace(new, append(new, app));
         }
         new = replace(new, cut(new, n));

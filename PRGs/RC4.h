@@ -4,7 +4,7 @@
 #ifndef RC4_H
 #define RC4_H
 
-#include "../Structures/BinStr.h"
+#include "..\Structures\BinStr.h"
 
 // RC4(key, n) returns the first n bits of the RC4 key-expansion of key. Returned BinStr must be
 //   freed by the user.
