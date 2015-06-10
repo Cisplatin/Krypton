@@ -24,5 +24,5 @@ int main() {
 To compile the above file, the following should be used:
 
 ```
-gcc Example.c Structures/BinStr.c Ciphers/OneTimePad.c -std=c99
+gcc Example.c Structures/BinStr.c Ciphers/OneTimePad.c -std=c99 -lm
 ```
