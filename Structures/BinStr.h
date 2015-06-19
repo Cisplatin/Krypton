@@ -18,13 +18,20 @@ typedef struct binstr *BinStr;
 // requires: bits is a valid array of characters
 // effects: allocates memory to the new BinStr
 // time: O(n), where n = length
-BinStr create_BinStr(char *bits, length);
+BinStr create_BinStr(char *bits, unsigned int length);
 
 // int_to_BinStr(n) converts the given integer into a BinStr. User must free the returned BinStr.
 // requires: n >= 0
 // effects: allocates memory to a new BinStr
 // time: O(lg n)
 BinStr int_to_BinStr(int n);
+
+// str_to_BinStr(str) converts the given ASCII string into a BinStr. User must
+//   free the returned BinStr
+// requires: str is a valid pointer
+// effects: allocates memory to a new BinStr
+// time: O(strlen(str))
+BinStr str_to_BinStr(char *str);
 
 // empty_BinStr(length) returns a BinStr with the given length with all 0s as bits
 // effects: allocates memory to the new BinStr. Must be freed by the user.:x
@@ -112,6 +119,13 @@ BinStr shiftR(BinStr str);
 // effects: allocated memory to a new string
 // time: O(n), where n = length
 char *toString(BinStr str);
+
+// toASCII(str) returns a string with the ASCII conversion of the BinStr. The given string must be
+//   freed by the user.
+// requires: str is a valid BinStr
+// effects: allocated memory to a new string
+// time: O(n)
+char *toASCII(BinStr str);
 
 // toDecimal(str) returns a decimal representation of the given BinStr. If its too big, returns -1.
 // requires: str is a valid BinStr

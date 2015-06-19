@@ -1,5 +1,4 @@
 - Implement Salsa20 (with an interal nonce counter)
 - Complete BinStr's hex_to_binStr/binStr_to_Hex
 - Implement 3DES and AES
-- Remove length field from create_BinStr
 - Fix segmentation fault for large RC4 inputs

@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <string.h>
 
 // see BinStr.h for details
 BinStr create_BinStr(char *bits, unsigned int length) {
@@ -40,6 +41,17 @@ BinStr int_to_BinStr(int n) {
 		}
 		powerOfTwo /= 2;
 	}
+	return new;
+}
+
+// see BinStr.h for details
+BinStr str_to_BinStr(char *str) {
+	assert(str != NULL);
+	int length = strlen(str);
+	BinStr new = empty_BinStr(0);
+	for(int i = 0; i < length; i++) {
+		new = replace(new, append(new, int_to_BinStr((int)str[i])));
+	} 
 	return new;
 }
 
