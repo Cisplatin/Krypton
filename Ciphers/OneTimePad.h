@@ -4,7 +4,7 @@
 #ifndef ONETIMEPAD_H
 #define ONETIMEPAD_H
 
-#include "..\Structures\BinStr.h"
+#include "../Structures/BinStr.h"
 
 // OTPencrypt(msg, key) encrypts the given message using the given key via the OTP.
 // requires: msg and key are valid BinStr and msg->length = key->length

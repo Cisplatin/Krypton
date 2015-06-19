@@ -13,12 +13,12 @@ struct binstr {
 
 typedef struct binstr *BinStr;
 
-// create_BinStr(bits, length) returns a BinStr with the length and bits given. User must free
+// create_BinStr(bits, length) returns a BinStr with the bits and length given. User must free
 //   returned BinStr.
 // requires: bits is a valid array of characters
 // effects: allocates memory to the new BinStr
 // time: O(n), where n = length
-BinStr create_BinStr(char *bits, unsigned int length);
+BinStr create_BinStr(char *bits, length);
 
 // int_to_BinStr(n) converts the given integer into a BinStr. User must free the returned BinStr.
 // requires: n >= 0

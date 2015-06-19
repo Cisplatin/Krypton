@@ -4,7 +4,7 @@
 #ifndef STREAMCIPHER_H
 #define STREAMCIPHER_H
 
-#include "..\Structures\BinStr.h"
+#include "../Structures/BinStr.h"
 
 // StreamEncrypt(msg, key) encrypts the given message using the given key via the stream cipher
 //   with the given PRNG.
