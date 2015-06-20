@@ -26,12 +26,12 @@ BinStr create_BinStr(char *bits, unsigned int length);
 // time: O(lg n)
 BinStr int_to_BinStr(int n);
 
-// str_to_BinStr(str) converts the given ASCII string into a BinStr. User must
+// ASCII_to_BinStr(str) converts the given ASCII string into a BinStr. User must
 //   free the returned BinStr
 // requires: str is a valid pointer
 // effects: allocates memory to a new BinStr
 // time: O(strlen(str))
-BinStr str_to_BinStr(char *str);
+BinStr ASCII_to_BinStr(char *str);
 
 // empty_BinStr(length) returns a BinStr with the given length with all 0s as bits
 // effects: allocates memory to the new BinStr. Must be freed by the user.:x

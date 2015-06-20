@@ -45,12 +45,14 @@ BinStr int_to_BinStr(int n) {
 }
 
 // see BinStr.h for details
-BinStr str_to_BinStr(char *str) {
+BinStr ASCII_to_BinStr(char *str) {
 	assert(str != NULL);
 	int length = strlen(str);
 	BinStr new = empty_BinStr(0);
 	for(int i = 0; i < length; i++) {
-		new = replace(new, append(new, int_to_BinStr((int)str[i])));
+		BinStr app = cut(int_to_BinStr((int)str[i]), 8);
+		new = replace(new, append(new, app));
+		destroy_BinStr(app);
 	} 
 	return new;
 }
@@ -121,7 +123,7 @@ BinStr flush(BinStr str) {
 BinStr cut(BinStr str, int n) {
 	assert(str != NULL && n > 0);
 	BinStr new = empty_BinStr(n);
-	for(int i = 1; i <= n && i < str->length; i++) {
+	for(int i = 1; i <= n && i <= str->length; i++) {
 		new->bits[n - i] = str->bits[str->length - i];
 	}
 	return new;
@@ -242,6 +244,16 @@ int toDecimal(BinStr str) {
 		}
 		return sum;
 	}
+}
+
+// see BinStr.h for details
+char *toASCII(BinStr str) {
+	char *new = malloc(sizeof(char) * ((str->length / 8) + 2));
+	for(int i = 0; i < (str->length / 8) + 1; i++) {
+		new[i] = (char)toDecimal(getByte(str, i));
+	}
+	new[(str->length / 8) + 1] = '\0';
+	return new;
 }
 
 // see BinStr.h for details
