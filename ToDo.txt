@@ -1,3 +1,0 @@
-- Implement Salsa20 (with an interal nonce counter)
-- Implement 3DES and AES
-- Fix segmentation fault for large RC4 inputs
