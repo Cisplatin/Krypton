@@ -1,19 +1,22 @@
 # Krypton
-An implementation of some cryptographic ciphers written in C. Following is an
-example of an implementation of a one time pad on a binary string:
+An implementation of some cryptographic standards written in C. Currently availible standards are the OneTimePad and the RC4 stream cipher. 
+
+## Example
+Following is an example of an implementation of the RC4 stream cipher:
 
 ```
 #include <stdio.h>
-#include "Ciphers/OneTimePad.h"
+#include "Ciphers/StreamCipher.h"
+#include "PRGs/RC4.h"
 
 int main() {
-	BinStr msg = create_BinStr("101110", 6); // This is my plain text
-	BinStr key = create_BinStr("100101", 6); // This is my key
-	BinStr cip = OTPencrypt(msg, key);       // This is my cipher text
+	BinStr msg = ASCII_to_BinStr("This is my plain text, which will be encrypted.");
+	BinStr key = ASCII_to_BinStr("This is my key.");
+	BinStr cip = StreamEncrypt(msg, key, RC4);
 
 	printf("\nThe cipher text is: "); print(cip);
 
-	BinStr decrypt = OTPdecrypt(cip, key);   // This is the decryption
+	BinStr decrypt = StreamDecrypt(cip, key, RC4);
 
 	printf("\nThe plain text is: "); print(decrypt);
 
@@ -24,5 +27,11 @@ int main() {
 To compile the above file, the following should be used:
 
 ```
-gcc Example.c Structures/BinStr.c Ciphers/OneTimePad.c -std=c99 -lm
+gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 ```
+
+## Upcoming features:
+* Finish testing StreamCipher with RC4
+* Implement Salsa20 (w/ an internal nonce counter)
+* Implement DES and AES
+* Fix segmentation fault error when large keys used with RC4
