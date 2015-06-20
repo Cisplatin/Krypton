@@ -4,7 +4,7 @@ example of an implementation of a one time pad on a binary string:
 
 ```
 #include <stdio.h>
-#include "Ciphers\OneTimePad.h"
+#include "Ciphers/OneTimePad.h"
 
 int main() {
 	BinStr msg = create_BinStr("101110", 6); // This is my plain text
