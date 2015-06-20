@@ -50,7 +50,8 @@ BinStr ASCII_to_BinStr(char *str) {
 	int length = strlen(str);
 	BinStr new = empty_BinStr(0);
 	for(int i = 0; i < length; i++) {
-		BinStr app = cut(int_to_BinStr((int)str[i]), 8);
+		BinStr app = int_to_BinStr((int)str[i]);
+		app = replace(app, cut(app, 8));
 		new = replace(new, append(new, app));
 		destroy_BinStr(app);
 	} 

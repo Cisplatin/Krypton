@@ -14,7 +14,9 @@ BinStr RC4(BinStr key, int n) {
 	}
 	int j = 0;
 	for(int i = 0; i < 255; i++) {
-		int a = toDecimal(getByte(key, i % bytes(key)));
+		BinStr byte = getByte(key, i % bytes(key));
+		int a = toDecimal(byte);
+		destroy_BinStr(byte);
                 j = (j + S[i] + a) % 256;
 		int buffer = S[i];
 		S[i] = S[j];
@@ -32,7 +34,9 @@ BinStr RC4(BinStr key, int n) {
 		S[j] = buffer;
 		BinStr app = int_to_BinStr(S[(S[k] + S[j]) % 256]);
                 new = replace(new, append(new, app));
+		destroy_BinStr(app);
         }
         new = replace(new, cut(new, n));
+	free(S);
 	return new;
 }
