@@ -6,11 +6,11 @@
 
 #include "../Structures/BinStr.h"
 
-// OTPencrypt(msg, key) encrypts the given message using the given key via the DES.
-// requires: msg and key are valid BinStrs
+// DESencrypt(msg, key) encrypts the given message using the given key via the DES.
+// requires: msg and key are valid BinStrs and key->length = 64
 BinStr DESencrypt(BinStr msg, BinStr key);
 
-// OTPdecrypt(cip, key) decrypts the given cipher text using the given key via the DES.
+// DESdecrypt(cip, key) decrypts the given cipher text using the given key via the DES.
 // requires: cip and key are valid BinStrs.
 BinStr DESdecrypt(BinStr cip, BinStr key);
 
