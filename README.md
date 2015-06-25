@@ -33,5 +33,6 @@ gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 ## Upcoming features:
 * Implement Salsa20 (w/ an internal nonce counter)
 * Implement AES
-* Test the following DES features:
-- initialPermutation()
+
+For the branch, the following DES features require completion/testing:
+* initialPermutation()
