@@ -1,5 +1,5 @@
 # Krypton
-An implementation of some cryptographic standards written in C. Currently availible standards are the OneTimePad and the RC4 stream cipher. 
+An implementation of some cryptographic standards written in C. Currently availible standards are the One Time Pad, the RC4 stream cipher, and the Data Encryption Standard (DES).
 
 ## Example
 Following is an example of an implementation of the RC4 stream cipher:
@@ -32,4 +32,4 @@ gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 
 ## Upcoming features:
 * Implement Salsa20 (w/ an internal nonce counter)
-* Implement DES and AES
+* Implement AES
