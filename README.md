@@ -36,3 +36,4 @@ gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 
 For the branch, the following DES features require completion/testing:
 * initialPermutation()
+* finalPermutation()
