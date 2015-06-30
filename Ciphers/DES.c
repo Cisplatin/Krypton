@@ -31,7 +31,7 @@ BinStr initialPermutation(BinStr block) {
 //   permutation for the DES cipher
 // effects: allocates memory to a new BinStr
 // requires: block is a valid BinStr and block->length == DES_BLOCK_SIZE
-BinStr initialPermutation(BinStr block) {
+BinStr finalPermutation(BinStr block) {
         assert(block != NULL && block->length == DES_BLOCK_SIZE);
         BinStr new = empty_BinStr(DES_BLOCK_SIZE);
         for(int i = 0; i < 64; i++) {
