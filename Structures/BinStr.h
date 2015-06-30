@@ -6,6 +6,9 @@
 
 #include <stdbool.h>
 
+#define BITS_PER_BYTE 8
+#define MAX_BYTE 256
+
 struct binstr {
 	bool *bits;
 	unsigned int length;
