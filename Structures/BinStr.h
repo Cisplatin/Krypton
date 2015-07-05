@@ -6,8 +6,8 @@
 
 #include <stdbool.h>
 
-#define BITS_PER_BYTE 8
-#define MAX_BYTE 256
+const int BITS_PER_BYTE = 8;
+const int MAX_BYTE = 256;
 
 struct binstr {
 	bool *bits;
