@@ -35,5 +35,4 @@ gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 * Implement AES
 
 For the branch, the following DES features require completion/testing:
-* initialPermutation() and finalPermutation()
 * Change preprocesser definitions to constant variables
