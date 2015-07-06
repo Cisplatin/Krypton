@@ -7,6 +7,7 @@
 #include "../Structures/BinStr.h"
 
 const int DES_KEY_SIZE = 64;
+const int DES_ROUND_KEY_SIZE = 48;
 const int DES_BLOCK_SIZE = 64;
 
 // DESencrypt(msg, key) encrypts the given message using the given key via the DES.
