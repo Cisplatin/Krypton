@@ -34,8 +34,6 @@ gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 * Implement SHA-256
 * Refactor createBinStr to strToBinStr
 * Remake all replace-worthy code, create a 'set' function
-
-For the branch, the following DES features require completion/testing:
 * Rest of DES algorithm
 * Generic method of using different block cipher modes
 * Add generic permutation method for BinStrs
