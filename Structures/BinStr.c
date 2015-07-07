@@ -349,3 +349,14 @@ BinStr modAdd(BinStr str1, BinStr str2, int n) {
 	}
 	return new;
 }
+
+// see BinStr.h for details
+BinStr permutate(BinStr str, int *order, int len) {
+	assert(str != NULL && order != NULL && len >= 0);
+	BinStr new = empty_BinStr(len);
+	for(int i = 0; i < len; i++) {
+		assert(order[i] < str->length);
+		new->bits[i] = str->bits[order[i]];
+	}
+	return new;
+}
