@@ -51,7 +51,7 @@ BinStr ASCII_to_BinStr(char *str) {
 	BinStr new = empty_BinStr(0);
 	for(int i = 0; i < length; i++) {
 		BinStr app = int_to_BinStr((int)str[i]);
-		app = replace(app, cut(app, 8));
+		app = replace(app, cut(app, BITS_PER_BYTE));
 		new = replace(new, append(new, app));
 		destroy_BinStr(app);
 	} 
@@ -133,19 +133,19 @@ BinStr cut(BinStr str, int n) {
 // see BinStr.h for details
 int bytes(BinStr str) {
 	assert(str != NULL);
-	if(str->length % 8 == 0) {
-		return str->length / 8;
+	if(str->length % BITS_PER_BYTE == 0) {
+		return str->length / BITS_PER_BYTE;
 	} else {
-		return 1 + (str->length / 8);
+		return 1 + (str->length / BITS_PER_BYTE);
 	}
 }
 
 // see BinStr.h for details
 BinStr getByte(BinStr str, int n) {
-	assert(str != NULL && n <= str->length / 8 && n >= 0);
-	BinStr new = empty_BinStr(8);
-	int firstBit = (n * 8) - (str->length % 8);
-	for(int i = firstBit; i <= firstBit + 8; i++) {
+	assert(str != NULL && n <= str->length / BITS_PER_BYTE && n >= 0);
+	BinStr new = empty_BinStr(BITS_PER_BYTE);
+	int firstBit = (n * BITS_PER_BYTE) - (str->length % BITS_PER_BYTE);
+	for(int i = firstBit; i <= firstBit + BITS_PER_BYTE; i++) {
 		if(i >= 0 && i < str->length) {
 			new->bits[i - firstBit] = str->bits[i];
 		}
@@ -249,8 +249,8 @@ int toDecimal(BinStr str) {
 
 // see BinStr.h for details
 char *toASCII(BinStr str) {
-	char *new = malloc(sizeof(char) * ((str->length / 8) + 2));
-	for(int i = 0; i < (str->length / 8) + 1; i++) {
+	char *new = malloc(sizeof(char) * ((str->length / BITS_PER_BYTE) + 2));
+	for(int i = 0; i < (str->length / BITS_PER_BYTE) + 1; i++) {
 		new[i] = (char)toDecimal(getByte(str, i));
 	}
 	new[(str->length / 8) + 1] = '\0';
