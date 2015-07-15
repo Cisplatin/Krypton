@@ -9,6 +9,7 @@ const int DES_KEY_SIZE = 64;
 
 const int DES_BLOCK_SIZE = 64;
 const int DES_ROUND_KEY_SIZE = 48;
+const int DES_ROUNDS = 16;
 
 const int PC1_PERMUTATION_SIZE = 28;
 int PC1_C_PERMUTATION[] = {57, 49, 41, 33, 25, 17,  9,
@@ -111,6 +112,14 @@ BinStr dPermutation(BinStr key) {
         return permutate(key, PC1_D_PERMUTATION, PC1_PERMUTATION_SIZE, 1);
 }
 
+// rPermutation(key) returns the second permutation choice for round keys
+// effects: allocates memory to a new BinStr
+// requires: key is a valid BinStr and key->length == DES_ROUND_KEY_SIZE
+BinStr rPermutation(BinStr key) {
+	assert(key != NULL && key->length == PC1_PERMUTATION_SIZE * 2);
+	return permutate(key, PC2_PERMUTATION, PC2_PERMUTATION_SIZE, 1);
+}
+
 // initializeKeyGenerator(key) initializes the "generator" for the various
 //   round keys to be used by DES
 // requires: key is a valid BinStr and key->length == DES_KEY_SIZE
@@ -122,13 +131,22 @@ void initializeKeyGenerator(BinStr key) {
 	ready_round_key = 1;
 }
 
-// generateRoundKey() returns the latest round key to be used
+// generateRoundKey() returns the latest round key to be used. User must free
+//   the returned round key
 // requires: initializeKeyGenerator() was called, and generateRoundKey()
 //           was not called more than the number of DES rounds
-// effects: increments the state of the key generator
+// effects: increments the state of the key generator, allocates memory
+//          to a new round key
 BinStr generateRoundKey() {
-	// TODO: Finish writing function	
-	return;
+	assert(ready_round_key > 0 && ready_round_key <= DES_ROUNDS);
+	key_block_C = replace(key_block_C, leftRotate(key_block_C,
+					   KEY_SHIFTS[ready_round_key - 1]));
+	key_block_D = replace(key_block_D, leftRotate(key_block_D,
+					   KEY_SHIFTS[ready_round_key - 1]));
+	ready_round_key++;
+	BinStr round_key = append(key_block_C, key_block_D);
+	round_key = replace(round_key, rPermutation(round_key));
+	return round_key;
 }
 
 // destroyKeyGenerator() destroys the "generator" for the various
