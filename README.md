@@ -30,9 +30,9 @@ To compile the above file, the following should be used:
 gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 ```
 
-## Upcoming features:
+## To-do list:
 * Implement SHA-256
+* Implement AES
 * Refactor createBinStr to strToBinStr
 * Rest of DES algorithm
 * Generic method of using different block cipher modes
-* Add generic permutation method for BinStrs (test it, replace DES functions)

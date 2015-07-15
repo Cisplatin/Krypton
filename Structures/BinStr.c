@@ -10,6 +10,9 @@
 #include <math.h>
 #include <string.h>
 
+const int BITS_PER_BYTE = 8;
+const int MAX_BYTE = 256;
+
 // see BinStr.h for details
 BinStr create_BinStr(char *bits, unsigned int length) {
 	BinStr new = malloc(sizeof(struct binstr));
@@ -126,6 +129,16 @@ BinStr cut(BinStr str, int n) {
 	BinStr new = empty_BinStr(n);
 	for(int i = 1; i <= n && i <= str->length; i++) {
 		new->bits[n - i] = str->bits[str->length - i];
+	}
+	return new;
+}
+
+// see BinStr.h for details
+BinStr snip(BinStr str, int begin, int end) {
+	assert(str != NULL && begin <= end && end <= str->length);
+	BinStr new = empty_BinStr(end - begin + 1);
+	for(int i = 0; i < new->length; i++) {
+		new->bits[i] = str->bits[i + begin];
 	}
 	return new;
 }
@@ -290,6 +303,16 @@ int lsb(BinStr str) {
 }
 
 // see BinStr.h for details
+bool parity(BinStr str) {
+	assert(str != NULL);
+	bool result = 0;
+	for(int i = 0; i < str->length; i++) {
+		result = result ^ str->bits[i];
+	}
+	return result;
+}
+
+// see BinStr.h for details
 BinStr modpwr(BinStr str, int n) {
 	assert(str != NULL && n > 0);
 	BinStr new = empty_BinStr(n);
@@ -351,12 +374,23 @@ BinStr modAdd(BinStr str1, BinStr str2, int n) {
 }
 
 // see BinStr.h for details
-BinStr permutate(BinStr str, int *order, int len) {
-	assert(str != NULL && order != NULL && len >= 0);
+BinStr permutate(BinStr str, int *order, int len, int offset) {
+	assert(str != NULL && order != NULL && len >= 0 && offset >= 0);
 	BinStr new = empty_BinStr(len);
 	for(int i = 0; i < len; i++) {
-		assert(order[i] < str->length);
-		new->bits[i] = str->bits[order[i]];
+		assert(order[i] - offset < str->length);
+		new->bits[i] = str->bits[order[i] - offset];
+	}
+	return new;
+}
+
+// see BinStr.h for details
+BinStr reversePermutate(BinStr str, int *order, int len, int offset) {
+	assert(str != NULL && order != NULL && len >= 0 && offset >= 0);
+	BinStr new = empty_BinStr(len);
+	for(int i = 0; i < len; i++) {
+		assert(order[i] - offset < str->length);
+		new->bits[order[i] - offset] = str->bits[i];
 	}
 	return new;
 }

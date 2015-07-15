@@ -6,9 +6,7 @@
 
 #include "../Structures/BinStr.h"
 
-const int DES_KEY_SIZE = 64;
-const int DES_ROUND_KEY_SIZE = 48;
-const int DES_BLOCK_SIZE = 64;
+extern const int DES_KEY_SIZE;
 
 // DESencrypt(msg, key) encrypts the given message using the given key via the DES.
 // requires: msg and key are valid BinStr and key->length == DES_KEY_SIZE

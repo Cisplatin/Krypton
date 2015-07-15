@@ -6,8 +6,8 @@
 
 #include <stdbool.h>
 
-const int BITS_PER_BYTE = 8;
-const int MAX_BYTE = 256;
+extern const int BITS_PER_BYTE;
+extern const int MAX_BYTE;
 
 struct binstr {
 	bool *bits;
@@ -63,6 +63,11 @@ BinStr flush(BinStr str);
 //   Expect leading zeroes if n < str->length. User must free the returned BinStr
 // requires: str is a valid BinStr, n > 0
 BinStr cut(BinStr str, int n);
+
+// snip(str, begin, end) returns a new BinStr that is a snippet of the given str
+//   from begin to end inclusively. User must free the returned BinStr.
+// requires: str is a valid BinStr and begin <= end < str->length
+BinStr snip(BinStr str, int begin, int end);
 
 // bytes(str) returns the number of bytes that the given BinStr takes up.
 // requires: str is a valid BinStr
@@ -138,6 +143,10 @@ int msb(BinStr str);
 // requires: str is a valid BinStr
 int lsb(BinStr str);
 
+// parity(str) returns the parity of the given BinStr.
+// requires: str is a valid BinStr
+bool parity(BinStr str);
+
 // modpwr(str, n) returns a BinStr equivalent to str mod 2^n. New BinStr must be 
 //   freed by the user.
 // requires: str is a valid BinStr, n > 0
@@ -160,9 +169,17 @@ BinStr modAdd(BinStr str1, BinStr str2, int n);
 
 // permutate(str, order, len) returns the given BinStr but with bits permutated
 //   according to the given array of integers, order, where each element represents
-//   the bits to be put at that index. len is the length of the array.
-// requires: str is a valid BinStr, order is a valid array of ints, len >= 0
-BinStr permutate(BinStr str, int *order, int len);
+//   the bits to be put at that index. len is the length of the array. Set offset
+//   to 1 or 0 depending on your indexing strategy.
+// requires: str is a valid BinStr, order is a valid array of ints, len >= 0, and
+//           offset >= 0
+BinStr permutate(BinStr str, int *order, int len, int offset);
+
+// reversePermutate(str, order, len, offset) reverse permutates the given BinStr
+//   with similar attributes to the permutate() function.
+// requires: str is a valid BinStr, order is a valid array of ints, len >= 0, and
+//           offset >= 0
+BinStr reversePermutate(BinStr str, int *order, int len, int offset);
 
 #endif
 
