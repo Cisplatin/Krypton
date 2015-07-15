@@ -31,10 +31,7 @@ gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 ```
 
 ## To-do list:
-* Implement SHA-256
-* Implement AES
 * Refactor createBinStr to strToBinStr
 * Rest of DES algorithm
 * Generic method of using different block cipher modes
 * Write a right rotate function
-
