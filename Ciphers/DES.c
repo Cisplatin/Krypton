@@ -247,3 +247,4 @@ BinStr DESdecrypt(BinStr cip, BinStr key) {
 	// TODO: Decrypt the message using DES
 	return cip;
 }
+

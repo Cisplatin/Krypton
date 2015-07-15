@@ -212,6 +212,17 @@ BinStr AND(BinStr str1, BinStr str2) {
 }
 
 // see BinStr.h for details
+BinStr leftRotate(BinStr str, int n) {
+	assert(str != NULL && n >= 0);
+	n %= str->length;
+	BinStr new = snip(str, n, str->length - 1);
+	BinStr back = snip(str, 0, n - 1);
+	new = replace(new, append(new, back));
+	destroy_BinStr(back);
+	return new;
+}
+
+// see BinStr.h for details
 BinStr shiftL(BinStr str) {
 	assert(str != NULL);
 	BinStr new = empty_BinStr(str->length + 1);
@@ -394,3 +405,4 @@ BinStr reversePermutate(BinStr str, int *order, int len, int offset) {
 	}
 	return new;
 }
+
