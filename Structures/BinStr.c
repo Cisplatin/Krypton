@@ -212,7 +212,7 @@ BinStr AND(BinStr str1, BinStr str2) {
 }
 
 // see BinStr.h for details
-BinStr leftRotate(BinStr str, int n) {
+BinStr rotateL(BinStr str, int n) {
 	assert(str != NULL && n >= 0);
 	n %= str->length;
 	BinStr new = snip(str, n, str->length - 1);
@@ -220,6 +220,17 @@ BinStr leftRotate(BinStr str, int n) {
 	new = replace(new, append(new, back));
 	destroy_BinStr(back);
 	return new;
+}
+
+// see BinStr.h for details
+BinStr rotateR(BinStr str, int n) {
+    assert(str != NULL && n >= 0);
+    n %= str->length;
+    BinStr new = snip(str. str->length - 1);
+    BinStr back = snip(str, 0, n - 1);
+    new = replace(new, append(back, new));
+    destroy_BinStr(back);
+    return new;
 }
 
 // see BinStr.h for details
