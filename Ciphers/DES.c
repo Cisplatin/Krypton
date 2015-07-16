@@ -4,6 +4,7 @@
 #include "DES.h"
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h> // TODO: Remove
 
 const int DES_KEY_SIZE = 64;
 
@@ -217,22 +218,29 @@ BinStr sBox(BinStr block) {
 	assert(block != NULL && block->length == S_BOX_INPUT_SIZE);
 	BinStr new = empty_BinStr(0);	
 	for(int box = 0; box < 8; box++) {
+
 		// Find the relevant row
 		int start = box * 6;
 		BinStr rowStr = snip(block, start, start);
 		BinStr rowEnd = snip(block, start + 5, start + 5);
 		rowStr = replace(rowStr, append(rowStr, rowEnd));
 		int row = toDecimal(rowStr);
-		
+        destroy_BinStr(rowStr);
+        destroy_BinStr(rowEnd);
+	
 		// Find the relevent column
 		BinStr colStr = snip(block, start + 1, start + 4);
 		int col = toDecimal(colStr);
+        destroy_BinStr(colStr);
 
 		// Find the relevant element and convert it
-		int element = S_BOX[box][(S_BOX_COLS * row) + col];
+        int element = S_BOX[box][(S_BOX_COLS * row) + col];
+        printf("E:%d\n", element);
 		BinStr bin_element = int_to_BinStr(element);
-		bin_element = cut(bin_element, 4); 
+        print(bin_element);printf("\n");
+		bin_element = replace(bin_element, cut(bin_element, 4)); 
 		new = replace(new, append(new, bin_element));
+        destroy_BinStr(bin_element);
 	}
 	return new;
 }
@@ -250,6 +258,42 @@ BinStr blockCipher(BinStr block, BinStr key) {
 	new = replace(new, sBox(new));
 	new = replace(new, pPermutation(new));
 	return new;
+}
+
+// encryptBlock(block, key) returns a new BinStr that is the evaluation of the
+//   DES fesitel network on block using the given key.
+// effects: allocates memory to a new BinStr
+// requires: block is a valid BinStr and block->length == DES_BLOCK_SIZE
+//           and key is a valid BinStr and key->length == DES_KEY_SIZE
+BinStr encryptBlock(BinStr block, BinStr key) {
+    assert(block != NULL && block->length == DES_BLOCK_SIZE &&
+           key != NULL && key->length == DES_KEY_SIZE);
+    
+    // Prepare the key generator and start the initial L and R blocks
+    initializeKeyGenerator(key);
+    BinStr new = iPermutation(block);
+    BinStr L = snip(new, 0, (DES_BLOCK_SIZE / 2) - 1);
+    BinStr R = snip(new, DES_BLOCK_SIZE / 2, DES_BLOCK_SIZE - 1);    
+
+    // Go through the feistel network
+    for(int i = 0; i < DES_ROUNDS; i++) {
+        printf("%d", i); fflush(stdout);
+        BinStr round_key = generateRoundKey();
+        BinStr new_R = blockCipher(R, round_key);
+        printf("a");
+        new_R = replace(new_R, XOR(new_R, L));
+        L = R;
+        R = replace(R, new_R);
+        destroy_BinStr(round_key);
+    }
+
+    // Destroy the key generator and return the result
+    destroyKeyGenerator();
+    new = replace(new, append(R, L));
+    new = replace(new, fPermutation(new));
+    destroy_BinStr(L);
+    destroy_BinStr(R);
+    return new;
 }
 
 // See DES.h for details

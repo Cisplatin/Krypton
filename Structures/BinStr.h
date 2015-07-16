@@ -37,7 +37,7 @@ BinStr ASCII_to_BinStr(char *str);
 // empty_BinStr(length) returns a BinStr with the given length with 
 //   all 0s as bits
 // effects: allocates memory to the new BinStr. Must be freed by the user.
-BinStr empty_BinStr(unsigned int length);
+BinStr empty_BinStr(int length);
 
 // destroy_BinStr(str) frees the memory allocated to the given str.
 // requires: str is a valid BinStr

@@ -7,7 +7,7 @@
 #include "../Structures/BinStr.h"
 
 extern const int DES_KEY_SIZE;
-
+BinStr encryptBlock(BinStr block, BinStr key);
 // DESencrypt(msg, key) encrypts the given message using the given key via the DES.
 // requires: msg and key are valid BinStr and key->length == DES_KEY_SIZE
 BinStr DESencrypt(BinStr msg, BinStr key);

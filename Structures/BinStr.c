@@ -31,27 +31,31 @@ BinStr create_BinStr(char *bits, unsigned int length) {
 // see BinStr.h for details
 BinStr int_to_BinStr(int n) {
 	assert(n >= 0);
-	int length = log(n) / log(2) + 1;
-	BinStr new = empty_BinStr(length);
-	unsigned int powerOfTwo = 1;
-	for(int i = 0; i < length - 1; i++) {
-		powerOfTwo *= 2;
-	}
-	for(int i = 0; i < length; i++) {
-		if(n >= powerOfTwo) {
-			n -= powerOfTwo;
-			new->bits[i] = 1;
-		}
-		powerOfTwo /= 2;
-	}
-	return new;
+    if(n == 0) {
+        return empty_BinStr(1);
+    } else {
+	    int length = log(n) / log(2) + 1;
+	    BinStr new = empty_BinStr(length);
+	    unsigned int powerOfTwo = 1;
+	    for(int i = 0; i < length - 1; i++) {
+		    powerOfTwo *= 2;
+	    }
+	    for(int i = 0; i < length; i++) {
+		    if(n >= powerOfTwo) {
+			    n -= powerOfTwo;
+			    new->bits[i] = 1;
+		    }
+	    	powerOfTwo /= 2;
+	    }
+	    return new;
+    }
 }
 
 // see BinStr.h for details
 BinStr ASCII_to_BinStr(char *str) {
 	assert(str != NULL);
 	int length = strlen(str);
-	BinStr new = empty_BinStr(0);
+	BinStr new = empty_BinStr(0); 
 	for(int i = 0; i < length; i++) {
 		BinStr app = int_to_BinStr((int)str[i]);
 		app = replace(app, cut(app, BITS_PER_BYTE));
@@ -62,10 +66,11 @@ BinStr ASCII_to_BinStr(char *str) {
 }
 
 // see BinStr.h for details
-BinStr empty_BinStr(unsigned int length) {
-	BinStr new = malloc(sizeof(struct binstr));
+BinStr empty_BinStr(int length) {
+	assert(length >= 0);
+    BinStr new = malloc(sizeof(struct binstr));
 	new->bits = malloc(sizeof(bool) * length);
-	for(int i = 0; i < length; i++) {
+    for(int i = 0; i < length; i++) {
 		new->bits[i] = 0;
 	}
 	new->length = length;
@@ -226,7 +231,7 @@ BinStr rotateL(BinStr str, int n) {
 BinStr rotateR(BinStr str, int n) {
     assert(str != NULL && n >= 0);
     n %= str->length;
-    BinStr new = snip(str. str->length - 1);
+    BinStr new = snip(str, n, str->length - 1);
     BinStr back = snip(str, 0, n - 1);
     new = replace(new, append(back, new));
     destroy_BinStr(back);
