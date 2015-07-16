@@ -4,7 +4,6 @@
 #include "DES.h"
 #include <assert.h>
 #include <stdlib.h>
-#include <stdio.h> // TODO: Remove
 
 const int DES_KEY_SIZE = 64;
 
@@ -235,9 +234,7 @@ BinStr sBox(BinStr block) {
 
 		// Find the relevant element and convert it
         int element = S_BOX[box][(S_BOX_COLS * row) + col];
-        printf("E:%d\n", element);
 		BinStr bin_element = int_to_BinStr(element);
-        print(bin_element);printf("\n");
 		bin_element = replace(bin_element, cut(bin_element, 4)); 
 		new = replace(new, append(new, bin_element));
         destroy_BinStr(bin_element);
@@ -277,13 +274,12 @@ BinStr encryptBlock(BinStr block, BinStr key) {
 
     // Go through the feistel network
     for(int i = 0; i < DES_ROUNDS; i++) {
-        printf("%d", i); fflush(stdout);
         BinStr round_key = generateRoundKey();
         BinStr new_R = blockCipher(R, round_key);
-        printf("a");
         new_R = replace(new_R, XOR(new_R, L));
+        destroy_BinStr(L);
         L = R;
-        R = replace(R, new_R);
+        R = new_R;
         destroy_BinStr(round_key);
     }
 
