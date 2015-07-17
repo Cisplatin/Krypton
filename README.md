@@ -34,4 +34,4 @@ gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 
 ## To-do list:
 * Rest of DES algorithm
-* Generic method of using different block cipher modes
+* Test ECB mode block ciphering
