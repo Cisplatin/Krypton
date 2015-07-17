@@ -16,11 +16,11 @@ struct binstr {
 
 typedef struct binstr *BinStr;
 
-// create_BinStr(bits, length) returns a BinStr with the bits and length given. 
+// str_to_BinStr(bits, length) returns a BinStr with the bits and length given. 
 //   User must free returned BinStr.
 // requires: bits is a valid array of characters
 // effects: allocates memory to the new BinStr
-BinStr create_BinStr(char *bits, unsigned int length);
+BinStr str_to_BinStr(char *bits, unsigned int length);
 
 // int_to_BinStr(n) converts the given integer into a BinStr. User must free 
 //   the returned BinStr.
@@ -144,10 +144,10 @@ int toDecimal(BinStr str);
 // effects: allocated memory to a new BinStr
 BinStr append(BinStr str1, BinStr str2);
 
-// print(str) prints out the given str
+// printBin(str) prints out the given str
 // requires: str is a valid BinStr
 // effects: prints out the given string
-void print(BinStr str);
+void printBin(BinStr str);
 
 // msb(str) returns the most significant bit of the given string
 // requires: str is a valid BinStr

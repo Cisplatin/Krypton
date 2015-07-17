@@ -242,12 +242,12 @@ BinStr sBox(BinStr block) {
 	return new;
 }
 
-// blockCipher(block, key) returns a new BinStr that is the evaluation of
+// DESroundFunction(block, key) returns a new BinStr that is the evaluation of
 //   the DES block cipher applied to R using the given key
 // effects: allocates memory to a new BinStr
 // requires: block is a valid BinStr and block->length == DES_BLOCK_SIZE / 2
 //           and key is a valid BinStr and key->length = DES_ROUND_KEY_SIZE
-BinStr blockCipher(BinStr block, BinStr key) {
+BinStr DESroundFunction(BinStr block, BinStr key) {
 	assert(block != NULL && block->length == DES_BLOCK_SIZE / 2
 	       && key != NULL && key->length == DES_ROUND_KEY_SIZE);	
 	BinStr new = ePermutation(block);
@@ -275,7 +275,7 @@ BinStr encryptBlock(BinStr block, BinStr key) {
     // Go through the feistel network
     for(int i = 0; i < DES_ROUNDS; i++) {
         BinStr round_key = generateRoundKey();
-        BinStr new_R = blockCipher(R, round_key);
+        BinStr new_R = DESroundFunction(R, round_key);
         new_R = replace(new_R, XOR(new_R, L));
         destroy_BinStr(L);
         L = R;

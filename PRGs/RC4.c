@@ -25,7 +25,7 @@ BinStr RC4(BinStr key, int n) {
 
 	// End with the pseudo-random generation algorithm
 	int k = 0, f = 0;
-	BinStr new = create_BinStr("", 0);
+	BinStr new = empty_BinStr(0);
 	for(int m = 0; m < 1 + n / BITS_PER_BYTE; m++) {
 		k = (k + 1) % MAX_BYTE;
 		j = (j + S[k]) % MAX_BYTE;

@@ -14,7 +14,7 @@ const int BITS_PER_BYTE = 8;
 const int MAX_BYTE = 256;
 
 // see BinStr.h for details
-BinStr create_BinStr(char *bits, unsigned int length) {
+BinStr str_to_BinStr(char *bits, unsigned int length) {
 	BinStr new = malloc(sizeof(struct binstr));
 	new->bits = malloc(sizeof(bool) * length);
 	for(int i = 0; i < length; i++) {
@@ -122,7 +122,7 @@ BinStr flush(BinStr str) {
 				new[i - leading] = '0';
 			}
 		}
-		BinStr newStr = create_BinStr(new, str->length - leading);
+		BinStr newStr = str_to_BinStr(new, str->length - leading);
 		free(new);
 		return newStr;
 	}
@@ -182,7 +182,7 @@ BinStr XOR(BinStr str1, BinStr str2) {
 			bits[i] = '1';
 		}
 	}
-	BinStr new = create_BinStr(bits, str1->length);
+	BinStr new = str_to_BinStr(bits, str1->length);
 	return new;
 }
 
@@ -197,7 +197,7 @@ BinStr OR(BinStr str1, BinStr str2) {
 			bits[i] = '1';
 		}
 	}
-	BinStr new = create_BinStr(bits, str1->length);
+	BinStr new = str_to_BinStr(bits, str1->length);
 	return new;
 }
 
@@ -212,7 +212,7 @@ BinStr AND(BinStr str1, BinStr str2) {
 			bits[i] = '1';
 		}
 	}
-	BinStr new = create_BinStr(bits, str1->length);
+	BinStr new = str_to_BinStr(bits, str1->length);
 	return new;
 }
 
@@ -311,7 +311,7 @@ BinStr append(BinStr str1, BinStr str2) {
 }
 
 // see BinStr.h for details
-void print(BinStr str) {
+void printBin(BinStr str) {
 	for(int i = 0; i < str->length; i++) {
 		printf("%d", str->bits[i]);
 	}
