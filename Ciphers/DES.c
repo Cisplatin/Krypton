@@ -295,7 +295,7 @@ BinStr encryptBlock(BinStr block, BinStr key) {
 // See DES.h for details
 BinStr DESencrypt(BinStr msg, BinStr key) {
 	assert(msg != NULL && key != NULL && key->length == DES_KEY_SIZE);
-	// TODO: Encrypt the message using DES
+    // TODO: Encrypt the message using DES
 	return msg;
 }
 
