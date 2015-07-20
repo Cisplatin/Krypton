@@ -16,8 +16,8 @@ BinStr ECBencrypt(BinStr msg, BlockCipher cipher) {
     BinStr cip = empty_BinStr(0);                                               
     for(int i = 0; i < msg->length; i += cipher->blockSize) {                           
         BinStr to_app = snip(msg, i, i + cipher->blockSize - 1);                        
-        to_app = replace(to_app, (*cipher->encrypt)(to_app, cipher->key));                       
-        cip = replace(cip, append(cip, to_app));                                
+        to_app = set(to_app, (*cipher->encrypt)(to_app, cipher->key));                       
+        cip = set(cip, append(cip, to_app));                                
         destroy_BinStr(to_app);                                                 
     }                                                                           
     return cip;                                                                 
@@ -32,8 +32,8 @@ BinStr ECBdecrypt(BinStr cip, BlockCipher cipher) {
     BinStr msg = empty_BinStr(0);
     for(int i = 0; i < cip->length; i += cipher->blockSize) {
         BinStr to_app = snip(cip, i, i + cipher->blockSize - 1);
-        to_app = replace(to_app, (*cipher->decrypt)(to_app, cipher->key));
-        msg = replace(msg, append(msg, to_app));
+        to_app = set(to_app, (*cipher->decrypt)(to_app, cipher->key));
+        msg = set(msg, append(msg, to_app));
         destroy_BinStr(to_app);
     }
     return msg;

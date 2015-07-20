@@ -33,10 +33,10 @@ BinStr RC4(BinStr key, int n) {
 		S[k] = S[j];
 		S[j] = buffer;
 		BinStr app = int_to_BinStr(S[(S[k] + S[j]) % MAX_BYTE]);
-                new = replace(new, append(new, app));
+                new = set(new, append(new, app));
 		destroy_BinStr(app);
         }
-        new = replace(new, cut(new, n));
+        new = set(new, cut(new, n));
 	free(S);
 	return new;
 }

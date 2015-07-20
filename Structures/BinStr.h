@@ -50,10 +50,10 @@ void destroy_BinStr(BinStr str);
 // effects: allocated memory to a new BinStr
 BinStr copy(BinStr str);
 
-// replace(str1, str2) returns the second BinStr and frees the first one.
+// set(str1, str2) returns the second BinStr and frees the first one.
 // requires: str1 and str2 are valid BinStr
 // effects: frees memory associated with str1 and repoints str1 to str2
-BinStr replace(BinStr str1, BinStr str2);
+BinStr set(BinStr str1, BinStr str2);
 
 // flush(str) returns the given BinStr without leading zeroes
 // requires: str is a valid BinStr

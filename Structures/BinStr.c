@@ -58,8 +58,8 @@ BinStr ASCII_to_BinStr(char *str) {
 	BinStr new = empty_BinStr(0); 
 	for(int i = 0; i < length; i++) {
 		BinStr app = int_to_BinStr((int)str[i]);
-		app = replace(app, cut(app, BITS_PER_BYTE));
-		new = replace(new, append(new, app));
+		app = set(app, cut(app, BITS_PER_BYTE));
+		new = set(new, append(new, app));
 		destroy_BinStr(app);
 	} 
 	return new;
@@ -96,7 +96,7 @@ BinStr copy(BinStr str) {
 }
 
 // see BinStr.h for details
-BinStr replace(BinStr str1, BinStr str2) {
+BinStr set(BinStr str1, BinStr str2) {
 	assert(str1 != NULL && str2 != NULL);
 	destroy_BinStr(str1);
 	return str2;
@@ -222,7 +222,7 @@ BinStr rotateL(BinStr str, int n) {
 	n %= str->length;
 	BinStr new = snip(str, n, str->length - 1);
 	BinStr back = snip(str, 0, n - 1);
-	new = replace(new, append(new, back));
+	new = set(new, append(new, back));
 	destroy_BinStr(back);
 	return new;
 }
@@ -233,7 +233,7 @@ BinStr rotateR(BinStr str, int n) {
     n %= str->length;
     BinStr new = snip(str, n, str->length - 1);
     BinStr back = snip(str, 0, n - 1);
-    new = replace(new, append(back, new));
+    new = set(new, append(back, new));
     destroy_BinStr(back);
     return new;
 }
@@ -381,7 +381,7 @@ BinStr add(BinStr str1, BinStr str2) {
 		}
 		offset = offset / 2;
 	}
-	return replace(new, flush(new));
+	return set(new, flush(new));
 }
 
 // see BinStr.h for details

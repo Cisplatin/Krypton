@@ -33,7 +33,6 @@ gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 ```
 
 ## To-do list:
-* Refactor "replace" to "set"
 * DES decryption block algorithm
 * Add more encryption modes
 * Convert from c99 mode (to save encryption time)

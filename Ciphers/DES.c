@@ -140,13 +140,13 @@ void initializeKeyGenerator(BinStr key) {
 //          to a new round key
 BinStr generateRoundKey() {
 	assert(ready_round_key > 0 && ready_round_key <= DES_ROUNDS);
-	key_block_C = replace(key_block_C, rotateL(key_block_C,
+	key_block_C = set(key_block_C, rotateL(key_block_C,
 					   KEY_SHIFTS[ready_round_key - 1]));
-	key_block_D = replace(key_block_D, rotateL(key_block_D,
+	key_block_D = set(key_block_D, rotateL(key_block_D,
 					   KEY_SHIFTS[ready_round_key - 1]));
 	ready_round_key++;
 	BinStr round_key = append(key_block_C, key_block_D);
-	round_key = replace(round_key, rPermutation(round_key));
+	round_key = set(round_key, rPermutation(round_key));
 	return round_key;
 }
 
@@ -223,7 +223,7 @@ BinStr sBox(BinStr block) {
 		int start = box * 6;
 		BinStr rowStr = snip(block, start, start);
 		BinStr rowEnd = snip(block, start + 5, start + 5);
-		rowStr = replace(rowStr, append(rowStr, rowEnd));
+		rowStr = set(rowStr, append(rowStr, rowEnd));
 		int row = toDecimal(rowStr);
         destroy_BinStr(rowStr);
         destroy_BinStr(rowEnd);
@@ -236,8 +236,8 @@ BinStr sBox(BinStr block) {
 		// Find the relevant element and convert it
         int element = S_BOX[box][(S_BOX_COLS * row) + col];
 		BinStr bin_element = int_to_BinStr(element);
-		bin_element = replace(bin_element, cut(bin_element, 4)); 
-		new = replace(new, append(new, bin_element));
+		bin_element = set(bin_element, cut(bin_element, 4)); 
+		new = set(new, append(new, bin_element));
         destroy_BinStr(bin_element);
 	}
 	return new;
@@ -252,9 +252,9 @@ BinStr DESroundFunction(BinStr block, BinStr key) {
 	assert(block != NULL && block->length == DES_BLOCK_SIZE / 2
 	       && key != NULL && key->length == DES_ROUND_KEY_SIZE);	
 	BinStr new = ePermutation(block);
-	new = replace(new, XOR(new, key));
-	new = replace(new, sBox(new));
-	new = replace(new, pPermutation(new));
+	new = set(new, XOR(new, key));
+	new = set(new, sBox(new));
+	new = set(new, pPermutation(new));
 	return new;
 }
 
@@ -277,7 +277,7 @@ BinStr DESencrypt(BinStr block, BinStr key) {
     for(int i = 0; i < DES_ROUNDS; i++) {
         BinStr round_key = generateRoundKey();
         BinStr new_R = DESroundFunction(R, round_key);
-        new_R = replace(new_R, XOR(new_R, L));
+        new_R = set(new_R, XOR(new_R, L));
         destroy_BinStr(L);
         L = R;
         R = new_R;
@@ -286,8 +286,8 @@ BinStr DESencrypt(BinStr block, BinStr key) {
 
     // Destroy the key generator and return the result
     destroyKeyGenerator();
-    new = replace(new, append(R, L));
-    new = replace(new, fPermutation(new));
+    new = set(new, append(R, L));
+    new = set(new, fPermutation(new));
     destroy_BinStr(L);
     destroy_BinStr(R);
     return new;
