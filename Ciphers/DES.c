@@ -304,9 +304,11 @@ BinStr DESdecrypt(BinStr block, BinStr key) {
 // See DES.h for details
 BlockCipher DES_initialize(BinStr key, char* mode) {
     assert(key != NULL && mode != NULL && key->length == DES_KEY_SIZE);
+    // TODO: Add a key verification    
     BlockCipher DES = malloc(sizeof(struct blockcipher));
     DES->key = key;
     DES->encryptionMode = mode;
+    DES->blockSize = DES_BLOCK_SIZE;
     DES->encrypt = DESencrypt;
     DES->decrypt = DESdecrypt;
     return DES;

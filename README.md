@@ -33,8 +33,10 @@ gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 ```
 
 ## To-do list:
+* Refactor "replace" to "set"
 * DES decryption block algorithm
-* Add a generic block cipher structure with fields
+* Add more encryption modes
 * Convert from c99 mode (to save encryption time)
 * Try to remove -lm requirement as well? (store lg2)
 * Only generate round keys once for DES
+* Add a hex-output method for BinStr
