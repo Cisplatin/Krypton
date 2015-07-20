@@ -294,7 +294,7 @@ BinStr DESencrypt(BinStr block, BinStr key) {
 }
 
 
-// See DES.h for details
+// TODO: Write a description
 BinStr DESdecrypt(BinStr block, BinStr key) {
 	assert(block != NULL && key != NULL && key->length == DES_KEY_SIZE);
 	// TODO: Decrypt the message using DES
@@ -302,13 +302,17 @@ BinStr DESdecrypt(BinStr block, BinStr key) {
 }
 
 // See DES.h for details
-BinStr DES_initialize(BinStr key, char* mode) {
-    assert(key != NULL && mode != NULL &&
-           key->length == DES_KEY_SIZE);
-    BlockCipher DES = malloc(sizeof(blockcipher));
+BlockCipher DES_initialize(BinStr key, char* mode) {
+    assert(key != NULL && mode != NULL && key->length == DES_KEY_SIZE);
+    BlockCipher DES = malloc(sizeof(struct blockcipher));
     DES->key = key;
-    DES->mode = mode;
+    DES->encryptionMode = mode;
     DES->encrypt = DESencrypt;
     DES->decrypt = DESdecrypt;
     return DES;
+}
+
+// See DES.h for details
+void DES_destroy(BlockCipher DES) {
+    free(DES);
 }
