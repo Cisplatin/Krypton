@@ -6,14 +6,14 @@
 
 #include "../Structures/BinStr.h"
 
-extern const int DES_BLOCK_SIZE;
+// DESencrypt(block, key) encrypts the given message using the given key via the DES.
+// requires: block and key are valid BinStr and block->length == DES_BLOCK_SIZE and
+//           key->length == DES_KEY_SIZE
+BinStr DESencrypt(BinStr block, BinStr key);
 
-// DESencrypt(msg, key) encrypts the given message using the given key via the DES.
-// requires: msg and key are valid BinStr and key->length == DES_KEY_SIZE
-BinStr DESencrypt(BinStr msg, BinStr key);
-
-// DESdecrypt(cip, key) decrypts the given cipher using the given key via the DES.
-// requires: cip and key are valid BinStr and key->length == DES_KEY_SIZE
-BinStr DESdecrypt(BinStr cip, BinStr key);
+// DESdecrypt(block, key) decrypts the given cipher using the given key via the DES.
+// requires: block and key are valid BinStr and block->length == DES_BLOCK_SIZE
+//           and key->length == DES_KEY_SIZE
+BinStr DESdecrypt(BinStr block, BinStr key);
 
 #endif

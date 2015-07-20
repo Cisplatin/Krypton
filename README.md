@@ -33,5 +33,7 @@ gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 ```
 
 ## To-do list:
-* Rest of DES algorithm
-* Test ECB mode block ciphering
+* DES decryption block algorithm
+* Add a generic block cipher structure with fields
+* Convert from c99 mode (to save encryption time)
+* Try to remove -lm requirement as well? (store lg2)

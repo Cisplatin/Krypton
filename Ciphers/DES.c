@@ -5,9 +5,9 @@
 #include <assert.h>
 #include <stdlib.h>
 
+const int DES_BLOCK_SIZE = 64;
 const int DES_KEY_SIZE = 64;
 
-const int DES_BLOCK_SIZE = 64;
 const int DES_ROUND_KEY_SIZE = 48;
 const int DES_ROUNDS = 16;
 
@@ -257,12 +257,12 @@ BinStr DESroundFunction(BinStr block, BinStr key) {
 	return new;
 }
 
-// encryptBlock(block, key) returns a new BinStr that is the evaluation of the
+// DESencrypt(block, key) returns a new BinStr that is the evaluation of the
 //   DES fesitel network on block using the given key.
 // effects: allocates memory to a new BinStr
 // requires: block is a valid BinStr and block->length == DES_BLOCK_SIZE
 //           and key is a valid BinStr and key->length == DES_KEY_SIZE
-BinStr encryptBlock(BinStr block, BinStr key) {
+BinStr DESencrypt(BinStr block, BinStr key) {
     assert(block != NULL && block->length == DES_BLOCK_SIZE &&
            key != NULL && key->length == DES_KEY_SIZE);
     
@@ -292,17 +292,11 @@ BinStr encryptBlock(BinStr block, BinStr key) {
     return new;
 }
 
-// See DES.h for details
-BinStr DESencrypt(BinStr msg, BinStr key) {
-	assert(msg != NULL && key != NULL && key->length == DES_KEY_SIZE);
-    // TODO: Encrypt the message using DES
-	return msg;
-}
 
 // See DES.h for details
-BinStr DESdecrypt(BinStr cip, BinStr key) {
-	assert(cip != NULL && key != NULL && key->length == DES_KEY_SIZE);
+BinStr DESdecrypt(BinStr block, BinStr key) {
+	assert(block != NULL && key != NULL && key->length == DES_KEY_SIZE);
 	// TODO: Decrypt the message using DES
-	return cip;
+	return block;
 }
 
