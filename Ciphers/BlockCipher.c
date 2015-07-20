@@ -48,3 +48,13 @@ BinStr BlockEncrypt(BinStr msg, BlockCipher cipher) {
         return NULL; // TODO: Throw an error instead of returning NULL
     }
 }
+
+// See BlockCipher.h for details
+BinStr BlockDecrypt(BinStr cip, BlockCipher cipher) {
+    assert(cip != NULL && cipher != NULL);
+    if(strcmp(cipher->encryptionMode, "ECB") == 0) {
+        return ECBdecrypt(cip, cipher);
+    } else {
+        return NULL; // TODO: Throw an error instead of returning NULL
+    }
+}
