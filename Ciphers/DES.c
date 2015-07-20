@@ -294,17 +294,21 @@ BinStr DESencrypt(BinStr block, BinStr key) {
 }
 
 
-// TODO: Write a description
+// DESdecrypt(block, key) returns a new BinStr that is the evaluation of the    
+//   DES fesitel network on block using the given key.                          
+// effects: allocates memory to a new BinStr                                    
+// requires: block is a valid BinStr and block->length == DES_BLOCK_SIZE        
+//           and key is a valid BinStr and key->length == DES_KEY_SIZE
 BinStr DESdecrypt(BinStr block, BinStr key) {
 	assert(block != NULL && key != NULL && key->length == DES_KEY_SIZE);
-	// TODO: Decrypt the message using DES
-	return block;
+    // TODO: Actually decrypt the block
+    return block; 
 }
 
 // See DES.h for details
 BlockCipher DES_initialize(BinStr key, char* mode) {
     assert(key != NULL && mode != NULL && key->length == DES_KEY_SIZE);
-    // TODO: Add a key verification    
+    // TODO: Add a key verification, pre-load round keys
     BlockCipher DES = malloc(sizeof(struct blockcipher));
     DES->key = key;
     DES->encryptionMode = mode;
