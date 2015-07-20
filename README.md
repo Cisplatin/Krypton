@@ -37,3 +37,4 @@ gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 * Add a generic block cipher structure with fields
 * Convert from c99 mode (to save encryption time)
 * Try to remove -lm requirement as well? (store lg2)
+* Only generate round keys once for DES
