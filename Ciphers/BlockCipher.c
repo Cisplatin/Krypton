@@ -6,11 +6,41 @@
 #include <stdlib.h>
 #include <string.h>
 
-// TODO: Document the function
-BinStr ECBencrypt(BinStr msg, BlockCipher cipher) {
-    // TODO: Write the function
-    return msg;
-}
+
+// ECBencrypt(msg, cipher) encrypts the given message using an  
+//   ECB mode block cipher and the given key                                    
+// requires: msg is a valid BinStr, cipher is a block cipher            
+BinStr ECBencrypt(BinStr msg, BlockCipher cipher) {                                              
+    assert(msg != NULL && ciper != NULL && 
+           msg->length % cipher->blockSize == 0);                                       
+    BinStr cip = empty_BinStr(0);                                               
+    for(int i = 0; i < msg->length; i += cipher->blockSize) {                           
+        BinStr to_app = snip(msg, i, i + cipher->blockSize - 1);                        
+        to_app = replace(to_app, *(cipher->encrypt)(to_app, key));                       
+        cip = replace(cip, append(cip, to_app));                                
+        destroy_BinStr(to_app);                                                 
+    }                                                                           
+    return cip;                                                                 
+}                                                                               
+                                                  
+/*                              
+// ECBdecrypt(cip, key, cipher, blockSize) decrypts the given message using an  
+//   ECB mode block cipher and the given key                                    
+// requires: msg and key are valid BinStrs, cipher is a block cipher            
+BinStr ECBdecrypt(BinStr cip, BinStr key, BinStr (*cipher)(BinStr, BinStr),     
+                  int blockSize) {                                              
+    assert(cip != NULL && key != NULL && blockSize > 0 &&                       
+           cip->length % blockSize == 0);                                       
+    BinStr msg = empty_BinStr(0);                                               
+    for(int i = 0; i < cip->length; i += blockSize) {                           
+        BinStr to_app = snip(cip, i, i + blockSize - 1);                        
+        to_app = replace(to_app, (*cipher)(to_app, key));                       
+        msg = replace(cip, append(msg, to_app));                                
+        destroy_BinStr(to_app);                                                 
+    }                                                                           
+    return msg;                                                                 
+}                
+*/
 
 // See BlockCipher.h for details
 BinStr BlockEncrypt(BinStr msg, BlockCipher cipher) {
