@@ -4,6 +4,7 @@
 #include "DES.h"
 #include <assert.h>
 #include <stdlib.h>
+#include <string.h>
 
 const int DES_BLOCK_SIZE = 64;
 const int DES_KEY_SIZE = 64;
@@ -300,3 +301,14 @@ BinStr DESdecrypt(BinStr block, BinStr key) {
 	return block;
 }
 
+// See DES.h for details
+BinStr DES_initialize(BinStr key, char* mode) {
+    assert(key != NULL && mode != NULL &&
+           key->length == DES_KEY_SIZE);
+    BlockCipher DES = malloc(sizeof(blockcipher));
+    DES->key = key;
+    DES->mode = mode;
+    DES->encrypt = DESencrypt;
+    DES->decrypt = DESdecrypt;
+    return DES;
+}

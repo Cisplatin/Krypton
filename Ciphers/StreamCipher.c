@@ -1,5 +1,5 @@
 /* StreamCipher.c - Written by Xenonstory on April 27, 2015 *
- * An implementation of the a Stream Cipher                 */
+ * An implementation of a Stream Cipher                 */
 
 #include "StreamCipher.h"
 #include <assert.h>
