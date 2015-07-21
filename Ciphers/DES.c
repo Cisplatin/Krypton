@@ -10,7 +10,6 @@ const int DES_BLOCK_SIZE = 64;
 const int DES_KEY_SIZE = 64;
 
 const int DES_ROUND_KEY_SIZE = 48;
-const int DES_ROUNDS = 16;
 
 const int PC1_PERMUTATION_SIZE = 28;
 int PC1_C_PERMUTATION[] = {57, 49, 41, 33, 25, 17,  9,
@@ -24,6 +23,7 @@ int PC1_D_PERMUTATION[] = {63, 55, 47, 39, 31, 23, 15,
 int KEY_SHIFTS[] = {1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
 int ready_round_key = 0;
 BinStr key_block_C, key_block_D;
+BinStr round_keys[DES_ROUNDS];
 
 const int PC2_PERMUTATION_SIZE = 48;
 int PC2_PERMUTATION[] = {14, 17, 11, 24,  1,  5,
@@ -275,13 +275,11 @@ BinStr DESencrypt(BinStr block, BinStr key) {
 
     // Go through the feistel network
     for(int i = 0; i < DES_ROUNDS; i++) {
-        BinStr round_key = generateRoundKey();
-        BinStr new_R = DESroundFunction(R, round_key);
+        BinStr new_R = DESroundFunction(R, round_keys[i]);
         new_R = set(new_R, XOR(new_R, L));
         destroy_BinStr(L);
         L = R;
         R = new_R;
-        destroy_BinStr(round_key);
     }
 
     // Destroy the key generator and return the result
@@ -308,7 +306,15 @@ BinStr DESdecrypt(BinStr block, BinStr key) {
 // See DES.h for details
 BlockCipher DES_initialize(BinStr key, char* mode) {
     assert(key != NULL && mode != NULL && key->length == DES_KEY_SIZE);
-    // TODO: Add a key verification, pre-load round keys
+    // TODO: Add a key verification
+    // Pre-load the round keys
+    initializeKeyGenerator(key); 
+    for(int i = 0; i < DES_ROUNDS; i++) {
+        round_keys[i] = generateRoundKey();
+    }
+    destroyKeyGenerator();
+
+    // Initialize and returns the prepared DES object
     BlockCipher DES = malloc(sizeof(struct blockcipher));
     DES->key = key;
     DES->encryptionMode = mode;
@@ -321,4 +327,7 @@ BlockCipher DES_initialize(BinStr key, char* mode) {
 // See DES.h for details
 void DES_destroy(BlockCipher DES) {
     free(DES);
+    for(int i = 0; i < DES_ROUNDS; i++) {
+        free(round_keys[i]);
+    }
 }
