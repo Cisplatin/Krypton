@@ -8,8 +8,8 @@ Following is an example of an implementation of the RC4 stream cipher:
 
 ```
 #include <stdio.h>
-#include "Ciphers/StreamCipher.h"
-#include "PRGs/RC4.h"
+#include "Wrappers/StreamCipher.h
+#include "Ciphers/RC4.h"
 
 int main() {
 	BinStr msg = ASCII_to_BinStr("This is my plain text, which will be encrypted.");
