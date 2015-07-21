@@ -21,8 +21,6 @@ int PC1_D_PERMUTATION[] = {63, 55, 47, 39, 31, 23, 15,
                            14,  6, 61, 53, 45, 37, 29,
                            21, 13,  5, 28, 20, 12,  4};
 int KEY_SHIFTS[] = {1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
-int ready_round_key = 0;
-BinStr key_block_C, key_block_D;
 BinStr round_keys[DES_ROUNDS];
 
 const int PC2_PERMUTATION_SIZE = 48;
@@ -121,43 +119,29 @@ BinStr rPermutation(BinStr key) {
 	return permutate(key, PC2_PERMUTATION, PC2_PERMUTATION_SIZE, 1);
 }
 
-// initializeKeyGenerator(key) initializes the "generator" for the various
-//   round keys to be used by DES
+// initializeRoundKeys(key) performs the DES key expansions and stores them
+//   for later use by the DES algorithm
 // requires: key is a valid BinStr and key->length == DES_KEY_SIZE
-// effects: sets the state of this program to be ready for generating
-void initializeKeyGenerator(BinStr key) {
-	assert(key != NULL && key->length == DES_KEY_SIZE);
-	key_block_C = cPermutation(key);
-	key_block_D = dPermutation(key);
-	ready_round_key = 1;
-}
+// effects: sets the state of this program to be ready for DES
+void initializeRoundKeys(BinStr key) {
+    assert(key != NULL && key->length == DES_KEY_SIZE);
+    
+    // Performs the initial key choice permutation
+    BinStr key_block_C = cPermutation(key);
+    BinStr key_block_D = dPermutation(key);
 
-// generateRoundKey() returns the latest round key to be used. User must free
-//   the returned round key
-// requires: initializeKeyGenerator() was called, and generateRoundKey()
-//           was not called more than the number of DES rounds
-// effects: increments the state of the key generator, allocates memory
-//          to a new round key
-BinStr generateRoundKey() {
-	assert(ready_round_key > 0 && ready_round_key <= DES_ROUNDS);
-	key_block_C = set(key_block_C, rotateL(key_block_C,
-					   KEY_SHIFTS[ready_round_key - 1]));
-	key_block_D = set(key_block_D, rotateL(key_block_D,
-					   KEY_SHIFTS[ready_round_key - 1]));
-	ready_round_key++;
-	BinStr round_key = append(key_block_C, key_block_D);
-	round_key = set(round_key, rPermutation(round_key));
-	return round_key;
-}
+    // Generates the three round keys
+    for(int i = 0; i < DES_ROUNDS; i++) {
+        key_block_C = set(key_block_C, rotateL(key_block_C, KEY_SHIFTS[i]));
+        key_block_D = set(key_block_D, rotateL(key_block_D, KEY_SHIFTS[i]));
+        BinStr round_key = append(key_block_C, key_block_D);
+        round_key = set(round_key, rPermutation(round_key));
+        round_keys[i] = round_key
+    }
 
-// destroyKeyGenerator() destroys the "generator" for the various
-//   round keys used by DES
-// requires: initializeKeyGenerator() was called at some point
-// effects: restarts the state of this generator to null
-void destroyKeyGenerator() {
-	destroy_BinStr(key_block_C);
-	destroy_BinStr(key_block_D);
-	ready_round_key = 0;
+    // Cleans up the key generator
+    destroy_BinStr(key_block_C);
+    destroy_BinStr(key_block_D);   
 }
 
 // verifyKey(key) returns false if the key given does not pass DES verification
@@ -308,11 +292,7 @@ BlockCipher DES_initialize(BinStr key, char* mode) {
     assert(key != NULL && mode != NULL && key->length == DES_KEY_SIZE);
     // TODO: Add a key verification
     // Pre-load the round keys
-    initializeKeyGenerator(key); 
-    for(int i = 0; i < DES_ROUNDS; i++) {
-        round_keys[i] = generateRoundKey();
-    }
-    destroyKeyGenerator();
+    initializeKeyGenerator(key);
 
     // Initialize and returns the prepared DES object
     BlockCipher DES = malloc(sizeof(struct blockcipher));
