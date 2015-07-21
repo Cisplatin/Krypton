@@ -5,7 +5,7 @@
 #define DES_H
 
 #include "../Structures/BinStr.h"
-#include "BlockCipher.h"
+#include "../Wrappers/BlockCipher.h"
 
 // DESinitialize(key, mode) returns an instance of a block cipher ready for
 //   decryption and encryption using the given key and mode

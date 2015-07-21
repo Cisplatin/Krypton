@@ -32,11 +32,11 @@ To compile the above file, the following should be used:
 gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 ```
 
-## To-do list:
+## High Priority To-do list:
 * DES decryption block algorithm
-* Add more encryption modes
 * Convert from c99 mode (to save encryption time)
 * Try to remove -lm requirement as well? (store lg2)
 * Only generate round keys once for DES
 * Add a hex-output method for BinStr
-* Add StreamCipher wrapper
+* Add StreamCipher wrapper, and continuation option (inc OTP and RC4)
+* Finish off all the various TODOs
