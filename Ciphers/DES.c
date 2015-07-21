@@ -136,12 +136,21 @@ void initializeRoundKeys(BinStr key) {
         key_block_D = set(key_block_D, rotateL(key_block_D, KEY_SHIFTS[i]));
         BinStr round_key = append(key_block_C, key_block_D);
         round_key = set(round_key, rPermutation(round_key));
-        round_keys[i] = round_key
+        round_keys[i] = round_key;
     }
 
     // Cleans up the key generator
     destroy_BinStr(key_block_C);
     destroy_BinStr(key_block_D);   
+}
+
+// destroyRoundKeys() frees the memory associated with the round keys
+// requires: initializeRoundKeys() was called
+// effects: frees memory taken by the round keys
+void destroyRoundKeys() {
+    for(int i = 0; i < DES_ROUNDS; i++) {
+        free(round_keys[i]);
+    }
 }
 
 // verifyKey(key) returns false if the key given does not pass DES verification
@@ -251,8 +260,7 @@ BinStr DESencrypt(BinStr block, BinStr key) {
     assert(block != NULL && block->length == DES_BLOCK_SIZE &&
            key != NULL && key->length == DES_KEY_SIZE);
     
-    // Prepare the key generator and start the initial L and R blocks
-    initializeKeyGenerator(key);
+    // Start the initial L and R blocks
     BinStr new = iPermutation(block);
     BinStr L = snip(new, 0, (DES_BLOCK_SIZE / 2) - 1);
     BinStr R = snip(new, DES_BLOCK_SIZE / 2, DES_BLOCK_SIZE - 1);    
@@ -266,8 +274,7 @@ BinStr DESencrypt(BinStr block, BinStr key) {
         R = new_R;
     }
 
-    // Destroy the key generator and return the result
-    destroyKeyGenerator();
+    // Return the results and clean up
     new = set(new, append(R, L));
     new = set(new, fPermutation(new));
     destroy_BinStr(L);
@@ -292,7 +299,7 @@ BlockCipher DES_initialize(BinStr key, char* mode) {
     assert(key != NULL && mode != NULL && key->length == DES_KEY_SIZE);
     // TODO: Add a key verification
     // Pre-load the round keys
-    initializeKeyGenerator(key);
+    initializeRoundKeys(key);
 
     // Initialize and returns the prepared DES object
     BlockCipher DES = malloc(sizeof(struct blockcipher));
@@ -307,7 +314,5 @@ BlockCipher DES_initialize(BinStr key, char* mode) {
 // See DES.h for details
 void DES_destroy(BlockCipher DES) {
     free(DES);
-    for(int i = 0; i < DES_ROUNDS; i++) {
-        free(round_keys[i]);
-    }
+    destroyRoundKeys();
 }
