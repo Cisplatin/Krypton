@@ -5,22 +5,25 @@
 #include <assert.h>
 #include <stdlib.h>
 
-// See OTP.h for details
-BinStr OTPencrypt(BinStr msg, BinStr key) {
-	assert(msg != NULL && key != NULL && msg->length == key->length);
-	BinStr cip = empty_BinStr(msg->length);
-	for(int i = 0; i < msg->length; i++) {
-		cip->bits[i] = msg->bits[i] ^ key->bits[i];
-	}
-	return cip;
+// OTP_PRG(key, n) is the lamest function I've ever written. Just returns
+//   the key after assuring everything is OK.
+// requires: key is a valid BinStr, n >= 0
+// effects: allocates memory to a new key
+BinStr OTP_PRG(BinStr key, int n) {
+    assert(key != NULL && n >= 0);
+    return copy(key);
 }
 
-// See OTP.h for details
-BinStr OTPdecrypt(BinStr cip, BinStr key) {
-	assert(cip != NULL && key != NULL && cip->length == key->length);
-	BinStr msg = empty_BinStr(cip->length);
-	for(int i = 0; i < msg->length; i++) {
-		msg->bits[i] = cip->bits[i] ^ key->bits[i];
-	}
-	return msg;
-}
+// See OTP.h for details                                                        
+StreamCipher OTP_initialize(BinStr key) {                                       
+    assert(key != NULL);                                                        
+    StreamCipher OTP = malloc(sizeof(struct streamcipher));                     
+    OTP->key = key;                                                             
+    OTP->PRG = OTP_PRG;                                                         
+    return OTP;                                                                 
+}                                                                               
+                                                                                
+// See OTP.h for details                                                        
+void OTP_destroy(StreamCipher OTP) {                                            
+    free(OTP);                                                                  
+}                 

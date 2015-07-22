@@ -21,7 +21,7 @@ BinStr StreamEncrypt(BinStr msg, StreamCipher cipher) {
 BinStr StreamDecrypt(BinStr cip, StreamCipher cipher) {
 	assert(cip != NULL && cipher != NULL);
 	BinStr expKey = (*cipher->PRG)(cipher->key, cip->length);
-	BinStr msg = empty_BinStr(cip->length);
+    BinStr msg = empty_BinStr(cip->length);
 	for(int i = 0; i < msg->length; i++) {
 		msg->bits[i] = cip->bits[i] ^ expKey->bits[i];
 	}

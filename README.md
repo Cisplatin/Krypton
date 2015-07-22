@@ -28,6 +28,8 @@ int main() {
     // to make sure we get the same thing (we do!)                              
     printf("My original message was:\n");                                       
     printBin(message); printf("\n");                                            
+    PRINTF("My cipher text was:\n");
+    printBin(cipher); printf("\n");
     printf("My decrypted message was:\n");                                      
     printBin(decrypted); printf("\n");                                          
                                                                                 
@@ -52,5 +54,4 @@ gcc Example.c Structures/BinStr.c Generics/StreamCipher.c Cipherss/DES.c -std=c9
 * Convert from c99 mode (to save encryption time)
 * Try to remove -lm requirement as well? (store lg2)
 * Add a hex-output method for BinStr
-* Adapt OTP to wrapper structure
 * Finish off all the various TODOs

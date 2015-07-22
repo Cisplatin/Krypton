@@ -7,7 +7,7 @@
 #include "../Structures/BinStr.h"
 #include "../Generics/StreamCipher.h"
 
-// RC4_initialize(key) returns an instance of a STREAM cipher ready for     
+// RC4_initialize(key) returns an instance of a stream cipher ready for     
 //   decryption and encryption using the given key and mode                     
 // requires: key != NULL                      
 // effects: allocates memory to a new RC4 cipher                                

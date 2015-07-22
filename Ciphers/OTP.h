@@ -5,13 +5,17 @@
 #define OTP_H
 
 #include "../Structures/BinStr.h"
+#include "../Generics/StreamCipher.h"
 
-// OTPencrypt(msg, key) encrypts the given message using the given key via the OTP.
-// requires: msg and key are valid BinStr and msg->length = key->length
-BinStr OTPencrypt(BinStr msg, BinStr key);
-
-// OTPdecrypt(cip, key) decrypts the given cipher text using the given key via the OTP.
-// requires: cip and key are valid BinStr and cip->length = key->length
-BinStr OTPdecrypt(BinStr cip, BinStr key);
+// OTP_initialize(key) returns an instance of a stream cipher ready for         
+//   decryption and encryption using the given key and mode                     
+// requires: key != NULL                                                        
+// effects: allocates memory to a new OTP cipher                                
+StreamCipher OTP_initialize(BinStr key);                                        
+                                                                                
+// OTP_destroy(cipher) destroys the given instance of the OTP block cipher       
+// requires: cipher != NULL and cipher is an OTP stream cipher                    
+// effects: frees memory used by the cipher                                    
+void OTP_destroy(StreamCipher OTP);   
 
 #endif
