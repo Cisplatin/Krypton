@@ -289,9 +289,29 @@ BinStr DESencrypt(BinStr block, BinStr key) {
 // requires: block is a valid BinStr and block->length == DES_BLOCK_SIZE        
 //           and key is a valid BinStr and key->length == DES_KEY_SIZE
 BinStr DESdecrypt(BinStr block, BinStr key) {
-	assert(block != NULL && key != NULL && key->length == DES_KEY_SIZE);
-    // TODO: Actually decrypt the block
-    return block; 
+    assert(block != NULL && block->length == DES_BLOCK_SIZE &&                  
+           key != NULL && key->length == DES_KEY_SIZE);                         
+                                                                                
+    // Start the initial L and R blocks                                         
+    BinStr new = iPermutation(block);                                           
+    BinStr L = snip(new, 0, (DES_BLOCK_SIZE / 2) - 1);                          
+    BinStr R = snip(new, DES_BLOCK_SIZE / 2, DES_BLOCK_SIZE - 1);               
+                                                                                
+    // Go through the feistel network                                           
+    for(int i = DES_ROUNDS - 1; i >= 0; i--) {                                       
+        BinStr new_R = DESroundFunction(R, round_keys[i]);                      
+        new_R = set(new_R, XOR(new_R, L));                                      
+        destroy_BinStr(L);                                                      
+        L = R;                                                                  
+        R = new_R;                                                              
+    }                                                                           
+                                                                                
+    // Return the results and clean up                                          
+    new = set(new, append(R, L));                                               
+    new = set(new, fPermutation(new));                                          
+    destroy_BinStr(L);                                                          
+    destroy_BinStr(R);                                                          
+    return new;   
 }
 
 // See DES.h for details

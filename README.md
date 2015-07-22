@@ -33,7 +33,6 @@ gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 ```
 
 ## High Priority To-do list:
-* DES decryption block algorithm
 * Convert from c99 mode (to save encryption time)
 * Try to remove -lm requirement as well? (store lg2)
 * Add a hex-output method for BinStr
