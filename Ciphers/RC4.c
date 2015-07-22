@@ -6,8 +6,10 @@
 #include <stdlib.h>
 
 // See RC4.h for details
-BinStr RC4(BinStr key, int n) {
-	// Start with the key-scheduling algorithm
+BinStr RC4_PRG(BinStr key, int n) {
+	assert(key != NULL && n >= 0);
+    
+    // Start with the key-scheduling algorithm
 	int *S = malloc(sizeof(int) * MAX_BYTE);
 	for(int i = 0; i < MAX_BYTE; i++) {
 		S[i] = i;
@@ -40,3 +42,17 @@ BinStr RC4(BinStr key, int n) {
 	free(S);
 	return new;
 }
+
+// See RC4.h for details                                                     
+StreamCipher RC4_initialize(BinStr key) {                            
+    assert(key != NULL);
+    StreamCipher RC4 = malloc(sizeof(struct streamcipher));                       
+    RC4->key = key;                                                             
+    RC4->PRG = RC4_PRG;
+    return RC4;                                                                 
+}                                                                               
+                                                                                
+// See RC4.h for details                                                        
+void RC4_destroy(StreamCipher RC4) {                                             
+    free(RC4);                                                                                                                           
+}                          

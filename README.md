@@ -36,5 +36,6 @@ gcc Example.c Structures/BinStr.c Ciphers/StreamCipher.c PRGs/RC4.c -std=c99 -lm
 * Convert from c99 mode (to save encryption time)
 * Try to remove -lm requirement as well? (store lg2)
 * Add a hex-output method for BinStr
-* Add StreamCipher wrapper, and continuation option (inc OTP and RC4)
+* Adapt OTP to wrapper structure
 * Finish off all the various TODOs
+* Update README example

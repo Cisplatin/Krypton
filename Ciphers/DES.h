@@ -7,7 +7,7 @@
 #define DES_ROUNDS 16
 
 #include "../Structures/BinStr.h"
-#include "../Wrappers/BlockCipher.h"
+#include "../Generics/BlockCipher.h"
 
 // DESinitialize(key, mode) returns an instance of a block cipher ready for
 //   decryption and encryption using the given key and mode

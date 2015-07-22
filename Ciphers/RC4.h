@@ -5,11 +5,17 @@
 #define RC4_H
 
 #include "../Structures/BinStr.h"
+#include "../Generics/StreamCipher.h"
 
-// RC4(key, n) returns the first n bits of the RC4 key-expansion of key. Returned BinStr must be
-//   freed by the user.
-// requires: key is a valid BinStr and n >= 0
-// effects: allocates memory to a new BinStr
-BinStr RC4(BinStr key, int n);
+// RC4_initialize(key) returns an instance of a STREAM cipher ready for     
+//   decryption and encryption using the given key and mode                     
+// requires: key != NULL                      
+// effects: allocates memory to a new RC4 cipher                                
+StreamCipher RC4_initialize(BinStr key);                             
+                                                                                
+// RC4_destroy(cipher) destroys the given instance of the RC4 block cipher       
+// requires: cipher != NULL and cipher is an RC4 stream cipher                    
+// effects: frees memory used by the cipher                                     
+void RC4_destroy(StreamCipher RC4);       
 
 #endif
