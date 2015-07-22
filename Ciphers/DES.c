@@ -317,8 +317,9 @@ BinStr DESdecrypt(BinStr block, BinStr key) {
 // See DES.h for details
 BlockCipher DES_initialize(BinStr key, char* mode) {
     assert(key != NULL && mode != NULL && key->length == DES_KEY_SIZE);
-    // TODO: Add a key verification
-    // Pre-load the round keys
+    
+    // Verify the key and pre-load the round keys
+    assert(verifyKey(key));
     initializeRoundKeys(key);
 
     // Initialize and returns the prepared DES object
