@@ -4,25 +4,24 @@ An implementation of some cryptographic standards written in C. Currently availi
 Krypton should not be used for security purposes. Many constructions implemented in Krypton have been openly broken for many years, such as DES and RC4, both of which contain inherent security flaws. Moreover, there are many attacks (such as hardware attacks) that were not accounted for during the designing of Krypton.
 
 ## Example
-All ciphers are designed to function in a similar manner. Following is an example of an implementation of the DES block cipher, which can be easily adapted to work with another cipher, such as RC4.
+All ciphers are designed to function in a similar manner. Following is an example of an implementation of the RC4 stream cipher, which can be easily adapted to work with another cipher, such as DES.
 
 ```C
 #include <stdio.h>                                                              
-#include "Ciphers/DES.h"                                                        
+#include "Ciphers/RC4.h"                                                        
                                                                                 
 int main() {                                                                    
-    // The message to be encrypted, "Krypton.", will be encrypted using DES,    
-    // which requires an 8-byte key. Both are defined here.                     
-    BinStr message = ASCII_to_BinStr("Krypton.");                               
-    BinStr key     = ASCII_to_BinStr("8bytekey");                               
+    // The message to be encrypted, "Krypton.", will be encrypted using RC4,    
+    // as well as the defined key.
+    BinStr message = ASCII_to_BinStr("This is my message to encrypt.");                               
+    BinStr key     = ASCII_to_BinStr("This is my key.");                               
                                                                                 
-    // We now create the BlockCipher object: here I have used the ECB           
-    // encryption mode                                                          
-    BlockCipher DES = DES_initialize(key, "ECB");                               
-    BinStr cipher = BlockEncrypt(message, DES);                                 
+    // We now create the StreamCipher struct                                       
+    StreamCipher RC4 = RC4_initialize(key);                               
+    BinStr cipher = StreamEncrypt(message, RC4);                                 
                                                                                 
     // We now decrypt the cipher text                                           
-    BinStr decrypted = BlockDecrypt(cipher, DES);                               
+    BinStr decrypted = StreamDecrypt(cipher, RC4);;                               
                                                                                 
     // We can print out the message and the decrypted message in binary         
     // to make sure we get the same thing (we do!)                              
@@ -38,7 +37,7 @@ int main() {
     destroy_BinStr(key);                                                        
     destroy_BinStr(cipher);                                                     
     destroy_BinStr(decrypted);                                                  
-    DES_destroy(DES);                                                           
+    RC4_destroy(RC4);                                                           
                                                                                 
     return 0;                                                                   
 }     
@@ -47,7 +46,7 @@ int main() {
 To compile the above file, the following should be used:
 
 ```Shell
-gcc Example.c Structures/BinStr.c Generics/StreamCipher.c Cipherss/DES.c -std=c99 -lm
+gcc Example.c Structures/BinStr.c Generics/StreamCipher.c Cipherss/RC4.c -std=c99 -lm
 ```
 
 ## High Priority To-do list:
