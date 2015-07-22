@@ -27,7 +27,7 @@ int main() {
     // to make sure we get the same thing (we do!)                              
     printf("My original message was:\n");                                       
     printBin(message); printf("\n");                                            
-    PRINTF("My cipher text was:\n");
+    printf("My cipher text was:\n");
     printBin(cipher); printf("\n");
     printf("My decrypted message was:\n");                                      
     printBin(decrypted); printf("\n");                                          
@@ -50,6 +50,4 @@ gcc Example.c Structures/BinStr.c Generics/StreamCipher.c Cipherss/RC4.c -std=c9
 ```
 
 ## High Priority To-do list:
-* Convert from c99 mode (to save encryption time)
-* Try to remove -lm requirement as well? (store lg2)
-* Add a hex-output method for BinStr
+* Add a hexadecimal input/output method for BinStr
