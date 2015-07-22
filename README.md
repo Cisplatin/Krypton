@@ -53,4 +53,3 @@ gcc Example.c Structures/BinStr.c Generics/StreamCipher.c Cipherss/RC4.c -std=c9
 * Convert from c99 mode (to save encryption time)
 * Try to remove -lm requirement as well? (store lg2)
 * Add a hex-output method for BinStr
-* Finish off all the various TODOs

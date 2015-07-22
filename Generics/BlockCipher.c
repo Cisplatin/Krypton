@@ -45,7 +45,7 @@ BinStr BlockEncrypt(BinStr msg, BlockCipher cipher) {
     if(strcmp(cipher->encryptionMode, "ECB") == 0) {
         return ECBencrypt(msg, cipher);
     } else {
-        return NULL; // TODO: Throw an error instead of returning NULL
+        return NULL;
     }
 }
 
@@ -55,6 +55,6 @@ BinStr BlockDecrypt(BinStr cip, BlockCipher cipher) {
     if(strcmp(cipher->encryptionMode, "ECB") == 0) {
         return ECBdecrypt(cip, cipher);
     } else {
-        return NULL; // TODO: Throw an error instead of returning NULL
+        return NULL;
     }
 }

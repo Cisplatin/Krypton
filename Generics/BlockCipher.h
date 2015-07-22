@@ -17,13 +17,15 @@ struct blockcipher {
 typedef struct blockcipher *BlockCipher;
 
 // BlockEncrypt(msg, cipher) encrypts the given message using the given block
-//   cipher, with pre-configured settings
+//   cipher, with pre-configured settings. Returns NULL if an invalid mode was
+//   given.
 // requires: msg != NULL and cipher != NULL
 // effects: allocates memory to a cipher text
 BinStr BlockEncrypt(BinStr msg, BlockCipher cipher);
 
 // BlockDecrypt(cip, cipher) decrypts the given ciphertext using the given
-//   block cipher, with pre-configured settings
+//   block cipher, with pre-configured settings. Returns NULL If an invalid
+//   mode was given.
 // requires: cip != NULL and cipher != NULL
 // effects: allocates memory to a message
 BinStr BlockDecrypt(BinStr cip, BlockCipher cipher);
