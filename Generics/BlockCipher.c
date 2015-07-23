@@ -38,14 +38,13 @@ BinStr CBCdecrypt(BinStr cip, BinStr IV, BlockCipher cipher) {
            IV->length % cipher->blockSize == 0);
     BinStr msg = empty_BinStr(0);                                               
     BinStr prev = copy(IV);                                                     
-    for(int i = 0; i < msg->length; i += cipher->blockSize) {                   
-        BinStr to_app = snip(msg, i, i + cipher->blockSize - 1); 
-        BinStr buffer = to_app;                                              
-        to_app = (*cipher->encrypt)(to_app, cipher->key);          
-        to_app = set(prev, XOR(prev, to_app));
+    for(int i = 0; i < cip->length; i += cipher->blockSize) {                   
+        BinStr buffer = snip(cip, i, i + cipher->blockSize - 1); 
+        BinStr to_app = (*cipher->encrypt)(buffer, cipher->key);          
+        to_app = set(to_app, XOR(prev, to_app));
         destroy_BinStr(prev);
         prev = buffer;
-        cip = set(cip, append(cip, to_app));                                    
+        msg = set(msg, append(msg, to_app));                                    
     }                                                                           
     destroy_BinStr(prev);                                                       
     return msg;                    
@@ -91,7 +90,7 @@ BinStr BlockEncrypt(BinStr msg, BinStr IV, BlockCipher cipher) {
     if(strcmp(cipher->encryptionMode, "ECB") == 0) {
         return ECBencrypt(msg, cipher);
     } else if (strcmp(cipher->encryptionMode, "CBC") == 0) {
-        return CBCEncrypt(msg, IV, cipher);
+        return CBCencrypt(msg, IV, cipher);
     } else {
         return NULL;
     }
