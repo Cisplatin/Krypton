@@ -48,9 +48,3 @@ To compile the above file, the following should be used:
 ```Shell
 gcc Example.c Structures/BinStr.c Generics/StreamCipher.c Cipherss/RC4.c -std=c99 -lm
 ```
-
-## Upcoming features:
-* More block cipher modes of encryption (CBC, CTR, etc.)
-* The AES block cipher
-* A text file input/output method for BinStr
-* A hexadecimal input/output method for BinStr
