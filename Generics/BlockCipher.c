@@ -14,8 +14,18 @@ BinStr CBCencrypt(BinStr msg, BinStr IV, BlockCipher cipher) {
     assert(msg != NULL && IV != NULL && cipher != NULL &&
            msg->length % cipher->blockSize == 0 &&
            IV->length % cipher->blockSize == 0);
-    // TODO: Actually encrypt
-    return msg;
+    BinStr cip = empty_BinStr(0);
+    BinStr prev = copy(IV);
+    for(int i = 0; i < msg->length; i += cipher->blockSize) {
+        BinStr to_app = snip(msg, i, i + cipher->blockSize - 1); 
+        to_app = set(to_app, XOR(prev, to_app));
+        to_app = set(to_app, (*cipher->encrypt)(to_app, cipher->key));
+        destroy_BinStr(prev);
+        prev = to_app;
+        cip = set(cip, append(cip, to_app));
+    }
+    destroy_BinStr(prev);
+    return cip;
 }
 
 // CBCdecrypt(cip, IV, cipher) decrypts the given message using the given
@@ -26,8 +36,19 @@ BinStr CBCdecrypt(BinStr cip, BinStr IV, BlockCipher cipher) {
     assert(cip != NULL && IV != NULL && cipher != NULL &&
            cip->length % cipher->blockSize == 0 &&
            IV->length % cipher->blockSize == 0);
-    // TODO: Actually decrypt
-    return cip;
+    BinStr msg = empty_BinStr(0);                                               
+    BinStr prev = copy(IV);                                                     
+    for(int i = 0; i < msg->length; i += cipher->blockSize) {                   
+        BinStr to_app = snip(msg, i, i + cipher->blockSize - 1); 
+        BinStr buffer = to_app;                                              
+        to_app = (*cipher->encrypt)(to_app, cipher->key);          
+        to_app = set(prev, XOR(prev, to_app));
+        destroy_BinStr(prev);
+        prev = buffer;
+        cip = set(cip, append(cip, to_app));                                    
+    }                                                                           
+    destroy_BinStr(prev);                                                       
+    return msg;                    
 }
 
 // ECBencrypt(msg, cipher) encrypts the given message using an  
