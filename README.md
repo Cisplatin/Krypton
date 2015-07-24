@@ -54,3 +54,6 @@ To compile the above file, the following should be used:
 ```Bash
 gcc Example.c Structures/BinStr.c Generics/BlockCipher.c Ciphers/DES.c -std=c99 -lm
 ```
+
+# Upcoming:
+* Remove key parameter from block cipher encryption/decryption
