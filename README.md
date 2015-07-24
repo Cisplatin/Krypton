@@ -7,7 +7,8 @@ Krypton should not be used for security purposes. Many constructions implemented
 All ciphers are designed to function in a similar manner. Following is an example of an implementation of the RC4 stream cipher, which can be easily adapted to work with another cipher, such as DES.
 
 ```C
-#include <stdio.h>                                                              
+#include <stdio.h>                                     
+#include <stdlib.h>                         
 #include "Ciphers/RC4.h"                                                        
                                                                                 
 int main() {                                                                    
@@ -16,12 +17,13 @@ int main() {
     BinStr message = ASCII_to_BinStr("This is my message to encrypt.");                               
     BinStr key     = ASCII_to_BinStr("This is my key.");                               
                                                                                 
-    // We now create the StreamCipher struct                                       
+    // We now create the StreamCipher struct and encrypt. Because RC4 does not
+    // requires an IV we can set that parameter to NULL.                                  
     StreamCipher RC4 = RC4_initialize(key);                               
-    BinStr cipher = StreamEncrypt(message, RC4);                                 
+    BinStr cipher = StreamEncrypt(message, NULL, RC4);                                 
                                                                                 
     // We now decrypt the cipher text                                           
-    BinStr decrypted = StreamDecrypt(cipher, RC4);;                               
+    BinStr decrypted = StreamDecrypt(cipher, NULL, RC4);                               
                                                                                 
     // We can print out the message and the decrypted message in binary         
     // to make sure we get the same thing (we do!)                              
@@ -48,3 +50,6 @@ To compile the above file, the following should be used:
 ```Shell
 gcc Example.c Structures/BinStr.c Generics/StreamCipher.c Cipherss/RC4.c -std=c99 -lm
 ```
+
+# Current bugs:
+- DES key verification may not follow FIPS specifications

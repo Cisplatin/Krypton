@@ -36,17 +36,17 @@ BinStr CBCdecrypt(BinStr cip, BinStr IV, BlockCipher cipher) {
     assert(cip != NULL && IV != NULL && cipher != NULL &&
            cip->length % cipher->blockSize == 0 &&
            IV->length % cipher->blockSize == 0);
-    BinStr msg = empty_BinStr(0);                                               
-    BinStr prev = copy(IV);                                                     
-    for(int i = 0; i < cip->length; i += cipher->blockSize) {                   
-        BinStr buffer = snip(cip, i, i + cipher->blockSize - 1); 
-        BinStr to_app = (*cipher->encrypt)(buffer, cipher->key);          
-        to_app = set(to_app, XOR(prev, to_app));
-        destroy_BinStr(prev);
-        prev = buffer;
-        msg = set(msg, append(msg, to_app));                                    
-    }                                                                           
-    destroy_BinStr(prev);                                                       
+    BinStr msg = empty_BinStr(0);
+    BinStr prev = copy(IV);
+    for(int i = 0; i < cip->length; i += cipher->blockSize) {
+        BinStr to_app = snip(cip, i, i + cipher->blockSize - 1);
+        to_app = set(to_app, (*cipher->decrypt)(to_app, cipher->key));
+        to_app = set(to_app, XOR(to_app, prev));
+        msg = set(msg, append(msg, to_app));
+        destroy_BinStr(to_app);
+        prev = set(prev, snip(cip, i, i + cipher->blockSize - 1));
+    } 
+    destroy_BinStr(prev);
     return msg;                    
 }
 
