@@ -4,8 +4,6 @@
 #ifndef DES_H
 #define DES_H
 
-#define DES_ROUNDS 16
-
 #include "../Structures/BinStr.h"
 #include "../Generics/BlockCipher.h"
 

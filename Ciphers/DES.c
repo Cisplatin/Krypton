@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+const int DES_ROUNDS = 16;
 const int DES_BLOCK_SIZE = 64;
 const int DES_KEY_SIZE = 64;
 
@@ -21,7 +22,7 @@ int PC1_D_PERMUTATION[] = {63, 55, 47, 39, 31, 23, 15,
                            14,  6, 61, 53, 45, 37, 29,
                            21, 13,  5, 28, 20, 12,  4};
 int KEY_SHIFTS[] = {1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
-BinStr round_keys[DES_ROUNDS];
+BinStr *round_keys;
 
 const int PC2_PERMUTATION_SIZE = 48;
 int PC2_PERMUTATION[] = {14, 17, 11, 24,  1,  5,
@@ -129,6 +130,7 @@ void initializeRoundKeys(BinStr key) {
     // Performs the initial key choice permutation
     BinStr key_block_C = cPermutation(key);
     BinStr key_block_D = dPermutation(key);
+    round_keys = malloc(sizeof(BinStr) * DES_ROUNDS);
 
     // Generates the three round keys
     for(int i = 0; i < DES_ROUNDS; i++) {
@@ -151,6 +153,7 @@ void destroyRoundKeys() {
     for(int i = 0; i < DES_ROUNDS; i++) {
         free(round_keys[i]);
     }
+    free(round_keys);
 }
 
 // verifyKey(key) returns false if the key given does not pass DES verification
