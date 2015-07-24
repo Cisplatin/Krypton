@@ -19,7 +19,7 @@ All ciphers are designed to function in a similar manner. Following is an exampl
 int main() {
     // Our message, key and nonce are defined here.
     BinStr message = ASCII_to_BinStr("Jet fuel can't melt steel beams.");
-    BinStr key     = ASCII_to_BinStr("%I[u*/7W");
+    BinStr key     = ASCII_to_BinStr("@I[u*/7W");
     BinStr nonce   = ASCII_to_BinStr("&a3F");
 
     // We now create the BlockCipher struct and encrypt in CTR mode.
