@@ -319,7 +319,7 @@ BlockCipher DES_initialize(BinStr key, char* mode) {
     assert(key != NULL && mode != NULL && key->length == DES_KEY_SIZE);
     
     // Verify the key and pre-load the round keys
-    // assert(verifyKey(key) == 1);
+    assert(verifyKey(key) == 1);
     initializeRoundKeys(key);
 
     // Initialize and returns the prepared DES object

@@ -54,4 +54,4 @@ gcc Example.c Structures/BinStr.c Generics/StreamCipher.c Cipherss/RC4.c -std=c9
 Krypton currently offers the following:
 * Stream ciphers (OTP, RC4)
 * Block ciphers (DES)
-* Various modes of encryption (ECB, CBC)
+* Various modes of encryption (ECB, CBC, CTR)
