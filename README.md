@@ -12,21 +12,19 @@ All ciphers are designed to function in a similar manner. Following is an exampl
 #include "Ciphers/RC4.h"                                                        
                                                                                 
 int main() {                                                                    
-    // The message to be encrypted, "Krypton.", will be encrypted using RC4,    
-    // as well as the defined key.
+    // The message to be encrypted, "Krypton.", will be encrypted using RC4.
     BinStr message = ASCII_to_BinStr("This is my message to encrypt.");                               
     BinStr key     = ASCII_to_BinStr("This is my key.");                               
                                                                                 
     // We now create the StreamCipher struct and encrypt. Because RC4 does not
-    // requires an IV we can set that parameter to NULL.                                  
+    // requires an IV or a nonce, we can set that parameter to NULL.                                  
     StreamCipher RC4 = RC4_initialize(key);                               
     BinStr cipher = StreamEncrypt(message, NULL, RC4);                                 
                                                                                 
     // We now decrypt the cipher text                                           
     BinStr decrypted = StreamDecrypt(cipher, NULL, RC4);                               
                                                                                 
-    // We can print out the message and the decrypted message in binary         
-    // to make sure we get the same thing (we do!)                              
+    // We can print out the message and the decrypted message in binary                                    
     printf("My original message was:\n");                                       
     printBin(message); printf("\n");                                            
     printf("My cipher text was:\n");
