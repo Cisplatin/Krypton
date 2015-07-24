@@ -3,53 +3,54 @@ An implementation of some cryptographic standards written in C. This includes ci
 
 Krypton should not be used for security purposes. Many constructions implemented in Krypton have been openly broken for many years, such as DES and RC4, both of which contain inherent security flaws. Moreover, there are many attacks (such as hardware attacks) that were not accounted for during the designing of Krypton.
 
-## Example
-All ciphers are designed to function in a similar manner. Following is an example of an implementation of the RC4 stream cipher, which can be easily adapted to work with another cipher, such as DES.
-
-```C
-#include <stdio.h>                                     
-#include <stdlib.h>                         
-#include "Ciphers/RC4.h"                                                        
-                                                                                
-int main() {                                                                    
-    // The message to be encrypted, "Krypton.", will be encrypted using RC4.
-    BinStr message = ASCII_to_BinStr("This is my message to encrypt.");                               
-    BinStr key     = ASCII_to_BinStr("This is my key.");                               
-                                                                                
-    // We now create the StreamCipher struct and encrypt. Because RC4 does not
-    // requires an IV or a nonce, we can set that parameter to NULL.                                  
-    StreamCipher RC4 = RC4_initialize(key);                               
-    BinStr cipher = StreamEncrypt(message, NULL, RC4);                                 
-                                                                                
-    // We now decrypt the cipher text                                           
-    BinStr decrypted = StreamDecrypt(cipher, NULL, RC4);                               
-                                                                                
-    // We can print out the message and the decrypted message in binary                                    
-    printf("My original message was:\n");                                       
-    printBin(message); printf("\n");                                            
-    printf("My cipher text was:\n");
-    printBin(cipher); printf("\n");
-    printf("My decrypted message was:\n");                                      
-    printBin(decrypted); printf("\n");                                          
-                                                                                
-    // Time for garbage collection                                              
-    destroy_BinStr(message);                                                    
-    destroy_BinStr(key);                                                        
-    destroy_BinStr(cipher);                                                     
-    destroy_BinStr(decrypted);                                                  
-    RC4_destroy(RC4);                                                           
-                                                                                
-    return 0;                                                                   
-}     
-```
-
-To compile the above file, the following should be used:
-
-```Shell
-gcc Example.c Structures/BinStr.c Generics/StreamCipher.c Cipherss/RC4.c -std=c99 -lm
-```
-
+## Features
 Krypton currently offers the following:
 * Stream ciphers (OTP, RC4)
 * Block ciphers (DES)
 * Various modes of encryption (ECB, CBC, CTR)
+
+## Example
+All ciphers are designed to function in a similar manner. Following is an example of an implementation of the DES block cipher, which can be easily adapted to work with another cipher, such as RC4.
+
+```C
+#include <stdio.h>
+#include "Ciphers/DES.h"
+
+int main() {
+    // Our message, key and nonce are defined here.
+    BinStr message = ASCII_to_BinStr("Jet fuel can't melt steel beams.");
+    BinStr key     = ASCII_to_BinStr("%I[u*/7W");
+    BinStr nonce   = ASCII_to_BinStr("&a3F");
+
+    // We now create the BlockCipher struct and encrypt in CTR mode.
+    BlockCipher DES = DES_initialize(key, "CTR");
+    BinStr cipher = BlockEncrypt(message, nonce, DES);
+
+    // We now decrypt the cipher text
+    BinStr decrypted = BlockDecrypt(cipher, nonce, DES);
+
+    // We can print out the message and the decrypted message in binary
+    printf("My original message was:\n");
+    printBin(message); printf("\n");
+    printf("My cipher text was:\n");
+    printBin(cipher); printf("\n");
+    printf("My decrypted message was:\n");
+    printBin(decrypted); printf("\n");
+
+    // Time for garbage collection
+    destroy_BinStr(message);
+    destroy_BinStr(key);
+    destroy_BinStr(cipher);
+    destroy_BinStr(decrypted);
+    DES_destroy(DES);
+
+    return 0;
+}
+
+```
+
+To compile the above file, the following should be used:
+
+```Bash
+gcc Example.c Structures/BinStr.c Generics/BlockCipher.c Ciphers/DES.c -std=c99 -lm
+```
