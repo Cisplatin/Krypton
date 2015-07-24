@@ -35,7 +35,7 @@ BinStr CBCencrypt(BinStr msg, BinStr IV, BlockCipher cipher) {
 BinStr CBCdecrypt(BinStr cip, BinStr IV, BlockCipher cipher) {
     assert(cip != NULL && IV != NULL && cipher != NULL &&
            cip->length % cipher->blockSize == 0 &&
-           IV->length % cipher->blockSize == 0);
+           IV->length == cipher->blockSize);
     BinStr msg = empty_BinStr(0);
     BinStr prev = copy(IV);
     for(int i = 0; i < cip->length; i += cipher->blockSize) {
