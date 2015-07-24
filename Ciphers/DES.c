@@ -294,20 +294,20 @@ BinStr DESdecrypt(BinStr block, BinStr key) {
                                                                                 
     // Start the initial L and R blocks                                         
     BinStr new = iPermutation(block);                                           
-    BinStr L = snip(new, 0, (DES_BLOCK_SIZE / 2) - 1);                          
-    BinStr R = snip(new, DES_BLOCK_SIZE / 2, DES_BLOCK_SIZE - 1);               
+    BinStr R = snip(new, 0, (DES_BLOCK_SIZE / 2) - 1);                          
+    BinStr L = snip(new, DES_BLOCK_SIZE / 2, DES_BLOCK_SIZE - 1);               
                                                                                 
     // Go through the feistel network                                           
     for(int i = DES_ROUNDS - 1; i >= 0; i--) {                                       
-        BinStr new_R = DESroundFunction(R, round_keys[i]);                      
-        new_R = set(new_R, XOR(new_R, L));                                      
-        destroy_BinStr(L);                                                      
-        L = R;                                                                  
-        R = new_R;                                                              
+        BinStr new_L = DESroundFunction(L, round_keys[i]);                      
+        new_L = set(new_L, XOR(new_L, R));                                      
+        destroy_BinStr(R);                                                      
+        R = L;                                                                  
+        L = new_L;                                                              
     }                                                                           
                                                                                 
     // Return the results and clean up                                          
-    new = set(new, append(R, L));                                               
+    new = set(new, append(L, R));                                               
     new = set(new, fPermutation(new));                                          
     destroy_BinStr(L);                                                          
     destroy_BinStr(R);                                                          
