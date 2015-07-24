@@ -6,6 +6,31 @@
 #include <stdlib.h>
 #include <string.h>
 
+// CTRencrypt(msg, nonce, cipher) encrypts the given message using the
+//   given cipher and nonce, using CTR mode.
+// requires: msg and nonce are valid BinStrs, cipher is a block cipher
+// effects: allocates memory to a new BinStr
+BinStr CTRencrypt(BinStr msg, BinStr nonce, BlockCipher cipher) {
+    assert(msg != NULL && nonce != NULL && cipher != NULL &&
+           msg->length % cipher->blockSize == 0 &&
+           nonce->length == cipher->blockSize / 2);
+    BinStr cip = empty_BinStr(0);
+    int counter_int = 0;
+    for(int i = 0; i < msg->length; i += cipher->blockSize) {
+        BinStr counter = int_to_BinStr(counter_int);
+        counter = set(counter, cut(counter, cipher->blockSize / 2));
+        BinStr to_app = append(nonce, counter);
+        to_app = (*cipher->encrypt)(to_app, cipher->key);
+        BinStr snp = snip(msg, i, i + cipher->blockSize - 1);
+        to_app = set(to_app, XOR(to_app, snp));
+        cip = set(cip, append(cip, to_app));
+        destroy_BinStr(to_app);
+        destroy_BinStr(snp);
+        destroy_BinStr(counter);
+    }
+    return cip;
+}
+
 // CBCencrypt(msg, IV, cipher) encrypts the given message using the given
 //   cipher and IV, using CBC mode.
 // requires: msg and IV are valid BinStrs, cipher is a block cipher
@@ -13,7 +38,7 @@
 BinStr CBCencrypt(BinStr msg, BinStr IV, BlockCipher cipher) {
     assert(msg != NULL && IV != NULL && cipher != NULL &&
            msg->length % cipher->blockSize == 0 &&
-           IV->length % cipher->blockSize == 0);
+           IV->length == cipher->blockSize);
     BinStr cip = empty_BinStr(0);
     BinStr prev = copy(IV);
     for(int i = 0; i < msg->length; i += cipher->blockSize) {
@@ -89,8 +114,10 @@ BinStr BlockEncrypt(BinStr msg, BinStr IV, BlockCipher cipher) {
     assert(msg != NULL && cipher != NULL);
     if(strcmp(cipher->encryptionMode, "ECB") == 0) {
         return ECBencrypt(msg, cipher);
-    } else if (strcmp(cipher->encryptionMode, "CBC") == 0) {
+    } else if(strcmp(cipher->encryptionMode, "CBC") == 0) {
         return CBCencrypt(msg, IV, cipher);
+    } else if(strcmp(cipher->encryptionMode, "CTR") == 0) {
+        return CTRencrypt(msg, IV, cipher);
     } else {
         return NULL;
     }
