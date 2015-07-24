@@ -6,7 +6,7 @@ Krypton should not be used for security purposes. Many constructions implemented
 ## Features
 Krypton currently offers the following:
 * Stream ciphers (OTP, RC4)
-* Block ciphers (DES, AES)
+* Block ciphers (DES)
 * Various modes of encryption (ECB, CBC, CTR)
 
 ## Example
