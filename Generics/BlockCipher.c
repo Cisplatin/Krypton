@@ -31,6 +31,31 @@ BinStr CTRencrypt(BinStr msg, BinStr nonce, BlockCipher cipher) {
     return cip;
 }
 
+// CTRdecrypt(cip, nonce, cipher) decrypts the given message using the
+//   given cipher and nonce, using CTR mode.
+// requires: cip and nonce are valid BinStrs, cipher is a block cipher
+// effects: allocates memory to a new BinStr
+BinStr CTRdecrypt(BinStr cip, BinStr nonce, BlockCipher cipher) {
+    assert(cip != NULL && nonce != NULL && cipher != NULL &&
+           cip->length % cipher->blockSize == 0 &&
+           nonce->length == cipher->blockSize / 2);
+    BinStr msg = empty_BinStr(0);
+    int counter_int = 0;
+    for(int i = 0; i < cip->length; i += cipher->blockSize) {
+        BinStr counter = int_to_BinStr(counter_int);
+        counter = set(counter, cut(counter, cipher->blockSize / 2));
+        BinStr to_app = append(nonce, counter);
+        to_app = (*cipher->encrypt)(to_app, cipher->key);
+        BinStr snp = snip(cip, i, i + cipher->blockSize - 1);
+        to_app = set(to_app, XOR(to_app, snp));
+        msg = set(msg, append(msg, to_app));
+        destroy_BinStr(to_app);
+        destroy_BinStr(snp);
+        destroy_BinStr(counter);
+    }
+    return msg;
+}
+
 // CBCencrypt(msg, IV, cipher) encrypts the given message using the given
 //   cipher and IV, using CBC mode.
 // requires: msg and IV are valid BinStrs, cipher is a block cipher
@@ -128,8 +153,10 @@ BinStr BlockDecrypt(BinStr cip, BinStr IV, BlockCipher cipher) {
     assert(cip != NULL && cipher != NULL);
     if(strcmp(cipher->encryptionMode, "ECB") == 0) {
         return ECBdecrypt(cip, cipher);
-    } else if (strcmp(cipher->encryptionMode, "CBC") == 0) {
+    } else if(strcmp(cipher->encryptionMode, "CBC") == 0) {
         return CBCdecrypt(cip, IV, cipher);
+    } else if(strcmp(cipher->encryptionMode, "CTR") == 0) {
+        return CTRdecrypt(cip, IV, cipher);
     } else {
         return NULL;
     }
