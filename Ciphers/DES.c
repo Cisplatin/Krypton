@@ -160,7 +160,7 @@ bool verifyKey(BinStr key) {
 	assert(key != NULL && key->length == DES_KEY_SIZE);
 	for(int i = 0; i < DES_KEY_SIZE; i += BITS_PER_BYTE) {
 		BinStr section = snip(key, i, i + BITS_PER_BYTE - 1);
-		if(parity(key) == 0) {
+     	if(parity(section) == 0) {
 			return 0;
 		}
 	}

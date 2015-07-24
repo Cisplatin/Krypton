@@ -1,5 +1,5 @@
 # Krypton
-An implementation of some cryptographic standards written in C. Currently availible standards are the One Time Pad, the RC4 stream cipher, and the Data Encryption Standard (DES).
+An implementation of some cryptographic standards written in C. This includes ciphers such as the One Time Pad, the RC4 stream cipher, and the Data Encryption Standard (DES).
 
 Krypton should not be used for security purposes. Many constructions implemented in Krypton have been openly broken for many years, such as DES and RC4, both of which contain inherent security flaws. Moreover, there are many attacks (such as hardware attacks) that were not accounted for during the designing of Krypton.
 
@@ -51,5 +51,7 @@ To compile the above file, the following should be used:
 gcc Example.c Structures/BinStr.c Generics/StreamCipher.c Cipherss/RC4.c -std=c99 -lm
 ```
 
-# Current bugs:
-- DES key verification may not follow FIPS specifications
+Krypton currently offers the following:
+* Stream ciphers (OTP, RC4)
+* Block ciphers (DES)
+* Various modes of encryption (ECB, CBC)
