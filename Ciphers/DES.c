@@ -254,14 +254,12 @@ BinStr DESroundFunction(BinStr block, BinStr key) {
 	return new;
 }
 
-// DESencrypt(block, key) returns a new BinStr that is the evaluation of the
+// DESencrypt(block) returns a new BinStr that is the evaluation of the
 //   DES fesitel network on block using the given key.
 // effects: allocates memory to a new BinStr
 // requires: block is a valid BinStr and block->length == DES_BLOCK_SIZE
-//           and key is a valid BinStr and key->length == DES_KEY_SIZE
-BinStr DESencrypt(BinStr block, BinStr key) {
-    assert(block != NULL && block->length == DES_BLOCK_SIZE &&
-           key != NULL && key->length == DES_KEY_SIZE);
+BinStr DESencrypt(BinStr block) {
+    assert(block != NULL && block->length == DES_BLOCK_SIZE);
     
     // Start the initial L and R blocks
     BinStr new = iPermutation(block);
@@ -286,14 +284,12 @@ BinStr DESencrypt(BinStr block, BinStr key) {
 }
 
 
-// DESdecrypt(block, key) returns a new BinStr that is the evaluation of the    
+// DESdecrypt(block) returns a new BinStr that is the evaluation of the    
 //   DES fesitel network on block using the given key.                          
 // effects: allocates memory to a new BinStr                                    
 // requires: block is a valid BinStr and block->length == DES_BLOCK_SIZE        
-//           and key is a valid BinStr and key->length == DES_KEY_SIZE
-BinStr DESdecrypt(BinStr block, BinStr key) {
-    assert(block != NULL && block->length == DES_BLOCK_SIZE &&                  
-           key != NULL && key->length == DES_KEY_SIZE);                         
+BinStr DESdecrypt(BinStr block) {
+    assert(block != NULL && block->length == DES_BLOCK_SIZE);                         
                                                                                 
     // Start the initial L and R blocks                                         
     BinStr new = iPermutation(block);                                           

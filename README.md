@@ -56,4 +56,4 @@ gcc Example.c Structures/BinStr.c Generics/BlockCipher.c Ciphers/DES.c -std=c99 
 ```
 
 # Upcoming:
-* Remove key parameter from block cipher encryption/decryption
+* Add a key-saver for Stream Ciphers (so they don't have to keep being generated)

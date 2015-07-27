@@ -10,8 +10,8 @@ struct blockcipher {
     BinStr key;
     int blockSize;
     char *encryptionMode;
-    BinStr (*encrypt)(BinStr, BinStr);
-    BinStr (*decrypt)(BinStr, BinStr);
+    BinStr (*encrypt)(BinStr);
+    BinStr (*decrypt)(BinStr);
 };
 
 typedef struct blockcipher *BlockCipher;
