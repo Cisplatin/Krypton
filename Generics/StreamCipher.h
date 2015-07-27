@@ -8,6 +8,7 @@
 
 struct streamcipher {                                                            
     BinStr key;                                                                 
+    BinStr generated;
     BinStr (*PRG)(BinStr, int);
 };                                                                              
                                                                                 

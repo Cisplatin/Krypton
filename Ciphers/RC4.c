@@ -48,11 +48,13 @@ StreamCipher RC4_initialize(BinStr key) {
     assert(key != NULL);
     StreamCipher RC4 = malloc(sizeof(struct streamcipher));                       
     RC4->key = key;                                                             
+    RC4->generated = empty_BinStr(0);
     RC4->PRG = RC4_PRG;
     return RC4;                                                                 
 }                                                                               
                                                                                 
 // See RC4.h for details                                                        
-void RC4_destroy(StreamCipher RC4) {                                             
-    free(RC4);                                                                                                                           
+void RC4_destroy(StreamCipher RC4) { 
+    free(RC4->generated);
+    free(RC4);                                                                                                                     
 }                          

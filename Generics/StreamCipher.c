@@ -8,23 +8,43 @@
 // See StreamCipher.h for details
 BinStr StreamEncrypt(BinStr msg, StreamCipher cipher) {
 	assert(msg != NULL && cipher != NULL);
-	BinStr expKey = (*cipher->PRG)(cipher->key, msg->length);
-	BinStr cip = empty_BinStr(msg->length);
+	bool generatedNew = false;
+    BinStr expKey;
+    if(cipher->generated->length >= msg->length) {
+        expKey = cut(cipher->generated, msg->length);
+    } else {
+        generatedNew = true;
+        BinStr expKey = (*cipher->PRG)(cipher->key, msg->length);
+	    cipher->generated = set(cipher->generated, expKey);
+    }
+    BinStr cip = empty_BinStr(msg->length);
 	for(int i = 0; i < msg->length; i++) {
 		cip->bits[i] = msg->bits[i] ^ expKey->bits[i];
 	}
-	destroy_BinStr(expKey);
+    if(!generatedNew) {
+	    destroy_BinStr(expKey);
+    }
 	return cip;
 }
 
 // See StreamCipher.h for details
 BinStr StreamDecrypt(BinStr cip, StreamCipher cipher) {
 	assert(cip != NULL && cipher != NULL);
-	BinStr expKey = (*cipher->PRG)(cipher->key, cip->length);
+    bool generatedNew = false;
+    BinStr expKey;
+    if(cipher->generated->length >= cip->length) {
+        expKey = cut(cipher->generated, cip->length);
+    } else {
+        generatedNew = true;
+        BinStr expKey = (*cipher->PRG)(cipher->key, cip->length);
+        cipher->generated = set(cipher->generated, expKey);
+    }
     BinStr msg = empty_BinStr(cip->length);
 	for(int i = 0; i < msg->length; i++) {
 		msg->bits[i] = cip->bits[i] ^ expKey->bits[i];
 	}
-	destroy_BinStr(expKey);
+    if(!generatedNew) {
+	    destroy_BinStr(expKey);
+    }
 	return msg;
 }
