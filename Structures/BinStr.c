@@ -13,6 +13,10 @@
 const int BITS_PER_BYTE = 8;
 const int MAX_BYTE = 256;
 
+char HEX_CONVERT[][16] = {"0000", "0001", "0010", "0011", "0100", "0101", 
+                          "0110", "0111", "1000", "1001", "1010", "1011",
+                          "1100", "1101", "1110", "1111"};
+
 // see BinStr.h for details
 BinStr str_to_BinStr(char *bits, unsigned int length) {
 	BinStr new = malloc(sizeof(struct binstr));
@@ -49,6 +53,29 @@ BinStr int_to_BinStr(int n) {
 	    }
 	    return new;
     }
+}
+
+// see BinStr.h for details
+BinStr hex_to_BinStr(char *str) {
+    assert(str != NULL);
+    int length = strlen(str);
+    BinStr new = empty_BinStr(length * 4);
+    for(int i = 0; i < length; i++) {
+        char *hex;
+        if('0' <= str[i] && str[i] <= '9') {
+            hex = HEX_CONVERT[(str[i] - '0')];
+        } else if('A' <= str[i] && str[i] <= 'F') {
+            hex = HEX_CONVERT[(str[i] - 'A') + 10];
+        } else if('a' <= str[i] && str[i] <= 'f') {
+            hex = HEX_CONVERT[(str[i] - 'a') + 10];
+        }
+        for(int j = 0; j < 4; j++) {
+            if(hex[j] == '1') {
+                new->bits[i * 4 + j] = true;
+            }
+        }
+    }
+    return new;
 }
 
 // see BinStr.h for details

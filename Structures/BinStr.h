@@ -28,6 +28,12 @@ BinStr str_to_BinStr(char *bits, unsigned int length);
 // effects: allocates memory to a new BinStr
 BinStr int_to_BinStr(int n);
 
+// hex_to_BinStr(str) converts the given hexidecimal string into a BinStr. User 
+//   must free the returned BinStr.
+// requires: str is a valid hexidecimal string
+// effects: allocates memory to a new BinStr
+BinStr hex_to_BinStr(char *str);
+
 // ASCII_to_BinStr(str) converts the given ASCII string into a BinStr. User 
 //   must free the returned BinStr
 // requires: str is a valid pointer
