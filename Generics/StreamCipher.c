@@ -14,7 +14,7 @@ BinStr StreamEncrypt(BinStr msg, StreamCipher cipher) {
         expKey = cut(cipher->generated, msg->length);
     } else {
         generatedNew = true;
-        BinStr expKey = (*cipher->PRG)(cipher->key, msg->length);
+        BinStr expKey = (*cipher->PRNG)(cipher->key, msg->length);
 	    cipher->generated = set(cipher->generated, expKey);
     }
     BinStr cip = empty_BinStr(msg->length);
@@ -36,7 +36,7 @@ BinStr StreamDecrypt(BinStr cip, StreamCipher cipher) {
         expKey = cut(cipher->generated, cip->length);
     } else {
         generatedNew = true;
-        BinStr expKey = (*cipher->PRG)(cipher->key, cip->length);
+        BinStr expKey = (*cipher->PRNG)(cipher->key, cip->length);
         cipher->generated = set(cipher->generated, expKey);
     }
     BinStr msg = empty_BinStr(cip->length);

@@ -9,7 +9,7 @@
 struct streamcipher {                                                            
     BinStr key;                                                                 
     BinStr generated;
-    BinStr (*PRG)(BinStr, int);
+    BinStr (*PRNG)(BinStr, int);
 };                                                                              
                                                                                 
 typedef struct streamcipher *StreamCipher; 

@@ -1,11 +1,12 @@
 /* RC4.h - Written by Xenonstory on June 08, 2015 *
- * An implementation of the RC4 PRNG                     */      
+ * An implementation of the RC4 stream cipher     */      
 
-#ifndef RC4_H
-#define RC4_H
+#ifndef RC4C_H
+#define RC4C_H
 
 #include "../Structures/BinStr.h"
 #include "../Generics/StreamCipher.h"
+#include "../PRNGs/RC4.h"
 
 // RC4_initialize(key) returns an instance of a stream cipher ready for     
 //   decryption and encryption using the given key and mode                     
