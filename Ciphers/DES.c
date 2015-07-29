@@ -22,7 +22,6 @@ int PC1_D_PERMUTATION[] = {63, 55, 47, 39, 31, 23, 15,
                            14,  6, 61, 53, 45, 37, 29,
                            21, 13,  5, 28, 20, 12,  4};
 int KEY_SHIFTS[] = {1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
-BinStr *round_keys;
 
 const int PC2_PERMUTATION_SIZE = 48;
 int PC2_PERMUTATION[] = {14, 17, 11, 24,  1,  5,
@@ -124,13 +123,13 @@ BinStr rPermutation(BinStr key) {
 //   for later use by the DES algorithm
 // requires: key is a valid BinStr and key->length == DES_KEY_SIZE
 // effects: sets the state of this program to be ready for DES
-void initializeRoundKeys(BinStr key) {
+BinStr *initializeRoundKeys(BinStr key) {
     assert(key != NULL && key->length == DES_KEY_SIZE);
     
     // Performs the initial key choice permutation
     BinStr key_block_C = cPermutation(key);
     BinStr key_block_D = dPermutation(key);
-    round_keys = malloc(sizeof(BinStr) * DES_ROUNDS);
+    BinStr *round_keys = malloc(sizeof(BinStr) * DES_ROUNDS);
 
     // Generates the three round keys
     for(int i = 0; i < DES_ROUNDS; i++) {
@@ -144,16 +143,17 @@ void initializeRoundKeys(BinStr key) {
     // Cleans up the key generator
     destroy_BinStr(key_block_C);
     destroy_BinStr(key_block_D);   
+    return round_keys;
 }
 
 // destroyRoundKeys() frees the memory associated with the round keys
 // requires: initializeRoundKeys() was called
 // effects: frees memory taken by the round keys
-void destroyRoundKeys() {
+void destroyRoundKeys(BlockCipher DES) {
     for(int i = 0; i < DES_ROUNDS; i++) {
-        free(round_keys[i]);
+        free(DES->roundKeys[i]);
     }
-    free(round_keys);
+    free(DES->roundKeys);
 }
 
 // verifyKey(key) returns false if the key given does not pass DES verification
@@ -254,11 +254,11 @@ BinStr DESroundFunction(BinStr block, BinStr key) {
 	return new;
 }
 
-// DESencrypt(block) returns a new BinStr that is the evaluation of the
-//   DES fesitel network on block using the given key.
+// DESencrypt(block, roundKeys) returns a new BinStr that is the evaluation 
+//   of the DES fesitel network on block using the given key.
 // effects: allocates memory to a new BinStr
 // requires: block is a valid BinStr and block->length == DES_BLOCK_SIZE
-BinStr DESencrypt(BinStr block) {
+BinStr DESencrypt(BinStr block, BinStr *roundKeys) {
     assert(block != NULL && block->length == DES_BLOCK_SIZE);
     
     // Start the initial L and R blocks
@@ -268,7 +268,7 @@ BinStr DESencrypt(BinStr block) {
 
     // Go through the feistel network
     for(int i = 0; i < DES_ROUNDS; i++) {
-        BinStr new_R = DESroundFunction(R, round_keys[i]);
+        BinStr new_R = DESroundFunction(R, roundKeys[i]);
         new_R = set(new_R, XOR(new_R, L));
         destroy_BinStr(L);
         L = R;
@@ -284,11 +284,10 @@ BinStr DESencrypt(BinStr block) {
 }
 
 
-// DESdecrypt(block) returns a new BinStr that is the evaluation of the    
-//   DES fesitel network on block using the given key.                          
-// effects: allocates memory to a new BinStr                                    
+// DESdecrypt(block, roundKeys) returns a new BinStr that is the evaluation 
+//   of the DES fesitel network on block using the given key.                   // effects: allocates memory to a new BinStr                                    
 // requires: block is a valid BinStr and block->length == DES_BLOCK_SIZE        
-BinStr DESdecrypt(BinStr block) {
+BinStr DESdecrypt(BinStr block, BinStr *roundKeys) {
     assert(block != NULL && block->length == DES_BLOCK_SIZE);                         
                                                                                 
     // Start the initial L and R blocks                                         
@@ -298,7 +297,7 @@ BinStr DESdecrypt(BinStr block) {
                                                                                 
     // Go through the feistel network                                           
     for(int i = DES_ROUNDS - 1; i >= 0; i--) {                                       
-        BinStr new_L = DESroundFunction(L, round_keys[i]);                      
+        BinStr new_L = DESroundFunction(L, roundKeys[i]);                      
         new_L = set(new_L, XOR(new_L, R));                                      
         destroy_BinStr(R);                                                      
         R = L;                                                                  
@@ -317,13 +316,13 @@ BinStr DESdecrypt(BinStr block) {
 BlockCipher DES_initialize(BinStr key, char* mode) {
     assert(key != NULL && mode != NULL && key->length == DES_KEY_SIZE);
     
-    // Verify the key and pre-load the round keys
+    // Verify the key
     assert(verifyKey(key) == 1);
-    initializeRoundKeys(key);
 
     // Initialize and returns the prepared DES object
     BlockCipher DES = malloc(sizeof(struct blockcipher));
     DES->key = key;
+    DES->roundKeys = initializeRoundKeys(key);
     DES->encryptionMode = mode;
     DES->blockSize = DES_BLOCK_SIZE;
     DES->encrypt = DESencrypt;
@@ -333,6 +332,6 @@ BlockCipher DES_initialize(BinStr key, char* mode) {
 
 // See DES.h for details
 void DES_destroy(BlockCipher DES) {
+    destroyRoundKeys(DES);
     free(DES);
-    destroyRoundKeys();
 }
