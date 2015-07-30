@@ -7,13 +7,24 @@
 #include <stdbool.h>
 #include "BinStr.h"
 
-typedef struct binstr **BinMat;
+struct binmat {
+    BinStr **matrix;
+    unsigned int rows;
+    unsigned int cols;
+};
+
+typedef struct binmat *BinMat;
 
 // empty_BinMat(rows, cols) returns a binary matrix with the given number
 //   of rows and columns, with each element being the 0 BinStr.
 // requires: rows, cols > 0
 // effects: allocates memory to a new BinMat
 BinMat empty_BinMat(int rows, int cols);
+
+// printMat(mat) prints out the given binary matrix
+// requires: mat is a valid BinMat
+// effects: prints out the given BinMat
+void printMat(BinMat mat);
 
 #endif
 

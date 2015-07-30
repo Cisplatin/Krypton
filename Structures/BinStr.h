@@ -149,10 +149,10 @@ int toDecimal(BinStr str);
 // effects: allocated memory to a new BinStr
 BinStr append(BinStr str1, BinStr str2);
 
-// printBin(str) prints out the given str
+// printStr(str) prints out the given str
 // requires: str is a valid BinStr
 // effects: prints out the given string
-void printBin(BinStr str);
+void printStr(BinStr str);
 
 // msb(str) returns the most significant bit of the given string
 // requires: str is a valid BinStr

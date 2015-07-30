@@ -338,7 +338,7 @@ BinStr append(BinStr str1, BinStr str2) {
 }
 
 // see BinStr.h for details
-void printBin(BinStr str) {
+void printStr(BinStr str) {
 	for(int i = 0; i < str->length; i++) {
 		printf("%d", str->bits[i]);
 	}

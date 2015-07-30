@@ -33,11 +33,11 @@ int main() {
 
     // We can print out the message and the decrypted message in binary
     printf("My original message was:\n");
-    printBin(message); printf("\n");
+    printStr(message); printf("\n");
     printf("My cipher text was:\n");
-    printBin(cipher); printf("\n");
+    printStr(cipher); printf("\n");
     printf("My decrypted message was:\n");
-    printBin(decrypted); printf("\n");
+    printStr(decrypted); printf("\n");
 
     // Time for garbage collection
     destroy_BinStr(message);
