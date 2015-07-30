@@ -9,7 +9,7 @@ Krypton currently offers the following:
 * Block ciphers (DES)
 * Pseudo-random number generators (RC4, ANSI X9.17)
 * Various modes of encryption (ECB, CBC, CTR)
-* Various structures (Binary strings)
+* Various structures (Binary strings, Binary matrices)
 
 ## Example
 All ciphers are designed to function in a similar manner. Following is an example of an implementation of the DES block cipher, which can be easily adapted to work with another cipher, such as RC4.

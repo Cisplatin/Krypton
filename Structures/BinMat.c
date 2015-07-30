@@ -22,6 +22,18 @@ BinMat empty_BinMat(int rows, int cols) {
 }
 
 // see BinMat.h for details
+void destroy_BinMat(BinMat mat) {
+    for(int i = 0; i < mat->rows; i++) {
+        for(int j = 0; j < mat->cols; j++) {
+            destroy_BinStr(mat->matrix[i][j]);
+        }
+        free(mat->matrix[i]);
+    }
+    free(mat->matrix);
+    free(mat);
+}
+
+// see BinMat.h for details
 void printMat(BinMat mat) {
     assert(mat != NULL);
     for(int i = 0; i < mat->rows; i++) {

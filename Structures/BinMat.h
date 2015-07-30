@@ -21,6 +21,11 @@ typedef struct binmat *BinMat;
 // effects: allocates memory to a new BinMat
 BinMat empty_BinMat(int rows, int cols);
 
+// destroy_BinMat(mat) frees all memory associated with the given BinMat
+// requires: mat is a valid BinMat
+// effects: frees memory associated with the given BinMat
+void destroy_BinMat(BinMat mat);
+
 // printMat(mat) prints out the given binary matrix
 // requires: mat is a valid BinMat
 // effects: prints out the given BinMat
