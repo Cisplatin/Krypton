@@ -58,4 +58,4 @@ gcc Example.c Structures/BinStr.c Generics/BlockCipher.c Ciphers/DES.c -std=c99 
 
 # Upcoming
 
-- Fix found bug with RC4 stream cipher
+- Create MAKE file
