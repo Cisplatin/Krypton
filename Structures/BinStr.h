@@ -57,7 +57,6 @@ void destroy_BinStr(BinStr str);
 BinStr copy(BinStr str);
 
 // set(str1, str2) returns the second BinStr and frees the first one.
-// requires: str1 and str2 are valid BinStr
 // effects: frees memory associated with str1 and repoints str1 to str2
 BinStr set(BinStr str1, BinStr str2);
 

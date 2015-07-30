@@ -19,7 +19,7 @@ BinStr RC4_PRNG(BinStr key, int n) {
 		BinStr byte = getByte(key, i % bytes(key));
 		int a = toDecimal(byte);
 		destroy_BinStr(byte);
-                j = (j + S[i] + a) % MAX_BYTE;
+        j = (j + S[i] + a) % MAX_BYTE;
 		int buffer = S[i];
 		S[i] = S[j];
 		S[j] = buffer;
@@ -35,10 +35,10 @@ BinStr RC4_PRNG(BinStr key, int n) {
 		S[k] = S[j];
 		S[j] = buffer;
 		BinStr app = int_to_BinStr(S[(S[k] + S[j]) % MAX_BYTE]);
-                new = set(new, append(new, app));
+        new = set(new, append(new, app));
 		destroy_BinStr(app);
-        }
-        new = set(new, cut(new, n));
+    }
+    new = set(new, cut(new, n));
 	free(S);
 	return new;
 }

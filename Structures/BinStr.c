@@ -124,8 +124,9 @@ BinStr copy(BinStr str) {
 
 // see BinStr.h for details
 BinStr set(BinStr str1, BinStr str2) {
-	assert(str1 != NULL && str2 != NULL);
-	destroy_BinStr(str1);
+	if(str1 != NULL) {
+        destroy_BinStr(str1);
+    }
 	return str2;
 }
 

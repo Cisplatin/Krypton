@@ -10,11 +10,11 @@ BinStr StreamEncrypt(BinStr msg, StreamCipher cipher) {
 	assert(msg != NULL && cipher != NULL);
 	bool generatedNew = false;
     BinStr expKey;
-    if(cipher->generated->length >= msg->length) {
+    if(cipher->generated != NULL && cipher->generated->length >= msg->length) {
         expKey = cut(cipher->generated, msg->length);
     } else {
         generatedNew = true;
-        BinStr expKey = (*cipher->PRNG)(cipher->key, msg->length);
+        expKey = (*cipher->PRNG)(cipher->key, msg->length);
 	    cipher->generated = set(cipher->generated, expKey);
     }
     BinStr cip = empty_BinStr(msg->length);
@@ -32,14 +32,13 @@ BinStr StreamDecrypt(BinStr cip, StreamCipher cipher) {
 	assert(cip != NULL && cipher != NULL);
     bool generatedNew = false;
     BinStr expKey;
-    if(cipher->generated->length >= cip->length) {
+    if(cipher->generated != NULL && cipher->generated->length >= cip->length) {
         expKey = cut(cipher->generated, cip->length);
     } else {
         generatedNew = true;
-        BinStr expKey = (*cipher->PRNG)(cipher->key, cip->length);
+        expKey = (*cipher->PRNG)(cipher->key, cip->length);
         cipher->generated = set(cipher->generated, expKey);
     }
-    printBin(expKey);
     BinStr msg = empty_BinStr(cip->length);
 	for(int i = 0; i < msg->length; i++) {
 		msg->bits[i] = cip->bits[i] ^ expKey->bits[i];

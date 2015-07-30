@@ -10,7 +10,7 @@ StreamCipher RC4_initialize(BinStr key) {
     assert(key != NULL);
     StreamCipher RC4 = malloc(sizeof(struct streamcipher));                       
     RC4->key = key;                                                             
-    RC4->generated = empty_BinStr(0);
+    RC4->generated = NULL;
     RC4->PRNG = RC4_PRNG;
     return RC4;                                                                 
 }                                                                               
