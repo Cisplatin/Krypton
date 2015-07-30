@@ -5,11 +5,11 @@
 #include <assert.h>
 #include <stdlib.h>
 
-// OTP_PRG(key, n) is the lamest function I've ever written. Just returns
+// OTP_PRNG(key, n) is the lamest function I've ever written. Just returns
 //   the key after assuring everything is OK.
 // requires: key is a valid BinStr, n >= 0
 // effects: allocates memory to a new key
-BinStr OTP_PRG(BinStr key, int n) {
+BinStr OTP_PRNG(BinStr key, int n) {
     assert(key != NULL && n >= 0);
     return copy(key);
 }
@@ -19,7 +19,7 @@ StreamCipher OTP_initialize(BinStr key) {
     assert(key != NULL);                                                        
     StreamCipher OTP = malloc(sizeof(struct streamcipher));                     
     OTP->key = key;                                                             
-    OTP->PRG = OTP_PRG;                                                         
+    OTP->PRNG = OTP_PRNG;                                                         
     return OTP;                                                                 
 }                                                                               
                                                                                 

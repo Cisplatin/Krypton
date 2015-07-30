@@ -50,12 +50,8 @@ int main() {
 
 ```
 
-To compile the above file, the following should be used:
+To compile the above file (named 'Example.c'), the following should be used:
 
 ```Bash
-gcc Example.c Structures/BinStr.c Generics/BlockCipher.c Ciphers/DES.c -std=c99 -lm
+sh COMPILE.sh Example.c
 ```
-
-# Upcoming
-
-- Create MAKE file
