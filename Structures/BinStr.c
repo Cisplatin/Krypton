@@ -112,7 +112,7 @@ void destroy_BinStr(BinStr str) {
 }
 
 // see BinStr.h for details
-BinStr copy(BinStr str) {
+BinStr copyStr(BinStr str) {
 	assert(str != NULL);
 	BinStr new = empty_BinStr(str->length);
 	for(int i = 0; i < str->length; i++) {

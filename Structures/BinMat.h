@@ -26,6 +26,11 @@ BinMat empty_BinMat(int rows, int cols);
 // effects: frees memory associated with the given BinMat
 void destroy_BinMat(BinMat mat);
 
+// copyMat(mat) returns a copy of the given binary matrix
+// requires: mat is a valid BinMat
+// effects: allocates memory to a new binary matrix
+BinMat copyMat(BinMat mat);
+
 // setMat(mat, row, col, str) sets the matrix at the given row and column
 //   to the given BinStr
 // requires: mat is a valid BinMat, 0 <= row, col <= mat->rows, mat->cols

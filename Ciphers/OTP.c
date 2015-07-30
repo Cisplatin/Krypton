@@ -11,7 +11,7 @@
 // effects: allocates memory to a new key
 BinStr OTP_PRNG(BinStr key, int n) {
     assert(key != NULL && n >= 0);
-    return copy(key);
+    return copyStr(key);
 }
 
 // See OTP.h for details                                                        

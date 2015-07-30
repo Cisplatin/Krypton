@@ -36,10 +36,26 @@ void destroy_BinMat(BinMat mat) {
 }
 
 // see BinMat.h for details
+BinMat copyMat(BinMat mat) {
+    assert(mat != NULL);
+    BinMat new = malloc(sizeof(struct binmat));
+    new->rows = mat->rows;
+    new->cols = mat->cols;
+    new->matrix = malloc(sizeof(BinStr) * mat->cols);
+    for(int i = 0; i < mat->rows; i++) {
+        new->matrix[i] = malloc(sizeof(BinStr) * mat->cols);
+        for(int j = 0; j < mat->cols; j++) {
+            new->matrix[i][j] = copyStr(mat->matrix[i][j]);
+        }
+    }
+    return new;
+}
+
+// see BinMat.h for details
 void setMat(BinMat mat, int row, int col, BinStr str) {
     assert(mat != NULL && 0 <= row && 0 <= col && 
            row < mat->rows && col < mat->cols);
-    BinStr str_copy = copy(str);
+    BinStr str_copy = copyStr(str);
     mat->matrix[row][col] = set(mat->matrix[row][col], str_copy);
     return;
 }

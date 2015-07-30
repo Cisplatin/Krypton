@@ -25,7 +25,7 @@ BinStr ANSIX917_PRNG(BinStr key, BinStr seed, int n) {
            seed->length == ANSIX917_SEED_SIZE);
 
     // Creates three instances of the DES block cipher to imitate 3DES       
-    BinStr cur_seed = copy(seed);
+    BinStr cur_seed = copyStr(seed);
     BinStr key1 = snip(key, 0, DES_KEY_SIZE - 1);
     BinStr key2 = snip(key, DES_KEY_SIZE, (DES_KEY_SIZE * 2) - 1);
     BinStr key3 = snip(key, DES_KEY_SIZE * 2, (DES_KEY_SIZE * 3) - 1);
@@ -41,7 +41,7 @@ BinStr ANSIX917_PRNG(BinStr key, BinStr seed, int n) {
         BinStr cur_time = int_to_BinStr((unsigned)time(NULL));   
         cur_time = set(cur_time, cut(cur_time, DES_BLOCK_SIZE));
         cur_time = set(cur_time, TDES(cur_time, DES1, DES2, DES3));
-        BinStr old_time = copy(cur_time);                                              
+        BinStr old_time = copyStr(cur_time);                                              
         cur_time = set(cur_time, XOR(cur_time, cur_seed));
         cur_time = set(cur_time, TDES(cur_time, DES1, DES2, DES3));
         new = set(new, append(new, cur_time));

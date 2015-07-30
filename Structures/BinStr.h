@@ -50,11 +50,11 @@ BinStr empty_BinStr(int length);
 // effects: frees memory associated to str
 void destroy_BinStr(BinStr str);
 
-// copy(str) returns a copy of the given BinStr. Returned BinStr must be freed
+// copyStr(str) returns a copy of the given BinStr. Returned BinStr must be freed
 //   by the user.
 // requires: str is a valid BinStr
 // effects: allocated memory to a new BinStr
-BinStr copy(BinStr str);
+BinStr copyStr(BinStr str);
 
 // set(str1, str2) returns the second BinStr and frees the first one.
 // effects: frees memory associated with str1 and repoints str1 to str2

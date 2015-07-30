@@ -65,7 +65,7 @@ BinStr CBCencrypt(BinStr msg, BinStr IV, BlockCipher cipher) {
            msg->length % cipher->blockSize == 0 &&
            IV->length == cipher->blockSize);
     BinStr cip = empty_BinStr(0);
-    BinStr prev = copy(IV);
+    BinStr prev = copyStr(IV);
     for(int i = 0; i < msg->length; i += cipher->blockSize) {
         BinStr to_app = snip(msg, i, i + cipher->blockSize - 1); 
         to_app = set(to_app, XOR(prev, to_app));
@@ -87,7 +87,7 @@ BinStr CBCdecrypt(BinStr cip, BinStr IV, BlockCipher cipher) {
            cip->length % cipher->blockSize == 0 &&
            IV->length == cipher->blockSize);
     BinStr msg = empty_BinStr(0);
-    BinStr prev = copy(IV);
+    BinStr prev = copyStr(IV);
     for(int i = 0; i < cip->length; i += cipher->blockSize) {
         BinStr to_app = snip(cip, i, i + cipher->blockSize - 1);
         to_app = set(to_app, (*cipher->decrypt)(to_app, cipher->roundKeys));
