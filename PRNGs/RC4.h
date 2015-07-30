@@ -6,10 +6,10 @@
 
 #include "../Structures/BinStr.h"
 
-// RC4_PRNG(key, seed, n) returns the result of the RC4 pseudorandom number generator
+// RC4_PRNG(key, n) returns the result of the RC4 pseudorandom number generator
 //   when seeded with the given key. Only the first n bits are returned.
-// requires: key is a valid BinStr, n >= 0, seed is NULL
+// requires: key is a valid BinStr, n >= 0
 // effects: allocates memory to a new BinStr
-BinStr RC4_PRNG(BinStr key, BinStr seed, int n);
+BinStr RC4_PRNG(BinStr key, int n);
 
 #endif

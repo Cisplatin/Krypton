@@ -6,8 +6,8 @@
 #include <stdlib.h>
 
 // See RC4.h for details
-BinStr RC4_PRNG(BinStr key, BinStr seed, int n) {
-	assert(key != NULL && n >= 0 && seed == NULL);
+BinStr RC4_PRNG(BinStr key, int n) {
+	assert(key != NULL && n >= 0);
     
     // Start with the key-scheduling algorithm
 	int *S = malloc(sizeof(int) * MAX_BYTE);

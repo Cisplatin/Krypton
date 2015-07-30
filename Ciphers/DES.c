@@ -315,7 +315,7 @@ BlockCipher DES_initialize(BinStr key, char* mode) {
     assert(key != NULL && mode != NULL && key->length == DES_KEY_SIZE);
     
     // Verify the key
-    // assert(verifyKey(key) == 1);
+    assert(verifyKey(key) == 1);
 
     // Initialize and returns the prepared DES object
     BlockCipher DES = malloc(sizeof(struct blockcipher));
