@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 // See StreamCipher.h for details
-BinStr StreamEncrypt(BinStr msg, StreamCipher cipher) {
+BinStr StreamEncrypt(BinStr msg, BinStr seed, StreamCipher cipher) {
 	assert(msg != NULL && cipher != NULL);
 	bool generatedNew = false;
     BinStr expKey;
@@ -14,7 +14,7 @@ BinStr StreamEncrypt(BinStr msg, StreamCipher cipher) {
         expKey = cut(cipher->generated, msg->length);
     } else {
         generatedNew = true;
-        BinStr expKey = (*cipher->PRNG)(cipher->key, msg->length);
+        BinStr expKey = (*cipher->PRNG)(cipher->key, seed, msg->length);
 	    cipher->generated = set(cipher->generated, expKey);
     }
     BinStr cip = empty_BinStr(msg->length);
@@ -28,7 +28,7 @@ BinStr StreamEncrypt(BinStr msg, StreamCipher cipher) {
 }
 
 // See StreamCipher.h for details
-BinStr StreamDecrypt(BinStr cip, StreamCipher cipher) {
+BinStr StreamDecrypt(BinStr cip, BinStr seed, StreamCipher cipher) {
 	assert(cip != NULL && cipher != NULL);
     bool generatedNew = false;
     BinStr expKey;
@@ -36,7 +36,7 @@ BinStr StreamDecrypt(BinStr cip, StreamCipher cipher) {
         expKey = cut(cipher->generated, cip->length);
     } else {
         generatedNew = true;
-        BinStr expKey = (*cipher->PRNG)(cipher->key, cip->length);
+        BinStr expKey = (*cipher->PRNG)(cipher->key, seed, cip->length);
         cipher->generated = set(cipher->generated, expKey);
     }
     BinStr msg = empty_BinStr(cip->length);

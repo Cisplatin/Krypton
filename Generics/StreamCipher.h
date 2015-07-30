@@ -9,19 +9,19 @@
 struct streamcipher {                                                            
     BinStr key;                                                                 
     BinStr generated;
-    BinStr (*PRNG)(BinStr, int);
+    BinStr (*PRNG)(BinStr, BinStr, int);
 };                                                                              
                                                                                 
 typedef struct streamcipher *StreamCipher; 
 
-// StreamEncrypt(msg, cipher) encrypts the given message using the given 
+// StreamEncrypt(msg, seed, cipher) encrypts the given message using the given 
 //   key via the stream cipher with the given PRNG.
 // requires: msg is a valid BinStr, cipher is a stream cipher
-BinStr StreamEncrypt(BinStr msg, StreamCipher cipher);
+BinStr StreamEncrypt(BinStr msg, BinStr seed, StreamCipher cipher);
 
-// StreamDecrypt(cip, cipher) decrypts the given cipher text using the given 
+// StreamDecrypt(cip, seed, cipher) decrypts the given cipher text using the given 
 //   key via the stream cipher with the given PRNG.
 // requires: cip is a valid BinStr, cipher is a stream cipher
-BinStr StreamDecrypt(BinStr cip, StreamCipher cipher);
+BinStr StreamDecrypt(BinStr cip, BinStr seed, StreamCipher cipher);
 
 #endif
