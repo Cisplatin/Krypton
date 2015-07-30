@@ -7,15 +7,13 @@
 #include <stdbool.h>
 #include "BinStr.h"
 
-typedef struct binstr **BinStr;
+typedef struct binstr **BinMat;
 
-/*
-// reversePermutate(str, order, len, offset) reverse permutates the given BinStr
-//   with similar attributes to the permutate() function.
-// requires: str is a valid BinStr, order is a valid array of ints, len >= 0,
-//           and offset >= 0
-BinStr reversePermutate(BinStr str, int *order, int len, int offset);
-*/
+// empty_BinMat(rows, cols) returns a binary matrix with the given number
+//   of rows and columns, with each element being the 0 BinStr.
+// requires: rows, cols > 0
+// effects: allocates memory to a new BinMat
+BinMat empty_BinMat(int rows, int cols);
 
 #endif
 
