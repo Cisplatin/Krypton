@@ -79,7 +79,7 @@ void printMat(BinMat mat) {
             if(mat->matrix[i][j]->length != 0) {
                 printStr(mat->matrix[i][j]);
             } else {
-                printf("null");
+                printf("/");
             }
             printf("\t");
         }
