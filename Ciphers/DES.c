@@ -283,7 +283,8 @@ BinStr DESencrypt(BinStr block, BinStr *roundKeys) {
 
 
 // DESdecrypt(block, roundKeys) returns a new BinStr that is the evaluation 
-//   of the DES fesitel network on block using the given key.                   // effects: allocates memory to a new BinStr                                    
+//   of the DES fesitel network on block using the given key.              
+// effects: allocates memory to a new BinStr                                    
 // requires: block is a valid BinStr and block->length == DES_BLOCK_SIZE        
 BinStr DESdecrypt(BinStr block, BinStr *roundKeys) {
     assert(block != NULL && block->length == DES_BLOCK_SIZE);                         
