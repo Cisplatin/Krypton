@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include <string.h>
 
 const int BITS_PER_BYTE = 8;
 const int MAX_BYTE = 256;
