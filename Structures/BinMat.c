@@ -52,6 +52,17 @@ BinStr getMat(BinMat mat, int row, int col) {
 }
 
 // see BinMat.h for details
+void swapCols(BinMat mat, int i, int j) {
+    assert(mat != NULL && 0 <= i && 0 <= j &&
+           i < mat->cols && j < mat->cols);
+    for(int row = 0; row < mat->rows; row++) {
+        BinStr buffer = getMat(mat, row, i);
+        setMat(mat, row, i, getMat(mat, row, j));
+        setMat(mat, row, j, buffer);
+    }
+}
+
+// see BinMat.h for details
 void printMat(BinMat mat) {
     assert(mat != NULL);
     for(int i = 0; i < mat->rows; i++) {

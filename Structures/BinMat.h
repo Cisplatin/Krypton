@@ -36,6 +36,10 @@ void setMat(BinMat mat, int row, int col, BinStr str);
 // requires: mat is a valid BinMat, 0 <= row, col <= mat->rows, math->cols
 BinStr getMat(BinMat mat, int row, int col);
 
+// swapCols(mat, i, j) swaps the columns i and j in the matrix
+// requires: mat is a valid BinMat, 0 <= i, j <= mat->cols
+void swapCols(BinMat mat, int i, int j);
+
 // printMat(mat) prints out the given binary matrix
 // requires: mat is a valid BinMat
 // effects: prints out the given BinMat
