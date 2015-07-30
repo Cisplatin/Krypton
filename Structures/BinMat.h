@@ -32,6 +32,10 @@ void destroy_BinMat(BinMat mat);
 // effects: frees the BinStr at row/col, replaces it with str
 void setMat(BinMat mat, int row, int col, BinStr str);
 
+// getMat(mat, row, col) returns the BinStr at the given row and column
+// requires: mat is a valid BinMat, 0 <= row, col <= mat->rows, math->cols
+BinStr getMat(BinMat mat, int row, int col);
+
 // printMat(mat) prints out the given binary matrix
 // requires: mat is a valid BinMat
 // effects: prints out the given BinMat

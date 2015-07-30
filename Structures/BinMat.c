@@ -45,6 +45,13 @@ void setMat(BinMat mat, int row, int col, BinStr str) {
 }
 
 // see BinMat.h for details
+BinStr getMat(BinMat mat, int row, int col) {
+    assert(mat != NULL && 0 <= row && 0 <= col &&
+           row < mat->rows && col < mat->cols);
+    return mat->matrix[row][col];
+}
+
+// see BinMat.h for details
 void printMat(BinMat mat) {
     assert(mat != NULL);
     for(int i = 0; i < mat->rows; i++) {
