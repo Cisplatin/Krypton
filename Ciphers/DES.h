@@ -4,6 +4,9 @@
 #ifndef DES_H
 #define DES_H
 
+#define DES_KEY_SIZE 64
+#define DES_BLOCK_SIZE 64
+
 #include "../Structures/BinStr.h"
 #include "../Generics/BlockCipher.h"
 

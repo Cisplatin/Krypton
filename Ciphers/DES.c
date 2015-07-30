@@ -7,8 +7,6 @@
 #include <string.h>
 
 const int DES_ROUNDS = 16;
-const int DES_BLOCK_SIZE = 64;
-const int DES_KEY_SIZE = 64;
 
 const int DES_ROUND_KEY_SIZE = 48;
 
@@ -317,7 +315,7 @@ BlockCipher DES_initialize(BinStr key, char* mode) {
     assert(key != NULL && mode != NULL && key->length == DES_KEY_SIZE);
     
     // Verify the key
-    assert(verifyKey(key) == 1);
+    // assert(verifyKey(key) == 1);
 
     // Initialize and returns the prepared DES object
     BlockCipher DES = malloc(sizeof(struct blockcipher));

@@ -7,8 +7,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-const int DES_BLOCK_SIZE = 64;
-const int DES_KEY_SIZE = 64;
 const int ANSIX917_SEED_SIZE = 64;
 const int ANSIX917_KEY_SIZE = 192;
 
@@ -17,23 +15,23 @@ const int ANSIX917_KEY_SIZE = 192;
 // requires: str is a valid BinStr, DES[123] are valid Block Ciphers
 // effects: allocates memory to a new BinStr
 BinStr TDES(BinStr str, BlockCipher DES1, BlockCipher DES2, BlockCipher DES3) {
-    BinStr new = BlockEncrypt(str, DES1);
-    new = set(new, BlockDecrypt(str, DES2));
-    new = set(new, BlockEncrypt(str, DES3));
+    BinStr new = BlockEncrypt(str, NULL, DES1);
+    new = set(new, BlockDecrypt(str, NULL, DES2));
+    new = set(new, BlockEncrypt(str, NULL, DES3));
     return new;
 }
 
 // See ANSIX917.h for details
 BinStr ANSIX917_PRNG(BinStr key, BinStr seed, int n) {
-	assert(key != NULL seed != NULL && n >= 0 && 
+	assert(key != NULL && seed != NULL && n >= 0 && 
            key->length == ANSIX917_KEY_SIZE &&
            seed->length == ANSIX917_SEED_SIZE);
 
     // Creates three instances of the DES block cipher to imitate 3DES       
     BinStr cur_seed = copy(seed);
     BinStr key1 = snip(key, 0, DES_KEY_SIZE - 1);
-    BinStr key2 = snip(key, DES_KEY_SIZE, DES_KEY_SIZE * 2 - 1);
-    BinStr key3 = snip(key, DES_KEY_SIZE * 2 - 1, DES_KEY_SIZE - 1);
+    BinStr key2 = snip(key, DES_KEY_SIZE, (DES_KEY_SIZE * 2) - 1);
+    BinStr key3 = snip(key, DES_KEY_SIZE * 2, (DES_KEY_SIZE * 3) - 1);
     BlockCipher DES1 = DES_initialize(key1, "ECB");
     BlockCipher DES2 = DES_initialize(key2, "ECB");   
     BlockCipher DES3 = DES_initialize(key3, "ECB");
@@ -41,16 +39,20 @@ BinStr ANSIX917_PRNG(BinStr key, BinStr seed, int n) {
     // Start generating the stream of bits
     BinStr new = empty_BinStr(0);
     while(new->length < n) {
+
+        // Generate the next output block
         BinStr cur_time = int_to_BinStr((unsigned)time(NULL));   
-        BinStr old_time = copy(cur_time);                                              
-        BinStr cur_time = set(cur_time, cut(cur_time, DES_BLOCK_SIZE));
+        cur_time = set(cur_time, cut(cur_time, DES_BLOCK_SIZE));
         cur_time = set(cur_time, TDES(cur_time, DES1, DES2, DES3));
+        BinStr old_time = copy(cur_time);                                              
         cur_time = set(cur_time, XOR(cur_time, cur_seed));
-        cur_time = set(cur_time, TDES(cur_time, DES1, DES2, DES));
+        cur_time = set(cur_time, TDES(cur_time, DES1, DES2, DES3));
         new = set(new, append(new, cur_time));
+        
+        // Generate a new seed
         cur_time = set(cur_time, XOR(cur_time, old_time));
         cur_seed = set(cur_seed, TDES(cur_time, DES1, DES2, DES3));
-        destroy_BinStr(current_time);
+        destroy_BinStr(cur_time);
         destroy_BinStr(old_time);
     }
     destroy_BinStr(cur_seed);
