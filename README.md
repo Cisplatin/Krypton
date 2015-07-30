@@ -56,3 +56,6 @@ To compile the above file, the following should be used:
 gcc Example.c Structures/BinStr.c Generics/BlockCipher.c Ciphers/DES.c -std=c99 -lm
 ```
 
+# Upcoming
+
+- Fix found bug with RC4 stream cipher
