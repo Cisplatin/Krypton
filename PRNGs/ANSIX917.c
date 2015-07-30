@@ -7,9 +7,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-const int ANSIX917_SEED_SIZE = 64;
-const int ANSIX917_KEY_SIZE = 192;
-
 // TDES(str, DES1, DES2, DES3) encrypts the given string using the 3DES
 //   algorithm, using the given block ciphers.
 // requires: str is a valid BinStr, DES[123] are valid Block Ciphers

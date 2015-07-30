@@ -4,6 +4,9 @@
 #ifndef ANSIX917_H
 #define ANSIX917_H
 
+#define ANSIX917_KEY_SIZE 192
+#define ANSIX917_SEED_SIZE 64
+
 #include "../Structures/BinStr.h"
 
 // ANSIX917_PRNG(key, n) returns the result of the ANSI X9.17 pseudorandom 
