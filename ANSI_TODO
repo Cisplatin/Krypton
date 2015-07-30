@@ -2,6 +2,8 @@ ansi integration with stream cipher (seed?)
 assert des key ver
 update generated to work with different seed
 save key
+add to README availibilities
+make a stream cipher module
 fix RC4 bug
 
 #include <stdio.h>                                                              
