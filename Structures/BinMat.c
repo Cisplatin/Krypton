@@ -43,6 +43,18 @@ BinMat BinStr_to_BinMat(BinStr str, int rows, int cols) {
 }
 
 // see BinMat.h for details
+BinStr BinMat_to_BinStr(BinMat mat) {
+    assert(mat != NULL);
+    BinStr new = empty_BinStr(0);
+    for(int row = 0; row < mat->rows; row++) {
+        for(int col = 0; col < mat->cols; col++) {
+            new = set(new, append(new, mat->matrix[row][col]));
+        }
+    }
+    return new;
+}
+
+// see BinMat.h for details
 void destroy_BinMat(BinMat mat) {
     assert(mat != NULL);
     for(int i = 0; i < mat->rows; i++) {

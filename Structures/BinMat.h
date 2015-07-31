@@ -28,6 +28,11 @@ BinMat empty_BinMat(int rows, int cols);
 //           split into the given number of rows and cols
 BinMat BinStr_to_BinMat(BinStr str, int rows, int cols);
 
+// BinMat_to_BinStr(mat) returns a binstr that is the concatenation of
+//   all binary strings in the given matrix
+// requires: mat is a valid BinMat
+BinStr BinMat_to_BinStr(BinMat mat);
+
 // destroy_BinMat(mat) frees all memory associated with the given BinMat
 // requires: mat is a valid BinMat
 // effects: frees memory associated with the given BinMat
