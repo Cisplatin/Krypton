@@ -38,6 +38,12 @@ void destroy_BinMat(BinMat mat);
 // effects: allocates memory to a new binary matrix
 BinMat copyMat(BinMat mat);
 
+// strwise(func, a, b) returns a binary matrix which is the result of a and 
+//   be being binstr-wise func'd
+// requires: a and b are valid BinMats, a->rows == b->rows, a->cols == b->cols
+// effects: allocates memory to a new binary matrix
+BinMat strwise(BinStr (*func)(BinStr, BinStr), BinMat a, BinMat b);
+
 // setMat(mat, row, col, str) sets the matrix at the given row and column
 //   to the given BinStr
 // requires: mat is a valid BinMat, 0 <= row, col <= mat->rows, mat->cols
