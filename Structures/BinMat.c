@@ -88,6 +88,16 @@ void swapCols(BinMat mat, int i, int j) {
 }
 
 // see BinMat.h for details
+void rotateRowR(BinMat mat, int row) {
+    assert(mat != NULL && 0 <= row && row < mat->rows);
+    BinStr last = mat->matrix[row][mat->cols - 1];
+    for(int i = mat->cols - 1; i > 0; i--) {
+        mat->matrix[row][i] = mat->matrix[row][i - 1];
+    }
+    mat->matrix[row][0] = last;
+}
+
+// see BinMat.h for details
 void printMat(BinMat mat) {
     assert(mat != NULL);
     for(int i = 0; i < mat->rows; i++) {

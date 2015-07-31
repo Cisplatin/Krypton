@@ -49,6 +49,10 @@ void swapRows(BinMat mat, int i, int j);
 // requires: mat is a valid BinMat, 0 <= i, j <= mat->cols
 void swapCols(BinMat mat, int i, int j);
 
+// rotateRowR(mat, row) rotates the row'th row in mat by one
+// requireS: mat is a valid BinMat, 0 <= row < mat->rows
+void rotateRowR(BinMat mat, int row);
+
 // printMat(mat) prints out the given binary matrix
 // requires: mat is a valid BinMat
 // effects: prints out the given BinMat
