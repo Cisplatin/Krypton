@@ -98,6 +98,16 @@ void rotateRowR(BinMat mat, int row) {
 }
 
 // see BinMat.h for details
+void rotateRowL(BinMat mat, int row) {
+    assert(mat != NULL && 0 <= row && row < mat->rows);
+    BinStr first = mat->matrix[row][0];
+    for(int i = 0; i < mat->cols - 1; i++) {
+        mat->matrix[row][i] = mat->matrix[row][i + 1];
+    }
+    mat->matrix[row][mat->cols - 1] = first;
+}
+
+// see BinMat.h for details
 void printMat(BinMat mat) {
     assert(mat != NULL);
     for(int i = 0; i < mat->rows; i++) {

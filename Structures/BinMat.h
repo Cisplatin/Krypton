@@ -50,8 +50,12 @@ void swapRows(BinMat mat, int i, int j);
 void swapCols(BinMat mat, int i, int j);
 
 // rotateRowR(mat, row) rotates the row'th row in mat by one
-// requireS: mat is a valid BinMat, 0 <= row < mat->rows
+// requires: mat is a valid BinMat, 0 <= row < mat->rows
 void rotateRowR(BinMat mat, int row);
+
+// rotateRowL(mat, row) rotates the row'th row in mat by one
+// requires: mat is a valid BinMat, 0 <= row < mat->rows
+void rotateRowL(BinMat mat, int row);
 
 // printMat(mat) prints out the given binary matrix
 // requires: mat is a valid BinMat
