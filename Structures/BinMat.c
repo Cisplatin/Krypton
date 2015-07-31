@@ -23,6 +23,26 @@ BinMat empty_BinMat(int rows, int cols) {
 }
 
 // see BinMat.h for details
+BinMat BinStr_to_BinMat(BinStr str, int rows, int cols) {
+    assert(str != NULL && rows > 0 && cols > 0);
+    int bits = str->length / (rows * cols);
+    assert(bits * rows * cols == str->length);
+    BinMat new = malloc(sizeof(struct binmat));
+    new->rows = rows;
+    new->cols = cols;
+    new->matrix = malloc(sizeof(BinStr) * cols);
+    for(int i = 0; i < rows; i++) {
+        new->matrix[i] = malloc(sizeof(BinStr) * cols);
+        for(int j = 0; j < cols; j++) {
+            new->matrix[i][j] = snip(str, bits * (i * cols + j), 
+                                          bits * (i * cols + j + 1) - 1);
+        }
+    }
+    return new;
+
+}
+
+// see BinMat.h for details
 void destroy_BinMat(BinMat mat) {
     assert(mat != NULL);
     for(int i = 0; i < mat->rows; i++) {

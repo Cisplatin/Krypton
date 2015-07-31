@@ -21,6 +21,13 @@ typedef struct binmat *BinMat;
 // effects: allocates memory to a new BinMat
 BinMat empty_BinMat(int rows, int cols);
 
+// BinStr_to_BinMat(str, rows, cols) returns a binary matrix, where the
+//   elements correspond to the given string split into the appropriate
+//   amount of cells evenly.
+// requires: str is a valid BinStr, 0 < rows, cols, and str can be evenly
+//           split into the given number of rows and cols
+BinMat BinStr_to_BinMat(BinStr str, int rows, int cols);
+
 // destroy_BinMat(mat) frees all memory associated with the given BinMat
 // requires: mat is a valid BinMat
 // effects: frees memory associated with the given BinMat
