@@ -18,7 +18,7 @@ char HEX_CONVERT[][16] = {"0000", "0001", "0010", "0011", "0100", "0101",
 
 // see BinStr.h for details
 BinStr str_to_BinStr(char *bits, unsigned int length) {
-	BinStr new = malloc(sizeof(struct binstr));
+    BinStr new = malloc(sizeof(struct binstr));
 	new->bits = malloc(sizeof(bool) * length);
 	for(int i = 0; i < length; i++) {
 		if(bits[i] == '1') {

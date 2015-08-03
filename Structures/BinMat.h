@@ -43,6 +43,11 @@ void destroy_BinMat(BinMat mat);
 // effects: allocates memory to a new binary matrix
 BinMat copyMat(BinMat mat);
 
+// apply(mat, func) applies the given function to all elements in the given
+//   matrix
+// requires: mat is a valid BinMat
+void apply(BinMat mat, BinStr (*func)(BinStr));
+
 // strwise(func, a, b) returns a binary matrix which is the result of a and 
 //   be being binstr-wise func'd
 // requires: a and b are valid BinMats, a->rows == b->rows, a->cols == b->cols

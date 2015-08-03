@@ -84,6 +84,16 @@ BinMat copyMat(BinMat mat) {
 }
 
 // see BinMat.h for details
+void apply(BinMat mat, BinStr (*func)(BinStr)) {
+    assert(mat != NULL);
+    for(int i = 0; i < mat->rows; i++) {
+        for(int j = 0; j < mat->cols; j++) {
+            mat->matrix[i][j] = set(mat->matrix[i][j], func(mat->matrix[i][j]));
+        }   
+    }
+}
+
+// see BinMat.h for details
 BinMat strwise(BinStr (*func)(BinStr, BinStr), BinMat a, BinMat b) {
     assert(a != NULL && b != NULL && a->rows == b->rows && a->cols == b->cols);
     BinMat new = malloc(sizeof(struct binmat));
