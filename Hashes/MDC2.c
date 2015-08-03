@@ -54,7 +54,8 @@ BinStr MDC2(BinStr str, BinStr IV_1, BinStr IV_2) {
     BinStr H_0 = copyStr(IV_1);
     BinStr H_1 = copyStr(IV_2);
 
-    for(int i = 0; i < str->length / MDC2_BLOCK_SIZE; i += MDC2_BLOCK_SIZE) {
+    for(int i = 0; i + MDC2_BLOCK_SIZE - 1 < str->length
+                 ; i += MDC2_BLOCK_SIZE) {
         // Generate the DES encryption keys
         BinStr seg = snip(str, i, i + MDC2_BLOCK_SIZE - 1);
         BinStr key1 = generateG1(H_0);
