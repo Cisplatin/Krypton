@@ -46,13 +46,10 @@ BinStr generateG2(BinStr H) {
 }
 
 // See MDC2.h for details
-BinStr MDC2(BinStr str, BinStr IV_1, BinStr IV_2) {
-    assert(str != NULL && IV_1 != NULL && IV_2 != NULL &&
-           str->length % MDC2_BLOCK_SIZE == 0 &&
-           IV_1->length == MDC2_BLOCK_SIZE &&
-           IV_2->length == MDC2_BLOCK_SIZE);
-    BinStr H_0 = copyStr(IV_1);
-    BinStr H_1 = copyStr(IV_2);
+BinStr MDC2(BinStr str) {
+    assert(str != NULL &&  str->length % MDC2_BLOCK_SIZE == 0);
+    BinStr H_0 = hex_to_BinStr("5252525252525252");
+    BinStr H_1 = hex_to_BinStr("2525252525252525");
 
     for(int i = 0; i + MDC2_BLOCK_SIZE - 1 < str->length
                  ; i += MDC2_BLOCK_SIZE) {
