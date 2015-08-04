@@ -8,7 +8,7 @@
 #define DES_BLOCK_SIZE 64
 
 #include "../Structures/BinStr.h"
-#include "../Generics/BlockCipher.h"
+#include "Generics/BlockCipher.h"
 
 // DES_initialize(key, mode) returns an instance of a block cipher ready for
 //   decryption and encryption using the given key and mode

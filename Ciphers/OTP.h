@@ -5,7 +5,7 @@
 #define OTP_H
 
 #include "../Structures/BinStr.h"
-#include "../Generics/StreamCipher.h"
+#include "Generics/StreamCipher.h"
 
 // OTP_initialize(key) returns an instance of a stream cipher ready for         
 //   decryption and encryption using the given key and mode                     

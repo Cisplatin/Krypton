@@ -5,7 +5,7 @@
 #define MDC2_H
 
 #include "../Structures/BinStr.h"
-#include "../Generics/BlockCipher.h"
+#include "../Ciphers/Generics/BlockCipher.h"
 #include "../Ciphers/DES.h"
 
 // MDC2(str) returns the DES-based MDC-2 hash of the given string, using the

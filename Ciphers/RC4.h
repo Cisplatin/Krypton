@@ -5,7 +5,7 @@
 #define RC4C_H
 
 #include "../Structures/BinStr.h"
-#include "../Generics/StreamCipher.h"
+#include "Generics/StreamCipher.h"
 #include "../PRNGs/RC4.h"
 
 // RC4_initialize(key) returns an instance of a stream cipher ready for     
