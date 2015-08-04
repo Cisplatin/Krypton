@@ -4,7 +4,7 @@
 #ifndef STREAMCIPHER_H
 #define STREAMCIPHER_H
 
-#include "../Structures/BinStr.h"
+#include "../../Structures/BinStr.h"
 
 struct streamcipher {                                                            
     BinStr key;                                                                 

@@ -4,7 +4,7 @@
 #ifndef BLOCKCIPHER_H
 #define BLOCKCIPHER_H
 
-#include "../Structures/BinStr.h"
+#include "../../Structures/BinStr.h"
 
 struct blockcipher {
     BinStr key;
