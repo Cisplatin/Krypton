@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 const int MDC2_BLOCK_SIZE = 64;
+const int MDC2_OUT_SIZE = 128;
 
 // generateG1(H) returns the result of the first g function for MDC-2
 // requires: H is a valid BinStr and H->length == MDC2_BLOCK_SIZE
@@ -45,8 +46,11 @@ BinStr generateG2(BinStr H) {
     return key;
 }
 
-// See MDC2.h for details
-BinStr MDC2(BinStr str) {
+// MDC2func(str) returns the DES-based MDC-2 hash of the given string, using the
+//   default IVs in MDC-2's specifications
+// requires: string has a bit length that is a multiple of 64
+// effects: allocates new memory to the resulting BinStr
+BinStr MDC2func(BinStr str) {
     assert(str != NULL &&  str->length % MDC2_BLOCK_SIZE == 0);
     BinStr H_0 = hex_to_BinStr("5252525252525252");
     BinStr H_1 = hex_to_BinStr("2525252525252525");
@@ -87,4 +91,19 @@ BinStr MDC2(BinStr str) {
     H_0 = set(H_0, append(H_0, H_1));
     destroy_BinStr(H_1);
     return H_0;
+}
+
+// See MDC2.h for details
+Hash MDC2_initialize() {
+    Hash MDC2 = malloc(sizeof(struct hash));
+    MDC2->outSize = MDC2_OUT_SIZE;
+    MDC2->blockSize = MDC2_BLOCK_SIZE;
+    MDC2->hashFunc = MDC2func;
+    return MDC2;
+}
+
+// See MDC2.h for details
+void MDC2_destroy(Hash MDC2) {
+    assert(MDC2 != NULL);
+    free(MDC2);
 }
