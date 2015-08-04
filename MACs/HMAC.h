@@ -1,5 +1,5 @@
-/* HMAC.h - Created by Xenonstory on August 4th
-   HMAC is an implementation of the HMAC authentication mode */
+/* HMAC.h - Created by Xenonstory on August 4th, 2015
+   HMAC is an implementation of the HMAC authentication code */
 
 #include "../Structures/BinStr.h"
 
