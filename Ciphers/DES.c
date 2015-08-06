@@ -320,7 +320,7 @@ BlockCipher DES_initialize(BinStr key, char* mode) {
 
     // Initialize and returns the prepared DES object
     BlockCipher DES = malloc(sizeof(struct blockcipher));
-    DES->key = key;
+    DES->key = copyStr(key);
     DES->roundKeys = initializeRoundKeys(key);
     DES->encryptionMode = mode;
     DES->blockSize = DES_BLOCK_SIZE;
@@ -332,5 +332,6 @@ BlockCipher DES_initialize(BinStr key, char* mode) {
 // See DES.h for details
 void DES_destroy(BlockCipher DES) {
     destroyRoundKeys(DES);
+    free(DES->key);
     free(DES);
 }
