@@ -8,10 +8,10 @@
 const int MDC2_BLOCK_SIZE = 64;
 const int MDC2_OUT_SIZE = 128;
 
-// generateG1(H) returns the result of the first g function for MDC-2
+// MDC2generateG1(H) returns the result of the first g function for MDC-2
 // requires: H is a valid BinStr and H->length == MDC2_BLOCK_SIZE
 // effects: allocates memory to a new BinStr
-BinStr generateG1(BinStr H) {
+BinStr MDC2generateG1(BinStr H) {
     assert(H != NULL && H->length == MDC2_BLOCK_SIZE);
     BinStr key = copyStr(H);
     key->bits[1] = 1;
@@ -27,10 +27,10 @@ BinStr generateG1(BinStr H) {
     return key;
 }
 
-// generateG2(H) returns the result of the second g function for MDC-2
+// MDC2generateG2(H) returns the result of the second g function for MDC-2
 // requires: H is a valid BinStr and H->length == MDC2_BLOCK_SIZE
 // effects: allocates memory to a new BinStr
-BinStr generateG2(BinStr H) {
+BinStr MDC2generateG2(BinStr H) {
     assert(H != NULL && H->length == MDC2_BLOCK_SIZE);
     BinStr key = copyStr(H);
     key->bits[1] = 0;
@@ -59,8 +59,8 @@ BinStr MDC2func(BinStr str) {
                  ; i += MDC2_BLOCK_SIZE) {
         // Generate the DES encryption keys
         BinStr seg = snip(str, i, i + MDC2_BLOCK_SIZE - 1);
-        BinStr key1 = generateG1(H_0);
-        BinStr key2 = generateG2(H_1);
+        BinStr key1 = MDC2generateG1(H_0);
+        BinStr key2 = MDC2generateG2(H_1);
 
         // Encrypt using the generated keys
         BlockCipher DES1 = DES_initialize(key1, "ECB");
