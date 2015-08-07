@@ -15,14 +15,24 @@ BinStr MD4func(BinStr str) {
     assert(str != NULL);
     
     // Start with the MD4 padding
+    BinStr value = copy(str);
     BinStr zero = str_to_BinStr("0", 1);
     BinStr one = str_to_BinStr("1", 1);
-    str = set(str, append(str, one));
-    while(str->length % 512 != 448) {
-        str = set(str, append(str, zero));
+    hash = set(hash, append(hash, one));
+    while(hash->length % 512 != 448) {
+        hash = set(hash, append(hash, zero));
     }
 
-    return str;
+    // Append the original message length
+    BinStr length = int_to_BinStr(str->length);
+    length = set(length, cut(length, 64));
+    hash = set(hash, append(hash, length));
+
+    // Garbage collection
+    destroy_BinStr(zero);
+    destroy_BinStr(one);
+    destroy_BinStr(length);
+    return hash;
 }
 
 // See MD4.h for details
