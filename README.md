@@ -60,5 +60,4 @@ sh COMPILE.sh Example.c
 
 ## TODO
 - Finish MD4 hash implementation
-- Add a way to pad messages with different standards
 - Make a generic creation and destruction function for Ciphers/Hashes/PRNGs/Everything

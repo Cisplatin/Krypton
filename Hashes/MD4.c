@@ -5,8 +5,23 @@
 #include <stdlib.h>
 #include <assert.h>
 
-// TODO
+const int MD4_OUT_SIZE = 128;
+const int MD4_BLOCK_SIZE = 1;
+
+// MD4func(str) returns the MD4 hash value of the given string
+// requires: str is a valid BinStr
+// effects: allocates memory to a new BinStr
 BinStr MD4func(BinStr str) {
+    assert(str != NULL);
+    
+    // Start with the MD4 padding
+    BinStr zero = str_to_BinStr("0", 1);
+    BinStr one = str_to_BinStr("1", 1);
+    str = set(str, append(str, one));
+    while(str->length % 512 != 448) {
+        str = set(str, append(str, zero));
+    }
+
     return str;
 }
 
