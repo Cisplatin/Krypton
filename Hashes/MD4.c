@@ -28,6 +28,12 @@ BinStr MD4func(BinStr str) {
     length = set(length, cut(length, 64));
     hash = set(hash, append(hash, length));
 
+    // Initialize the MD4 buffer
+    BinStr A = hex_to_BinStr("67452301")
+    BinStr B = hex_to_BinStr("efcdab89")
+    BinStr C = hex_to_BinStr("98badcfe")
+    BinStr D = hex_to_BinStr("10325476")
+
     // Garbage collection
     destroy_BinStr(zero);
     destroy_BinStr(one);
