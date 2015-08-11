@@ -57,7 +57,3 @@ To compile the above file (named 'Example.c'), the following should be used:
 ```Bash
 sh COMPILE.sh Example.c
 ```
-
-## TODO
-- Finish MD4 hash implementation
-- Make a generic creation and destruction function for Ciphers/Hashes/PRNGs/Everything
