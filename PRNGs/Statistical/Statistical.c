@@ -14,7 +14,11 @@ const int MONOBIT_TEST_DOF = 1;
 // requires: str is a valid BinStr, str->length > 0
 float monobit_test(BinStr str) {
     assert(str != NULL && str->length > 0);
-    float count = (number_of_zeros(str) - number_of_ones(str));
+    BinStr zero = str_to_BinStr("0", 1);
+    BinStr one  = str_to_BinStr("1", 1);
+    float count = (number_of_seq(str, zero) - number_of_seq(str, one));
     count = (count * count) / str->length;
+    destroy_BinStr(zero);
+    destroy_BinStr(one);
     return count;
 }
