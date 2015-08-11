@@ -366,30 +366,6 @@ bool parity(BinStr str) {
 	return result;
 }
 
-// see BinStr.h for details
-int number_of_zeros(BinStr str) {
-    assert(str != NULL);
-    int count = 0;
-    for(int i = 0; i < str->length; i++) {
-        if(str->bits[i] == 0) {
-            count++;
-        }
-    } 
-    return count;
-}
-
-// see BinStr.h for details
-int number_of_ones(BinStr str) {
-    assert(str != NULL);
-    int count = 0;
-    for(int i = 0; i < str->length; i++) {
-        if(str->bits[i] == 1) {
-            count++;
-        }
-    } 
-    return count;
-}
-
 // See BinStr.h for details
 int number_of_seq(BinStr str, BinStr seq) {
     assert(str != NULL && seq != NULL && str->length > seq->length);
@@ -401,9 +377,7 @@ int number_of_seq(BinStr str, BinStr seq) {
                 found = 0;
             }
         }
-        if(found) {
-            count++;
-        }
+        if(found) count++; 
     }
     return count;
 }
