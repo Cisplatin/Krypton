@@ -4,9 +4,10 @@
 #include "Statistical.h"
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 // Declarations of all the degrees of freedom associated with the tests
-const int MONOBIT_TEST_DOF = 1;
+const int MONOBIT_DEG = 1;
 
 // monobit_test(str) returns the statistic of the monobit test on the given
 //   BinStr. This tests using the chi-square test to check if the number of
@@ -21,4 +22,15 @@ float monobit_test(BinStr str) {
     destroy_BinStr(zero);
     destroy_BinStr(one);
     return count;
+}
+
+// See Statistical.h for details
+void run_statistical_tests(BinStr str) {
+    struct statistical_test tests[NUMBER_OF_STATISTICAL_TESTS] = {
+           {"Monobit", MONOBIT_DEG, monobit_test}
+    };
+    for(int i = 0; i < NUMBER_OF_STATISTICAL_TESTS; i++) {
+        printf("Statistic for the %s test: %f\n", tests[i].name,
+                                                  tests[i].testFunc(str));
+    }
 }
