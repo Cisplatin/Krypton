@@ -367,6 +367,30 @@ bool parity(BinStr str) {
 }
 
 // see BinStr.h for details
+int number_of_zeros(BinStr str) {
+    assert(str != NULL);
+    int count = 0;
+    for(int i = 0; i < str->length; i++) {
+        if(str->bits[i] == 0) {
+            count++;
+        }
+    } 
+    return count;
+}
+
+// see BinStr.h for details
+int number_of_ones(BinStr str) {
+    assert(str != NULL);
+    int count = 0;
+    for(int i = 0; i < str->length; i++) {
+        if(str->bits[i] == 1) {
+            count++;
+        }
+    } 
+    return count;
+}
+
+// see BinStr.h for details
 BinStr modpwr(BinStr str, int n) {
 	assert(str != NULL && n > 0);
 	BinStr new = empty_BinStr(n);

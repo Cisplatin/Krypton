@@ -166,9 +166,9 @@ int lsb(BinStr str);
 // requires: str is a valid BinStr
 bool parity(BinStr str);
 
-// number_of_zeroes(str) returns the number of zeroes in the given BinStr
+// number_of_zeros(str) returns the number of zeroes in the given BinStr
 // requires: str is a valid BinStr
-int number_of_zeroes(BinStr str);
+int number_of_zeros(BinStr str);
 
 // number_of_ones(str) returns the number of ones in the given BinStr
 // requires: str is a valid BinStr
