@@ -166,6 +166,14 @@ int lsb(BinStr str);
 // requires: str is a valid BinStr
 bool parity(BinStr str);
 
+// number_of_zeroes(str) returns the number of zeroes in the given BinStr
+// requires: str is a valid BinStr
+int number_of_zeroes(BinStr str);
+
+// number_of_ones(str) returns the number of ones in the given BinStr
+// requires: str is a valid BinStr
+int number_of_ones(BinStr str);
+
 // modpwr(str, n) returns a BinStr equivalent to str mod 2^n. New BinStr must 
 //   be freed by the user.
 // requires: str is a valid BinStr, n > 0
