@@ -6,6 +6,27 @@
 #include <stdlib.h>
 #include <string.h>
 
+// OFBencrypt(msg, IV, cipher) encrypts the given message using the given
+//   cipherand IV, using OFB mode
+// requires: msg and IV are valid BinStrs, cipher is a block cipher
+// effects: allocates memory to a new BinStr
+BinStr OFBencrypt(BinStr msg, BinStr IV, BlockCipher cipher) {
+    assert(msg != NULL && IV != NULL && cipher != NULL &&
+           msg->length % cipher->blockSize == 0 &&
+           IV->length == cipher->blockSize);
+    BinStr cip = empty_BinStr(0);
+    BinStr prev = copyStr(IV);
+    for(int i = 0; i < msg->length; i += cipher->blockSize) {
+        BinStr to_app = snip(msg, i, i + cipher->blockSize - 1); 
+        prev = set(prev, (*cipher->encrypt)(prev, cipher->roundKeys));
+        to_app = set(to_app, XOR(prev, to_app));
+        cip = set(cip, append(cip, to_app));
+        destroy_BinStr(to_app);
+    }
+    destroy_BinStr(prev);
+    return cip;
+}
+
 // CTRencrypt(msg, nonce, cipher) encrypts the given message using the
 //   given cipher and nonce, using CTR mode.
 // requires: msg and nonce are valid BinStrs, cipher is a block cipher
