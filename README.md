@@ -9,7 +9,7 @@ Krypton currently offers the following:
 * Block ciphers (DES)
 * Pseudo-random number generators (RC4, ANSI X9.17)
 * Cryptographic hash functions (MDC-2)
-* Various modes of encryption (ECB, CBC, CTR)
+* Various modes of encryption (ECB, CBC, CTR, OFB)
 * Various structures (Binary strings, Binary matrices)
 
 ## Example
