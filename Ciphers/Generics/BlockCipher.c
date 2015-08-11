@@ -185,6 +185,8 @@ BinStr BlockEncrypt(BinStr msg, BinStr IV, BlockCipher cipher) {
         return CBCencrypt(msg, IV, cipher);
     } else if(strcmp(cipher->encryptionMode, "CTR") == 0) {
         return CTRencrypt(msg, IV, cipher);
+    } else if(strcmp(cipher->encryptionMode, "OFB") == 0) {
+        return OFBencrypt(msg, IV, cipher);
     } else {
         return NULL;
     }
@@ -199,6 +201,8 @@ BinStr BlockDecrypt(BinStr cip, BinStr IV, BlockCipher cipher) {
         return CBCdecrypt(cip, IV, cipher);
     } else if(strcmp(cipher->encryptionMode, "CTR") == 0) {
         return CTRdecrypt(cip, IV, cipher);
+    } else if(strcmp(cipher->encryptionMode, "OFB") == 0) {
+        return OFBdecrypt(cip, IV, cipher);
     } else {
         return NULL;
     }
