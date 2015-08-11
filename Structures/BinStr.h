@@ -174,6 +174,10 @@ int number_of_zeros(BinStr str);
 // requires: str is a valid BinStr
 int number_of_ones(BinStr str);
 
+// number_of_seq(str, seg) returns the number of instances of seg in str
+// requires: str is a valid BinStr, seg is a valid BinStr
+int number_of_seq(BinStr str, BinStr seg);
+
 // modpwr(str, n) returns a BinStr equivalent to str mod 2^n. New BinStr must 
 //   be freed by the user.
 // requires: str is a valid BinStr, n > 0

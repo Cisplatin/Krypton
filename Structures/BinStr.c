@@ -390,6 +390,24 @@ int number_of_ones(BinStr str) {
     return count;
 }
 
+// See BinStr.h for details
+int number_of_seq(BinStr str, BinStr seq) {
+    assert(str != NULL && seq != NULL && str->length > seq->length);
+    int count = 0;
+    for(int i = 0; i < str->length; i++) {
+        bool found = 1;
+        for(int j = 0; j < seq->length && found; j++) {
+            if(str->bits[i + j] != seq->bits[j]) {  
+                found = 0;
+            }
+        }
+        if(found) {
+            count++;
+        }
+    }
+    return count;
+}
+
 // see BinStr.h for details
 BinStr modpwr(BinStr str, int n) {
 	assert(str != NULL && n > 0);
