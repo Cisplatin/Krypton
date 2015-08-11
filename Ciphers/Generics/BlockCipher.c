@@ -27,6 +27,27 @@ BinStr OFBencrypt(BinStr msg, BinStr IV, BlockCipher cipher) {
     return cip;
 }
 
+// OFBdecrypt(cip, IV, cipher) decrypts the given ciphertext using the given
+//   cipherand IV, using OFB mode
+// requires: cip and IV are valid BinStrs, cipher is a block cipher
+// effects: allocates memory to a new BinStr
+BinStr OFBdecrypt(BinStr cip, BinStr IV, BlockCipher cipher) {
+    assert(cip != NULL && IV != NULL && cipher != NULL &&
+           cip->length % cipher->blockSize == 0 &&
+           IV->length == cipher->blockSize);
+    BinStr msg = empty_BinStr(0);
+    BinStr prev = copyStr(IV);
+    for(int i = 0; i < cip->length; i += cipher->blockSize) {
+        BinStr to_app = snip(cip, i, i + cipher->blockSize - 1); 
+        prev = set(prev, (*cipher->encrypt)(prev, cipher->roundKeys));
+        to_app = set(to_app, XOR(prev, to_app));
+        msg = set(msg, append(msg, to_app));
+        destroy_BinStr(to_app);
+    }
+    destroy_BinStr(prev);
+    return msg;
+}
+
 // CTRencrypt(msg, nonce, cipher) encrypts the given message using the
 //   given cipher and nonce, using CTR mode.
 // requires: msg and nonce are valid BinStrs, cipher is a block cipher
