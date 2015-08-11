@@ -6,7 +6,7 @@
 #include <assert.h>
 
 // See Hash.h for details
-BinStr hashValue(BinStr str, Hash alg) {
+BinStr hash(BinStr str, Hash alg) {
     assert(str->length % alg->blockSize == 0);
     return alg->hashFunc(str);
 }

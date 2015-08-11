@@ -95,7 +95,7 @@ BinStr MDC2func(BinStr str) {
 
 // See MDC2.h for details
 Hash MDC2_initialize() {
-    Hash MDC2 = malloc(sizeof(struct hash));
+    Hash MDC2 = malloc(sizeof(struct hashstruct));
     MDC2->outSize = MDC2_OUT_SIZE;
     MDC2->blockSize = MDC2_BLOCK_SIZE;
     MDC2->hashFunc = MDC2func;

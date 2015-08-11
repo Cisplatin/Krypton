@@ -3,15 +3,15 @@
 
 #include "../../Structures/BinStr.h"
 
-struct hash {
+struct hashstruct {
     int outSize;
     int blockSize;
     BinStr (*hashFunc)(BinStr);
 };
 
-typedef struct hash *Hash;
+typedef struct hashstruct *Hash;
 
-// hashValue(str, alg) returns the hash value of the given string using the
+// hash(str, alg) returns the hash value of the given string using the
 //   given cryptographic hash algorithm
 // requires: str is a valid BinStr, alg is a valid Hash
-BinStr hashValue(BinStr str, Hash alg);
+BinStr hash(BinStr str, Hash alg);
