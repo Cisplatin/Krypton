@@ -7,8 +7,6 @@
 #define NUMBER_OF_STATISTICAL_TESTS 1
 
 #include "../../Structures/BinStr.h"
-#include <stdbool.h>
-#include <string.h>
 
 struct statistical_test {
     char *name;
@@ -16,10 +14,11 @@ struct statistical_test {
     float (*testFunc)(BinStr);
 };
 
-// run_statistical_tests(str) runs a myriad of statistical tests on the given
-//   BinStr to test for randomness
-// requires: str is a valid BinStr
-// effects: prints out information about the randomness of the string
-void run_statistical_tests(BinStr str);
+typedef struct statistical_test *StatisticalTest;
+
+// get_statistical_test(name) returns an instance of the statistical test       
+//   with the given name. Returns NULL if the given test does not exit          
+// effects: allocates memory to a new StatisticalTest  
+StatisticalTest get_statistical_test(char *name);
 
 #endif

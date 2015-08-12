@@ -3,6 +3,7 @@
 
 #include "Statistical.h"
 #include <assert.h>
+#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -25,12 +26,16 @@ float monobit_test(BinStr str) {
 }
 
 // See Statistical.h for details
-void run_statistical_tests(BinStr str) {
-    struct statistical_test tests[NUMBER_OF_STATISTICAL_TESTS] = {
-           {"Monobit", MONOBIT_DEG, monobit_test}
-    };
-    for(int i = 0; i < NUMBER_OF_STATISTICAL_TESTS; i++) {
-        printf("Statistic for the %s test: %f\n", tests[i].name,
-                                                  tests[i].testFunc(str));
-    }
+StatisticalTest get_statistical_test(char *name) {
+    assert(name != NULL);
+    StatisticalTest test = malloc(sizeof(struct statistical_test));
+    test->name = name;
+    if(strcmp(name, "Monobit") == 0) {
+        test->degrees_of_freedom = MONOBIT_DEG;
+        test->testFunc = monobit_test;
+    } else {
+        free(test);
+        return NULL;
+    } 
+    return test;
 }
