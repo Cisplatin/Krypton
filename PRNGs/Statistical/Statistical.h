@@ -19,6 +19,10 @@ typedef struct statistical_test *StatisticalTest;
 // effects: allocates memory to a new StatisticalTest  
 StatisticalTest get_statistical_test(char *name);
 
+// run_statistical_test(str, test) returns the statistic value of the given
+//   string using the given test.
+float run_statistical_test(BinStr str, StatisticalTest test);
+
 // destroy_statistical_test(test) destroys the given instance of a stat test
 // effects: frees memory associated with the given test
 void destroy_statistical_test(StatisticalTest test);

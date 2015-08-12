@@ -41,6 +41,12 @@ StatisticalTest get_statistical_test(char *name) {
 }
 
 // See Statistical.h for details
+float run_statistical_test(BinStr str, StatisticalTest test) {
+    assert(str != NULL && test != NULL);
+    return (*test->testFunc)(str);
+}
+
+// See Statistical.h for details
 void destroy_statistical_test(StatisticalTest test) {
     assert(test != NULL);
     free(test);
