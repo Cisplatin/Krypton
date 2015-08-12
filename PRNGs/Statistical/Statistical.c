@@ -32,7 +32,7 @@ float monobit_test(BinStr str) {
 // requires: str is a valid BinStr, str->length > 1
 float twobit_test(BinStr str) {
     assert(str != NULL && str->length > 1);
-    int count = 0;  
+    float count = 0, final = 0;  
 
     // Find the counts of the double digits
     for(int i = 0; i < 4; i++) {
@@ -44,11 +44,22 @@ float twobit_test(BinStr str) {
         int buffer = number_of_seq(str, seg);
         count += buffer * buffer;
         destroy_BinStr(seg);
+    }  
+    count = 4 * count / (str->length - 1);
+    
+    // Find the counts of the single digits
+    for(int i = 0; i < 2; i++) {
+        BinStr seg;
+        if(i == 0) seg = str_to_BinStr("0", 1);
+        if(i == 1) seg = str_to_BinStr("1", 1);
+        int buffer = number_of_seq(str, seg);
+        final += buffer * buffer;
+        destroy_BinStr(seg);
     }
+    final = -2 * final / str->length;
+    final += count + 1
 
-    // TODO: Finish this function
-
-    return count;
+    return final;
 }
 
 // See Statistical.h for details
