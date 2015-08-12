@@ -4,8 +4,6 @@
 #ifndef STATISTICAL_H
 #define STATISTICAL_H
 
-#define NUMBER_OF_STATISTICAL_TESTS 1
-
 #include "../../Structures/BinStr.h"
 
 struct statistical_test {
@@ -20,5 +18,9 @@ typedef struct statistical_test *StatisticalTest;
 //   with the given name. Returns NULL if the given test does not exit          
 // effects: allocates memory to a new StatisticalTest  
 StatisticalTest get_statistical_test(char *name);
+
+// destroy_statistical_test(test) destroys the given instance of a stat test
+// effects: frees memory associated with the given test
+void destroy_statistical_test(StatisticalTest test);
 
 #endif

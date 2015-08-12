@@ -8,7 +8,7 @@
 #include <stdio.h>
 
 // Declarations of all the degrees of freedom associated with the tests
-const int MONOBIT_DEG = 1;
+const int MONOBIT_DOF = 1;
 
 // monobit_test(str) returns the statistic of the monobit test on the given
 //   BinStr. This tests using the chi-square test to check if the number of
@@ -31,11 +31,17 @@ StatisticalTest get_statistical_test(char *name) {
     StatisticalTest test = malloc(sizeof(struct statistical_test));
     test->name = name;
     if(strcmp(name, "Monobit") == 0) {
-        test->degrees_of_freedom = MONOBIT_DEG;
+        test->degrees_of_freedom = MONOBIT_DOF;
         test->testFunc = monobit_test;
     } else {
         free(test);
         return NULL;
     } 
     return test;
+}
+
+// See Statistical.h for details
+void destroy_statistical_test(StatisticalTest test) {
+    assert(test != NULL);
+    free(test);
 }
