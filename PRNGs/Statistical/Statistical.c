@@ -9,6 +9,7 @@
 
 // Declarations of all the degrees of freedom associated with the tests
 const int MONOBIT_DOF = 1;
+const int TWOBIT_DOR  = 2;
 
 // monobit_test(str) returns the statistic of the monobit test on the given
 //   BinStr. This tests using the chi-square test to check if the number of
@@ -25,6 +26,31 @@ float monobit_test(BinStr str) {
     return count;
 }
 
+// twobit_test(str) returns the statistic of the two-bit test on the given
+//   BinStr. This tests using the chi-square test to check if the number of
+//   00/01/10/11 in the string is comparable to a random sequence.
+// requires: str is a valid BinStr, str->length > 1
+float twobit_test(BinStr str) {
+    assert(str != NULL && str->length > 1);
+    int count = 0;  
+
+    // Find the counts of the double digits
+    for(int i = 0; i < 4; i++) {
+        BinStr seg;
+        if(i == 0) seg = str_to_BinStr("00", 2);
+        if(i == 1) seg = str_to_BinStr("01", 2);
+        if(i == 2) seg = str_to_BinStr("10", 2);
+        if(i == 3) seg = str_to_BinStr("11", 2);
+        int buffer = number_of_seq(str, seg);
+        count += buffer * buffer;
+        destroy_BinStr(seg);
+    }
+
+    // TODO: Finish this function
+
+    return count;
+}
+
 // See Statistical.h for details
 StatisticalTest get_statistical_test(char *name) {
     assert(name != NULL);
@@ -33,6 +59,9 @@ StatisticalTest get_statistical_test(char *name) {
     if(strcmp(name, "Monobit") == 0) {
         test->degrees_of_freedom = MONOBIT_DOF;
         test->testFunc = monobit_test;
+    } else if(strcmp(name, "Two-bit") == 0) {
+        test->degrees_of_freedom = TWOBIT_DOF;
+        test->testFunc = twobit_test;
     } else {
         free(test);
         return NULL;
