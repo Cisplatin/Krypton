@@ -7,10 +7,10 @@
 #include "../Structures/BinStr.h"
 #include "../Ciphers/Generics/BlockCipher.h"
 
-// CBCMAC(str, cipher, key) is an implementation of the CBC MAC algorithm
+// CBCMAC(str, cipher) is an implementation of the CBC MAC algorithm
 //   using the given block cipher.
-// requires: str, cipher, and key are all not NULL
+// requires: str, cipher are all not NULL
 // effects: allocates memory to a new BinStr
-BinStr CBCMAC(BinStr str, BlockCipher cipher, BinStr key);
+BinStr CBCMAC(BinStr str, BlockCipher cipher);
 
 #endif
