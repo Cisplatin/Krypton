@@ -465,3 +465,15 @@ BinStr reversePermutate(BinStr str, int *order, int len, int offset) {
 	return new;
 }
 
+// See BinStr.h for details
+void paddingMethod2(BinStr str, int block) {
+    assert(str != NULL && block > 0);
+    BinStr zero = str_to_BinStr('0', 1);
+    BinStr one = str_to_BinStr('1', 1);
+    str = set(str, append(str, zero));
+    while(str->length % block != 0) {
+        str = set(str, append(str, one));
+    }
+    return str;
+}
+

@@ -205,5 +205,11 @@ BinStr permutate(BinStr str, int *order, int len, int offset);
 //           and offset >= 0
 BinStr reversePermutate(BinStr str, int *order, int len, int offset);
 
+// paddingMethod2(str, block) pads the given string using the official padding 
+//   method two (i.e. append a 1, and then 0s) until the length of str is
+//   a multiple of the given block size
+// requires: str is a valid BinStr and block > 0
+void paddingMethod2(BinStr str, int block);
+
 #endif
 
