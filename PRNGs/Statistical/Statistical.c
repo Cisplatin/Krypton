@@ -9,7 +9,7 @@
 
 // Declarations of all the degrees of freedom associated with the tests
 const int MONOBIT_DOF = 1;
-const int TWOBIT_DOR  = 2;
+const int TWOBIT_DOF  = 2;
 
 // monobit_test(str) returns the statistic of the monobit test on the given
 //   BinStr. This tests using the chi-square test to check if the number of
@@ -57,7 +57,7 @@ float twobit_test(BinStr str) {
         destroy_BinStr(seg);
     }
     final = -2 * final / str->length;
-    final += count + 1
+    final += count + 1;
 
     return final;
 }
