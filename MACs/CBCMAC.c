@@ -17,8 +17,11 @@ BinStr CBCMAC(BinStr str, BlockCipher cipher) {
                  ; i += cipher->blockSize) {
         BinStr buffer = snip(padded, i, i + cipher->blockSize - 1);
         // Add an exception for the first run through
-        if(tag != NULL) tag = set(tag, XOR(tag, buffer));
-        else            tag = copyStr(buffer);
+        if(tag != NULL) {
+            tag = set(tag, XOR(tag, buffer));
+        } else {
+            tag = copyStr(buffer);
+        }
         tag = set(tag, BlockEncrypt(tag, NULL, cipher));
         destroy_BinStr(buffer);
     }
