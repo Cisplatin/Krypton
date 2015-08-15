@@ -211,5 +211,10 @@ BinStr reversePermutate(BinStr str, int *order, int len, int offset);
 // requires: str is a valid BinStr and block > 0
 void paddingMethod2(BinStr str, int block);
 
+// paddingZero(str, block) pads the given string using only zeroes until the
+//   length of str is a multiple of the given block size
+// requires: str is a valid BinStr and block > 0
+void paddingZero(BinStr str, int block);
+
 #endif
 
