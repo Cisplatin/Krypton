@@ -59,6 +59,3 @@ To compile the above file (named 'Example.c'), the following should be used:
 ```Bash
 sh COMPILE.sh Example.c
 ```
-
-## TODO:
-- Finish testing CBC-MAC algorithm
