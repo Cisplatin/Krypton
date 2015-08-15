@@ -1,5 +1,5 @@
 # Krypton
-An implementation of some cryptographic standards written in C. This includes standards such as cryptographic hashes, ciphers and pseudorandom number generators.
+An implementation of some cryptographic standards written in C. This includes standards such as cryptographic hashes, ciphers, pseudorandom number generators, and other primitives.
 
 Krypton should not be used for security purposes. Many constructions implemented in Krypton have been openly broken for many years, such as DES and RC4, both of which contain inherent security flaws. Moreover, there are many attacks (such as hardware attacks) that were not accounted for during the designing of Krypton.
 
@@ -9,6 +9,7 @@ Krypton currently offers the following:
 * Block ciphers (DES)
 * Pseudo-random number generators (RC4, ANSI X9.17)
 * Cryptographic hash functions (MDC-2)
+* Message authentication codes (CBC-MAC)
 * Statistical tests (Monobit, Two-bit)
 * Various modes of encryption (ECB, CBC, CTR, OFB)
 * Various structures (Binary strings, Binary matrices)
