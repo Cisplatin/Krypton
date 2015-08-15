@@ -477,3 +477,12 @@ void paddingMethod2(BinStr str, int block) {
     return str;
 }
 
+// see BinStr.h for details
+void paddingZero(BinStr str, int block) {
+    assert(str != NULL && block > 0);
+    BinStr zero = str_to_BinStr('0', 1);
+    while(str->length % block != 0) {
+        str = set(str, append(str, zero));
+    }
+    return str;
+}
