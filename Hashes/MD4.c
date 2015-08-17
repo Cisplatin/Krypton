@@ -10,7 +10,7 @@ const int MD4_BLOCK_SIZE = 1;
 
 // M4func(str) returns the MD4 hash of the given string, using the
 //   default IVs in MD4's specifications
-// requires: string has a bit length that is a multiple of 64
+// requires: str is a valid BinStr
 // effects: allocates new memory to the resulting BinStr
 BinStr MD4func(BinStr str) {
     // TODO
