@@ -8,7 +8,7 @@ Krypton currently offers the following:
 * Stream ciphers (OTP, RC4)
 * Block ciphers (DES)
 * Pseudo-random number generators (RC4, ANSI X9.17)
-* Cryptographic hash functions (MDC-2)
+* Cryptographic hash functions (MDC-2, MD4)
 * Message authentication codes (CBC-MAC)
 * Statistical tests (Monobit, Two-bit)
 * Various modes of encryption (ECB, CBC, CTR, OFB)
