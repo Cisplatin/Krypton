@@ -18,12 +18,27 @@ BinStr MD4func(BinStr str) {
     // Pad the until it is congruent to 448 mod 512
     BinStr tag = copy(str);
     BinStr to_app = str_to_BinStr('1', 1);
-    str = set(str, append(str, to_app));
+    tag = set(tag, append(tag, to_app));
     to_app = set(to_app, str_to_BinStr('0', 1));
-    while(str->length % 512 != 448) {
-        str = set(str, append(str, to_app));
+    while(tag->length % 512 != 448) {
+        tag = set(tag, append(tag, to_app));
     }
+
+    // Pad the length of the string at the end
+    to_app = set(to_app, int_to_BinStr(str->length));
+    to_app = set(to_app, cut(to_app, MD4_OUT_SIZE / 2));
+    BinStr front_pad = snip(to_app, 0, to_app->length / 2 - 1);
+    to_app = set(to_app, snip(to_app, to_app->length / 2, to_app->length - 1));
+    tag = set(tag, append(tag, to_app));
+    tag = set(tag, append(tag, front_pad));
     destroy_BinStr(to_app);
+    destroy_BinStr(front_pad);
+
+    // Initialize the MD4 buffer
+    BinStr A = hex_to_BinStr("67452301");
+    BinStr B = hex_to_BinStr("efcdab89");
+    BinStr C = hex_to_BinStr("98badcfe");
+    BinStr D = hex_to_BinStr("10325476");
 
     // TODO: Finish MD4 algorithm
 
