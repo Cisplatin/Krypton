@@ -1,5 +1,5 @@
-/* BinStr.h - Written by Xenonstory on April 21, 2015 *
- * A structure used to store binary strings           */
+/* BinStr.h - Written by Xenonstory on April 21, 2015     *
+ * A structure used to store binary strings in big endian */
 
 #ifndef BINSTR_H
 #define BINSTR_H
