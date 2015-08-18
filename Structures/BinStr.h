@@ -86,6 +86,12 @@ int bytes(BinStr str);
 // effects: allocates memory to a new BinStr
 BinStr getByte(BinStr str, int n);
 
+// NOT(str) returns a new BinStr that is the NOT of the given BinStr. User must
+//   free the returned BinStr.
+// requires: str is a valid BinStr
+// effects: allocates memory to a new BinStr
+BinStr NOT(BinStr str);
+
 // XOR(str1, str2) returns a new BinStr that is the XOR of the two given 
 //   strings. User must free the returned BinStr.
 // requires: str1 and str2 are valid BinStrs of the same length

@@ -198,6 +198,17 @@ BinStr getByte(BinStr str, int n) {
 	return new;
 }
 
+// See BinStr.h for details
+BinStr NOT(BinStr str) {
+    assert(str != NULL);
+    char bits[str->length];
+    for(int i = 0; i < str->length; i++) {
+        bits[i] = !str->bits[i];    
+    }
+    BinStr new = str_to_BinStr(bits, str->length);
+    return new;
+}
+
 // see BinStr.h for details
 BinStr XOR(BinStr str1, BinStr str2) {
 	assert(str1 != NULL && str2 != NULL && str1->length == str2->length);
