@@ -39,6 +39,19 @@ BinStr MD4funcG(BinStr X, BinStr Y, BinStr Z) {
     return new;
 }
 
+// MD4funcH(X, Y, Z) returns a new BinStr that is the result of MD4's
+//   h-function on the given strings
+// requires: X, Y, Z are valid BinStrs of the same length
+// effects: allocates memory to a new BinStr
+BinStr MD4funcH(BinStr X, BinStr Y, BinStr Z) {
+    assert(X != NULL && Y != NULL && Z != NULL &&
+           X->length == Y->length && Y->length == Z->length);
+    BinStr new = copy(X);
+    new = set(new, XOR(new, Y));
+    new = set(new, XOR(new, Z));
+    return new;
+}
+
 // M4func(str) returns the MD4 hash of the given string, using the
 //   default IVs in MD4's specifications
 // requires: str is a valid BinStr
