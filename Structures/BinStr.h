@@ -6,6 +6,7 @@
 
 #include <stdbool.h>
 
+extern const int BITS_PER_WORD;
 extern const int BITS_PER_BYTE;
 extern const int MAX_BYTE;
 

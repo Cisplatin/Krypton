@@ -9,6 +9,7 @@
 #include <string.h>
 #include <math.h>
 
+const int BITS_PER_WORD = 16;
 const int BITS_PER_BYTE = 8;
 const int MAX_BYTE = 256;
 
