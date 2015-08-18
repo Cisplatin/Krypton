@@ -52,7 +52,17 @@ BinStr MD4funcH(BinStr X, BinStr Y, BinStr Z) {
     return new;
 }
 
-// M4func(str) returns the MD4 hash of the given string, using the
+// MD4funcFF(A, B, C, D, i, s) returns the result of the MD4 FF function
+// requires: A, B, C, D are valid BinStrs, X is a valid array
+// effects: allocates memory to a new BinStr
+BinStr MD4funcFF(BinStr A, BinStr B, BinStr C, BinStr D, 
+                 int i, int s, BinStr *X) {
+    assert(A != NULL && B != NULL && C != NULL && D != NULL, X != NULL);
+    // TODO 
+    return A;
+}
+
+// MD4func(str) returns the MD4 hash of the given string, using the
 //   default IVs in MD4's specifications
 // requires: str is a valid BinStr
 // effects: allocates new memory to the resulting BinStr
