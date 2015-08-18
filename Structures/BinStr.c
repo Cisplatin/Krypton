@@ -442,15 +442,17 @@ BinStr add(BinStr str1, BinStr str2) {
 BinStr modAdd(BinStr str1, BinStr str2, int n) {
 	BinStr new = empty_BinStr(n);
 	int offset = 0;
-	for(int i = 1; i <= new->length; i++) {
-		if(str1->length >= i && str1->bits[str1->length - i]) offset++;
-		if(str2->length >= i && str2->bits[str2->length - i]) offset++;
-		if((offset % 2 != 0 || offset == 1) && offset != 0) {
-			new->bits[new->length - i] = true;
-			offset--;
-		}
-		offset = offset / 2;
-	}
+	do {
+        for(int i = 1; i <= new->length; i++) {
+		    if(str1->length >= i && str1->bits[str1->length - i]) offset++;
+		    if(str2->length >= i && str2->bits[str2->length - i]) offset++;
+		    if((offset % 2 != 0 || offset == 1) && offset != 0) {
+			    new->bits[new->length - i] = true;
+			    offset--;
+		    }
+		    offset = offset / 2;
+	    }
+    } while (offset > 0);
 	return new;
 }
 

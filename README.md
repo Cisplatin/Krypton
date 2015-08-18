@@ -62,4 +62,5 @@ sh COMPILE.sh Example.c
 
 ## TODO:
 
-- Fix BinStr modAdd to account for overflow
+- Test BinStr modAdd to account for overflow
+- Finish MD4func function
