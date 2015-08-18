@@ -58,8 +58,11 @@ BinStr MD4funcH(BinStr X, BinStr Y, BinStr Z) {
 BinStr MD4funcFF(BinStr A, BinStr B, BinStr C, BinStr D, 
                  int i, int s, BinStr *X) {
     assert(A != NULL && B != NULL && C != NULL && D != NULL, X != NULL);
-    // TODO 
-    return A;
+    BinStr new = MD4funcF(B, C, D);
+    new = set(new, modAdd(new, A, A->length));
+    new = set(new, modAdd(new, X[i], X[i]->length));
+    new = set(new, rotateL(new, s));
+    return new;
 }
 
 // MD4func(str) returns the MD4 hash of the given string, using the
