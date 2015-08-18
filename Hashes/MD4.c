@@ -65,10 +65,10 @@ BinStr MD4funcFF(BinStr A, BinStr B, BinStr C, BinStr D,
     return new;
 }
 
-// MD4funcGG(A, B, C, D, i, s) returns the result of the MD4 FF function
+// MD4funcGG(A, B, C, D, i, s) returns the result of the MD4 GG function
 // requires: A, B, C, D are valid BinStrs, X is a valid array
 // effects: allocates memory to a new BinStr
-BinStr MD4funcFF(BinStr A, BinStr B, BinStr C, BinStr D, 
+BinStr MD4funcGG(BinStr A, BinStr B, BinStr C, BinStr D, 
                  int i, int s, BinStr *X) {
     assert(A != NULL && B != NULL && C != NULL && D != NULL, X != NULL);
     BinStr new = MD4funcG(B, C, D);
@@ -78,6 +78,22 @@ BinStr MD4funcFF(BinStr A, BinStr B, BinStr C, BinStr D,
     new = set(new, modAdd(new, sqrt2, new->length));
     new = set(new, rotateL(new, s));
     destroy_BinStr(sqrt2);
+    return new;
+}
+
+// MD4funcHH(A, B, C, D, i, s) returns the result of the MD4 HH function
+// requires: A, B, C, D are valid BinStrs, X is a valid array
+// effects: allocates memory to a new BinStr
+BinStr MD4funcHH(BinStr A, BinStr B, BinStr C, BinStr D, 
+                 int i, int s, BinStr *X) {
+    assert(A != NULL && B != NULL && C != NULL && D != NULL, X != NULL);
+    BinStr new = MD4funcH(B, C, D);
+    BinStr sqrt3 = hex_to_BinStr("6ED9EBA1");
+    new = set(new, modAdd(new, A, A->length));
+    new = set(new, modAdd(new, X[i], X[i]->length));
+    new = set(new, modAdd(new, sqrt3, new->length));
+    new = set(new, rotateL(new, s));
+    destroy_BinStr(sqrt3);
     return new;
 }
 
