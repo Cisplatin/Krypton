@@ -8,6 +8,21 @@
 const int MD4_OUT_SIZE = 128;
 const int MD4_BLOCK_SIZE = 1;
 
+// MD4funcF(X, Y, Z) returns a new BinStr that is the result of MD4's 
+//   f-function on the given strings
+// requires: X, Y, Z are valid BinStrs of the same length
+// effects: allocates memory to a new BinStr
+BinStr MD4funcF(BinStr X, BinStr Y, BinStr Z) {
+    assert(X != NULL && Y != NULL && Z != NULL &&
+           X->length == Y->length && Y->length == Z->length);
+    BinStr new = AND(X, Y);
+    BinStr buffer = NOT(X);
+    buffer = set(buffer, AND(buffer, Z));
+    new = set(new, OR(new, buffer));
+    destroy_BinStr(buffer);
+    return new;
+}
+
 // M4func(str) returns the MD4 hash of the given string, using the
 //   default IVs in MD4's specifications
 // requires: str is a valid BinStr
