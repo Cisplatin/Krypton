@@ -54,7 +54,6 @@ BinStr MD4funcH(BinStr X, BinStr Y, BinStr Z) {
 
 // MD4funcFF(A, B, C, D, s, X) returns the result of the MD4 FF function
 // requires: A, B, C, D are valid BinStrs, X is a valid array
-// effects: allocates memory to a new BinStr
 BinStr MD4funcFF(BinStr A, BinStr B, BinStr C, BinStr D, 
                  int i, int s, BinStr *X) {
     assert(A != NULL && B != NULL && C != NULL && D != NULL, X != NULL);
@@ -62,12 +61,12 @@ BinStr MD4funcFF(BinStr A, BinStr B, BinStr C, BinStr D,
     new = set(new, modAdd(new, A, A->length));
     new = set(new, modAdd(new, X[i], X[i]->length));
     new = set(new, rotateL(new, s));
-    return new;
+    A = set(A, new);
+    return A;
 }
 
 // MD4funcGG(A, B, C, D, s, X) returns the result of the MD4 GG function
 // requires: A, B, C, D are valid BinStrs, X is a valid array
-// effects: allocates memory to a new BinStr
 BinStr MD4funcGG(BinStr A, BinStr B, BinStr C, BinStr D, 
                  int i, int s, BinStr *X) {
     assert(A != NULL && B != NULL && C != NULL && D != NULL, X != NULL);
@@ -78,12 +77,12 @@ BinStr MD4funcGG(BinStr A, BinStr B, BinStr C, BinStr D,
     new = set(new, modAdd(new, sqrt2, new->length));
     new = set(new, rotateL(new, s));
     destroy_BinStr(sqrt2);
-    return new;
+    A = set(A, new);
+    return A;
 }
 
 // MD4funcHH(A, B, C, D, s, X) returns the result of the MD4 HH function
 // requires: A, B, C, D are valid BinStrs, X is a valid array
-// effects: allocates memory to a new BinStr
 BinStr MD4funcHH(BinStr A, BinStr B, BinStr C, BinStr D, 
                  int i, int s, BinStr *X) {
     assert(A != NULL && B != NULL && C != NULL && D != NULL, X != NULL);
@@ -94,7 +93,8 @@ BinStr MD4funcHH(BinStr A, BinStr B, BinStr C, BinStr D,
     new = set(new, modAdd(new, sqrt3, new->length));
     new = set(new, rotateL(new, s));
     destroy_BinStr(sqrt3);
-    return new;
+    A = set(A, new);
+    return A;
 }
 
 // MD4func(str) returns the MD4 hash of the given string, using the
@@ -141,7 +141,25 @@ BinStr MD4func(BinStr str) {
         }
 
         // Round 1
+        A = MD4funcFF(A, B, C, D,  0,  3, X);
+        D = MD4funcFF(D, A, B, C,  1,  7, X);
+        C = MD4funcFF(C, D, A, B,  2, 11, X);
+        B = MD4funcFF(B, C, D, A,  3, 19, X);
+        A = MD4funcFF(A, B, C, D,  4,  3, X);
+        D = MD4funcFF(D, A, B, C,  5,  7, X);
+        C = MD4funcFF(C, D, A, B,  6, 11, X);
+        B = MD4funcFF(B, C, D, A,  7, 19, X);
+        A = MD4funcFF(A, B, C, D,  8,  3, X);
+        D = MD4funcFF(D, A, B, C,  9,  7, X);
+        C = MD4funcFF(C, D, A, B, 10, 11, X);
+        B = MD4funcFF(B, C, D, A, 11, 19, X);
+        A = MD4funcFF(A, B, C, D, 12,  3, X);
+        D = MD4funcFF(D, A, B, C, 13,  7, X);
+        C = MD4funcFF(C, D, A, B, 14, 11, X);
+        B = MD4funcFF(B, C, D, A, 15, 19, X);
+
         // Round 2
+
         // Round 3
 
         // Free the blocks
