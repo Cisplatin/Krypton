@@ -140,6 +140,12 @@ BinStr MD4func(BinStr str) {
                 i * BITS_PER_WORD * word_blocks + (j + 1) * BITS_PER_WORD - 1);
         }
 
+        // Make copies of current A, B, C, D
+        BinStr AA = copy(A);
+        BinStr BB = copy(B);
+        BinStr CC = copy(C);
+        BinStr DD = copy(D);
+
         // Round 1
         A = MD4funcFF(A, B, C, D,  0,  3, X);
         D = MD4funcFF(D, A, B, C,  1,  7, X);
@@ -159,6 +165,22 @@ BinStr MD4func(BinStr str) {
         B = MD4funcFF(B, C, D, A, 15, 19, X);
 
         // Round 2
+        A = MD4funcGG(A, B, C, D,  3,  3, X);
+        D = MD4funcGG(D, A, B, C,  4,  5, X);
+        C = MD4funcGG(C, D, A, B,  8,  9, X);
+        B = MD4funcGG(B, C, D, A, 12, 13, X);
+        A = MD4funcGG(A, B, C, D,  1,  3, X);
+        D = MD4funcGG(D, A, B, C,  5,  5, X);
+        C = MD4funcGG(C, D, A, B,  9,  9, X);
+        B = MD4funcGG(B, C, D, A, 13, 13, X);
+        A = MD4funcGG(A, B, C, D,  2,  3, X);
+        D = MD4funcGG(D, A, B, C,  6,  5, X);
+        C = MD4funcGG(C, D, A, B, 10,  9, X);
+        B = MD4funcGG(B, C, D, A, 14, 13, X);
+        A = MD4funcGG(A, B, C, D,  3,  3, X);
+        D = MD4funcGG(D, A, B, C,  7,  5, X);
+        C = MD4funcGG(C, D, A, B, 11,  9, X);
+        B = MD4funcGG(B, C, D, A, 15, 13, X);     
 
         // Round 3
 
@@ -167,6 +189,10 @@ BinStr MD4func(BinStr str) {
             free(X[j]);        
         }
         free(X);
+        free(AA);
+        free(BB);
+        free(CC);
+        free(DD);
     }
  
     // TODO: Finish MD4 algorithm
