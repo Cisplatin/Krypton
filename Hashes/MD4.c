@@ -106,9 +106,9 @@ BinStr MD4func(BinStr str) {
     
     // Pad the until it is congruent to 448 mod 512
     BinStr tag = copyStr(str);
-    BinStr to_app = str_to_BinStr('1', 1);
+    BinStr to_app = str_to_BinStr("1", 1);
     tag = set(tag, append(tag, to_app));
-    to_app = set(to_app, str_to_BinStr('0', 1));
+    to_app = set(to_app, str_to_BinStr("0", 1));
     while(tag->length % 512 != 448) {
         tag = set(tag, append(tag, to_app));
     }
