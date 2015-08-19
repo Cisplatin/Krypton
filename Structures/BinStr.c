@@ -351,9 +351,13 @@ BinStr append(BinStr str1, BinStr str2) {
 
 // see BinStr.h for details
 void printStr(BinStr str) {
-	for(int i = 0; i < str->length; i++) {
-		printf("%d", str->bits[i]);
-	}
+    if(str == NULL) {
+        printf("NULL");
+    } else {
+	    for(int i = 0; i < str->length; i++) {
+		    printf("%d", str->bits[i]);
+	    }
+    }
 }
 
 // see BinStr.h for details
