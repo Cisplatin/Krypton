@@ -200,6 +200,12 @@ BinStr MD4func(BinStr str) {
         C = MD4funcHH(C, D, A, B,  7, 11, X);
         B = MD4funcHH(B, C, D, A, 15, 15, X);     
 
+        // Add to the original values
+        A = set(A, modAdd(A, AA, A->length));
+        B = set(B, modAdd(B, BB, B->length));
+        C = set(C, modAdd(C, CC, C->length));
+        D = set(D, modADD(D, DD, D->length));
+
         // Free the blocks
         for(int j = 0; j < word_blocks; j++) {
             free(X[j]);        
@@ -211,7 +217,11 @@ BinStr MD4func(BinStr str) {
         free(DD);
     }
  
-    // TODO: Finish MD4 algorithm
+    // Concatenate A, B, C, D
+    tag = set(tag, append(D, C));
+    tag = set(tag, append(tag, B));
+    tag = set(tag, append(tag, A));
+    tag = set(tag, reverse(tag));
 
     return tag;
 }
