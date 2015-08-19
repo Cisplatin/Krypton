@@ -183,6 +183,22 @@ BinStr MD4func(BinStr str) {
         B = MD4funcGG(B, C, D, A, 15, 13, X);     
 
         // Round 3
+        A = MD4funcHH(A, B, C, D,  0,  3, X);
+        D = MD4funcHH(D, A, B, C,  8,  9, X);
+        C = MD4funcHH(C, D, A, B,  4, 11, X);
+        B = MD4funcHH(B, C, D, A, 12, 15, X);
+        A = MD4funcHH(A, B, C, D,  2,  3, X);
+        D = MD4funcHH(D, A, B, C, 10,  9, X);
+        C = MD4funcHH(C, D, A, B,  6, 11, X);
+        B = MD4funcHH(B, C, D, A, 14, 15, X);
+        A = MD4funcHH(A, B, C, D,  1,  3, X);
+        D = MD4funcHH(D, A, B, C,  9,  9, X);
+        C = MD4funcHH(C, D, A, B,  5, 11, X);
+        B = MD4funcHH(B, C, D, A, 13, 15, X);
+        A = MD4funcHH(A, B, C, D,  3,  3, X);
+        D = MD4funcHH(D, A, B, C, 11,  9, X);
+        C = MD4funcHH(C, D, A, B,  7, 11, X);
+        B = MD4funcHH(B, C, D, A, 15, 15, X);     
 
         // Free the blocks
         for(int j = 0; j < word_blocks; j++) {
