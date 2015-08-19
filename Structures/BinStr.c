@@ -455,6 +455,16 @@ BinStr modAdd(BinStr str1, BinStr str2, int n) {
 	return new;
 }
 
+// See BinStr.h for details
+BinStr reverse(BinStr str) {
+    assert(str != NULL);
+    BinStr new = empty_BinStr(str->length);
+    for(int i = 0; i < str->length; i++) {
+        new->bits[i] = str->bits[str->length - i - 1];
+    }
+    return new;
+}
+
 // see BinStr.h for details
 BinStr permutate(BinStr str, int *order, int len, int offset) {
 	assert(str != NULL && order != NULL && len >= 0 && offset >= 0);

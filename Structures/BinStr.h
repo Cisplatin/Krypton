@@ -198,6 +198,11 @@ BinStr add(BinStr str1, BinStr str2);
 // requires: str1 and str2 are valid BinStrs, n >= 0
 BinStr modAdd(BinStr str1, BinStr str2, int n);
 
+// reverse(str) returns the reverse of the given BinStr
+// requires: str is a valid BinStr
+// effects: allocates memory to a new BinStr
+BinStr reverse(BinStr str);
+
 // permutate(str, order, len) returns the given BinStr but with bits permutated
 //   according to the given array of integers, order, where each element 
 //   represents the bits to be put at that index. len is the length of the 
