@@ -488,22 +488,24 @@ BinStr reversePermutate(BinStr str, int *order, int len, int offset) {
 }
 
 // See BinStr.h for details
-void paddingMethod2(BinStr str, int block) {
+BinStr paddingMethod2(BinStr str, int block) {
     assert(str != NULL && block > 0);
     BinStr zero = str_to_BinStr("0", 1);
     BinStr one =  str_to_BinStr("1", 1);
-    str = set(str, append(str, zero));
-    while(str->length % block != 0) {
-        str = set(str, append(str, one));
+    BinStr copy = append(str, zero);
+    while(copy->length % block != 0) {
+        copy = set(copy, append(copy, one));
     } 
+    return copy;
 }
 
 // see BinStr.h for details
-void paddingZero(BinStr str, int block) {
+BinStr paddingZero(BinStr str, int block) {
     assert(str != NULL && block > 0);
-    BinStr zero = str_to_BinStr('0', 1);
-    while(str->length % block != 0) {
-        str = set(str, append(str, zero));
+    BinStr zero = str_to_BinStr("0", 1);
+    BinStr copy = copyStr(str);
+    while(copy->length % block != 0) {
+        copy = set(copy, append(copy, zero));
     }
-    return str;
+    return copy;
 }

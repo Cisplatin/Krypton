@@ -62,4 +62,4 @@ sh COMPILE.sh Example.c
 
 ## TODO:
 
-- Finish and test MD4func function
+- Test MD4func function

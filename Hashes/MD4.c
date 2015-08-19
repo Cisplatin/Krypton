@@ -46,7 +46,7 @@ BinStr MD4funcG(BinStr X, BinStr Y, BinStr Z) {
 BinStr MD4funcH(BinStr X, BinStr Y, BinStr Z) {
     assert(X != NULL && Y != NULL && Z != NULL &&
            X->length == Y->length && Y->length == Z->length);
-    BinStr new = copy(X);
+    BinStr new = copyStr(X);
     new = set(new, XOR(new, Y));
     new = set(new, XOR(new, Z));
     return new;
@@ -56,7 +56,7 @@ BinStr MD4funcH(BinStr X, BinStr Y, BinStr Z) {
 // requires: A, B, C, D are valid BinStrs, X is a valid array
 BinStr MD4funcFF(BinStr A, BinStr B, BinStr C, BinStr D, 
                  int i, int s, BinStr *X) {
-    assert(A != NULL && B != NULL && C != NULL && D != NULL, X != NULL);
+    assert(A != NULL && B != NULL && C != NULL && D != NULL && X != NULL);
     BinStr new = MD4funcF(B, C, D);
     new = set(new, modAdd(new, A, A->length));
     new = set(new, modAdd(new, X[i], X[i]->length));
@@ -69,7 +69,7 @@ BinStr MD4funcFF(BinStr A, BinStr B, BinStr C, BinStr D,
 // requires: A, B, C, D are valid BinStrs, X is a valid array
 BinStr MD4funcGG(BinStr A, BinStr B, BinStr C, BinStr D, 
                  int i, int s, BinStr *X) {
-    assert(A != NULL && B != NULL && C != NULL && D != NULL, X != NULL);
+    assert(A != NULL && B != NULL && C != NULL && D != NULL && X != NULL);
     BinStr new = MD4funcG(B, C, D);
     BinStr sqrt2 = hex_to_BinStr("5A827999");
     new = set(new, modAdd(new, A, A->length));
@@ -85,7 +85,7 @@ BinStr MD4funcGG(BinStr A, BinStr B, BinStr C, BinStr D,
 // requires: A, B, C, D are valid BinStrs, X is a valid array
 BinStr MD4funcHH(BinStr A, BinStr B, BinStr C, BinStr D, 
                  int i, int s, BinStr *X) {
-    assert(A != NULL && B != NULL && C != NULL && D != NULL, X != NULL);
+    assert(A != NULL && B != NULL && C != NULL && D != NULL && X != NULL);
     BinStr new = MD4funcH(B, C, D);
     BinStr sqrt3 = hex_to_BinStr("6ED9EBA1");
     new = set(new, modAdd(new, A, A->length));
@@ -105,7 +105,7 @@ BinStr MD4func(BinStr str) {
     assert(str != NULL);
     
     // Pad the until it is congruent to 448 mod 512
-    BinStr tag = copy(str);
+    BinStr tag = copyStr(str);
     BinStr to_app = str_to_BinStr('1', 1);
     tag = set(tag, append(tag, to_app));
     to_app = set(to_app, str_to_BinStr('0', 1));
@@ -141,10 +141,10 @@ BinStr MD4func(BinStr str) {
         }
 
         // Make copies of current A, B, C, D
-        BinStr AA = copy(A);
-        BinStr BB = copy(B);
-        BinStr CC = copy(C);
-        BinStr DD = copy(D);
+        BinStr AA = copyStr(A);
+        BinStr BB = copyStr(B);
+        BinStr CC = copyStr(C);
+        BinStr DD = copyStr(D);
 
         // Round 1
         A = MD4funcFF(A, B, C, D,  0,  3, X);
@@ -204,7 +204,7 @@ BinStr MD4func(BinStr str) {
         A = set(A, modAdd(A, AA, A->length));
         B = set(B, modAdd(B, BB, B->length));
         C = set(C, modAdd(C, CC, C->length));
-        D = set(D, modADD(D, DD, D->length));
+        D = set(D, modAdd(D, DD, D->length));
 
         // Free the blocks
         for(int j = 0; j < word_blocks; j++) {
