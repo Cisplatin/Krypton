@@ -128,7 +128,29 @@ BinStr MD4func(BinStr str) {
     BinStr B = hex_to_BinStr("efcdab89");
     BinStr C = hex_to_BinStr("98badcfe");
     BinStr D = hex_to_BinStr("10325476");
-    
+   
+    // Process in 16-word blocks
+    int word_blocks = 16;
+    for(int i = 0; i < tag->length / (BITS_PER_WORD * word_blocks); i++) {
+        // Get a chunk of 16 word blocks
+        BinStr *X = malloc(sizeof(BinStr) * word_blocks);
+        for(int j = 0; j < word_blocks; j++) {
+            X[i] = snip(tag, 
+                i * BITS_PER_WORD * word_blocks + j * BITS_PER_WORD,
+                i * BITS_PER_WORD * word_blocks + (j + 1) * BITS_PER_WORD - 1);
+        }
+
+        // Round 1
+        // Round 2
+        // Round 3
+
+        // Free the blocks
+        for(int j = 0; j < word_blocks; j++) {
+            free(X[j]);        
+        }
+        free(X);
+    }
+ 
     // TODO: Finish MD4 algorithm
 
     return tag;
