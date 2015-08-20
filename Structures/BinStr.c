@@ -9,7 +9,7 @@
 #include <string.h>
 #include <math.h>
 
-const int BITS_PER_WORD = 16;
+const int BITS_PER_WORD = 32;
 const int BITS_PER_BYTE = 8;
 const int MAX_BYTE = 256;
 
@@ -445,6 +445,7 @@ BinStr add(BinStr str1, BinStr str2) {
 
 // see BinStr.h for details
 BinStr modAdd(BinStr str1, BinStr str2, int n) {
+    assert(str1 != NULL && str2 != NULL && n > 0);
 	BinStr new = empty_BinStr(n);
 	int offset = 0;
     for(int i = 1; i <= new->length; i++) {

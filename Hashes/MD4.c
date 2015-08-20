@@ -146,8 +146,6 @@ BinStr MD4func(BinStr str) {
         BinStr CC = copyStr(C);
         BinStr DD = copyStr(D);
 
-        printf("%d %d %d %d", A->length, B->length, C->length, D->length);
-
         // Round 1
         A = MD4funcFF(A, B, C, D,  0,  3, X);
         D = MD4funcFF(D, A, B, C,  1,  7, X);
