@@ -4,6 +4,7 @@
 #include "MD4.h"
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 const int MD4_OUT_SIZE = 128;
 const int MD4_BLOCK_SIZE = 1;
@@ -135,7 +136,7 @@ BinStr MD4func(BinStr str) {
         // Get a chunk of 16 word blocks
         BinStr *X = malloc(sizeof(BinStr) * word_blocks);
         for(int j = 0; j < word_blocks; j++) {
-            X[i] = snip(tag, 
+            X[j] = snip(tag, 
                 i * BITS_PER_WORD * word_blocks + j * BITS_PER_WORD,
                 i * BITS_PER_WORD * word_blocks + (j + 1) * BITS_PER_WORD - 1);
         }
