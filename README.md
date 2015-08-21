@@ -62,4 +62,4 @@ sh COMPILE.sh Example.c
 
 ## TODO:
 
-- Debug MD4
+- Fix MD4 (gives the wrong hash!)
