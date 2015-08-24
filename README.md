@@ -59,3 +59,7 @@ To compile the above file (named 'Example.c'), the following should be used:
 ```Bash
 sh COMPILE.sh Example.c
 ```
+
+## To-do:
+
+- Fix MD4 hash (giving wrong hash values?)
