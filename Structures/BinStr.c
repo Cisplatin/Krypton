@@ -514,3 +514,13 @@ BinStr paddingZero(BinStr str, int block) {
     }
     return copy;
 }
+
+// see BinStr.h for details
+BinStr *split(BinStr str, int split_len) {
+    assert(str != NULL && split_len > 0 && str->length % split_len == 0);
+    BinStr *list = malloc(sizeof(BinStr) * str->length / split_len);
+    for(int i = 0; i < str->length; i += split_len) {
+        list[i] = snip(str, i, i + split_len - 1);
+    }
+    return list;
+}

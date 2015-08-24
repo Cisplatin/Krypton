@@ -228,5 +228,12 @@ BinStr paddingMethod2(BinStr str, int block);
 // requires: str is a valid BinStr and block > 0
 BinStr paddingZero(BinStr str, int block);
 
+// split(str, split_len) splits the given string into pieces of split_len 
+//   length, and returns an array containing these snips
+// requires: str is a valid BinStr and split_len > 0 and 
+//           str->length % split_len == 0
+// effects: allocates memory to a new set of BinStrs
+BinStr *split(BinStr str, int split_len);
+
 #endif
 
