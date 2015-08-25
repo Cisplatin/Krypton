@@ -63,3 +63,5 @@ sh COMPILE.sh Example.c
 ## To-do:
 
 - Fix MD4 hash (giving wrong hash values?)
+- Add a popexec function for BinStr
+- Simplify some of the more complicated code
