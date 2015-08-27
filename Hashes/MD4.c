@@ -166,7 +166,7 @@ BinStr MD4func(BinStr str) {
         B = MD4funcFF(B, C, D, A, 15, 19, X);
 
         // Round 2
-        A = MD4funcGG(A, B, C, D,  3,  3, X);
+        A = MD4funcGG(A, B, C, D,  0,  3, X);
         D = MD4funcGG(D, A, B, C,  4,  5, X);
         C = MD4funcGG(C, D, A, B,  8,  9, X);
         B = MD4funcGG(B, C, D, A, 12, 13, X);
